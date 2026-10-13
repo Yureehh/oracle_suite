@@ -5,6 +5,26 @@ This document specifies future behavior, not working persistence. PKA-005 provid
 one controlled Python game; PKA-012–014 will implement metadata, artifacts and a
 local worker. PKA-008 and PKA-016 will connect complete Bo3 execution and storage.
 
+## Delivery scope discussion — 2026-10-13
+
+Owner requested PKA-012–014 as one batch, accepted local SQLite and a small batch of
+independent seeded games, and asked to limit recovery effort while preserving the
+future parallel RL workload. The full design below remains a reference; not every
+future coordination mechanism belongs in the first local delivery.
+
+Proposed minimum: retain committed per-game results and immutable artifacts, provide
+explicit resume of unfinished games, and report failures clearly. Mid-turn restoration,
+cloud failover and distributed lease/heartbeat infrastructure are outside the proposed
+first scope. Minimal integrity checks and protection against duplicate publication
+remain necessary. Exact worker ownership/restart behavior still needs planning.
+
+The execution coordinator is distinct from parallel battle environments. Database
+writes belong at workload/result boundaries, not every simulated turn. Bounded parallel
+independent games are under discussion; they require per-game completion identity
+because results may finish out of order. Resume unfinished game IDs rather than only
+a consecutive prefix. Games within one future Bo3 stay ordered when knowledge from
+one game affects the next. RL training checkpoints are separate from game-run recovery.
+
 ## Workload and recovery boundary
 
 The first durable job is a bounded local Champions M-C match run. Begin with one
