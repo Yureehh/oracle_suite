@@ -132,3 +132,15 @@ def test_ots_projection_drops_stats_even_if_supplied():
     )
     sheet = project((event,), "p1", 1, 0)["known_evidence"][0]["data"]["team"][0]
     assert sheet == {"species": "Blastoise", "nature": "Modest"}
+
+
+def test_each_player_receives_only_their_own_private_team(protocol):
+    result = example(protocol)
+    ledger = tuple(Evidence(**row) for row in result["ledger"])
+    second = project(ledger, "p2", 1, result["game_one"]["cutoff"])
+    assert second["own_information"]["team"][0]["ident"] == "p2: Blastoise"
+    assert second["own_information"]["team"][0]["stats"]["spe"] == 130
+    assert all(
+        mon["ident"].startswith("p2:") for mon in second["own_information"]["team"]
+    )
+    assert second["own_information"] != result["game_one"]["own_information"]

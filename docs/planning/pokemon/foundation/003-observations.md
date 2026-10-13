@@ -109,10 +109,10 @@ three-game set or evidence that a numeric spread was inferred. The G3 projection
 has more evidence and no stale G1 private battle state. Reconstructing G1 with its
 saved cutoff yields exactly the saved G1 observation.
 
-Eight leakage tests cover hidden-world equivalence, public versus private HP,
+Nine leakage tests cover hidden-world equivalence, public versus private HP,
 future evidence, malicious extra hidden fields, private beliefs versus facts,
-wrong-player requests, invalid chronology and sheet-field whitelisting. Together
-with PKA-001/002 there are fourteen standalone tests. Hypothetical ranges in the
+wrong-player requests, invalid chronology sheet-field whitelisting and symmetric own-team privacy. Together
+with PKA-001/002 there are fifteen standalone tests. Hypothetical ranges in the
 privacy test are explicitly illustrative and uncomputed.
 
 Limits: research entries trust provenance supplied by the harness; arbitrary raw
