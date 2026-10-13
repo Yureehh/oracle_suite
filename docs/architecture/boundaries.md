@@ -10,8 +10,8 @@
 | `apps/web` | Presentation and interaction | Public API contracts; no direct Python/package/database access |
 | Lyceum (future views) | Cross-domain inspection of real research results | Existing result metadata and artifact references |
 
-These are constraints for future code, not implemented dependency edges. There is
-currently no Core/Agon dependency. Introduce workspace dependencies with uv workspace
+The local worker now imports Core and Agon. There is currently no direct Core/Agon
+dependency. Introduce workspace dependencies with uv workspace
 sources only when needed; never rely on another member's accidentally installed
 dependencies. uv workspaces share a lock and environment; they do not enforce import
 boundaries. Review imports and test packages in isolation as behavior grows.

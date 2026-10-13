@@ -5,10 +5,12 @@ learning, game theory, search, simulation, probabilistic prediction, and reprodu
 experiments. Its mission is to turn rigorous computational work into useful tools
 through one eventual web experience.
 
-**Status: first local simulation capability.** Agon 0.3.0 controls a pinned Champions
-M-C game from Python. Foundation reports and a durable-workload design accompany it.
-There is no API, worker, frontend, trained model, database or experiment tracker yet.
-See the [battle guide](docs/planning/pokemon/foundation/005-adapter.md).
+**Status: first local simulation capability.** Agon 0.4.0 provides player-visible paired choices for a pinned Champions
+M-C game. Core 0.3.0 and a local Python worker persist batches in SQLite and files,
+with bounded parallel games and explicit resume. There is no API, frontend, trained
+model or experiment tracker yet.
+See the [battle guide](docs/planning/pokemon/foundation/005-adapter.md) and
+[durable batch runbook](docs/runbooks/local-batches.md).
 
 ## Platform
 
@@ -20,7 +22,7 @@ See the [battle guide](docs/planning/pokemon/foundation/005-adapter.md).
 - **Lyceum:** future cross-domain views of real runs, metrics, and artifacts produced
   by workloads. It will reuse their experiment infrastructure.
 - **Core:** narrowly shared infrastructure, introduced only for demonstrated needs.
-  The current package contains no runtime functionality.
+  The package now supplies run records and immutable artifacts for the local worker.
 
 Pokémon products are **Theoria — Replay and decision analysis**, **Delphi — Matchup
 exploration and preparation**, **Metis — Agents and learning**, and **Techne — Team
@@ -38,7 +40,7 @@ oracle_suite/
 ├── apps/
 │   ├── api/       # future backend entrypoint; README and scoped instructions
 │   ├── web/       # future website; README and scoped instructions
-│   └── worker/    # future execution process; README and scoped instructions
+│   └── worker/    # local durable batch coordinator; README and scoped instructions
 ├── packages/python/
 │   ├── strixia_core/  # pyproject, README, AGENTS, src/strixia_core, tests
 │   └── strixia_agon/ # pyproject, README, AGENTS, src/strixia_agon/pokemon, tests
@@ -66,7 +68,8 @@ and `apps/` owns executable application boundaries. `docs/` owns engineering gui
 | --- | --- |
 | Configured | Python 3.12 baseline, uv workspace and lockfile, uv_build, Ruff, mypy, pytest, GitHub Actions |
 | Architectural preferences | FastAPI API, TypeScript/React/Next.js website, Python worker, one website |
-| Candidates for the first workload | PostgreSQL durable metadata/task claims, local filesystem artifacts |
+| Implemented local workload | SQLite metadata, immutable filesystem artifacts, bounded parallel Python coordinator |
+| Future candidates | PostgreSQL metadata on RDS/Aurora, shared artifact storage when needed |
 | Deferred options | Containers, object storage, GPU execution and model serving when measured needs justify them |
 
 No runtime third-party dependencies are installed by either library. Development

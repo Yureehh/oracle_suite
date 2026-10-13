@@ -86,3 +86,11 @@ Its npm install reported 23 dependency advisories (1 low, 5 moderate, 17 high).
 These are upstream installation-audit counts, not a verified exploitability assessment
 of the narrow engine path. The reviewed pin/lock is preserved; upgrading or exposing
 a hosted simulator requires a separate dependency review.
+
+## Successor capability
+
+Agon 0.4.0 adds `actions.choices(view)` and accepts its JointChoice objects in step.
+Known-invalid pairs are excluded; unavailable submissions may raise
+RequestUpdatedError with a refreshed own view instead of erasing newly revealed
+restrictions. See the [action register](../action-cases.md). Ordinary invalid choices
+still roll back without changing player views.

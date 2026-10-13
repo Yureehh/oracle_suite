@@ -20,13 +20,13 @@ line-length = 88
 select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
-testpaths = ["packages/python/strixia_core/tests", "packages/python/strixia_agon/tests"]
+testpaths = ["packages/python/strixia_core/tests", "packages/python/strixia_agon/tests", "apps/worker/tests"]
 addopts = "--import-mode=importlib --strict-config --strict-markers"
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["packages/python/strixia_core/src", "packages/python/strixia_agon/src", "packages/python/strixia_core/tests", "packages/python/strixia_agon/tests", "scripts/pokemon_battle.py"]
+files = ["packages/python/strixia_core/src", "packages/python/strixia_agon/src", "packages/python/strixia_core/tests", "packages/python/strixia_agon/tests", "scripts/pokemon_battle.py", "apps/worker/local.py", "apps/worker/tests"]
 
 [dependency-groups]
 dev = [

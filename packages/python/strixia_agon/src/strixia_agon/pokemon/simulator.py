@@ -11,7 +11,10 @@ from pathlib import Path
 from queue import Empty, Queue
 from threading import Thread
 from types import MappingProxyType
-from typing import Any, Literal, Self, TextIO
+from typing import TYPE_CHECKING, Any, Literal, Self, TextIO
+
+if TYPE_CHECKING:
+    from .actions import JointChoice
 
 SHOWDOWN_REVISION = "3a766f2cfb5e51c1e428cfe87d0dba91a8f01640"
 FORMAT = "gen9championsvgc2026regmcbo3"
@@ -21,6 +24,10 @@ STATS = ("hp", "atk", "def", "spa", "spd", "spe")
 
 class SimulatorError(RuntimeError):
     """Engine validation, protocol or process failure."""
+
+
+class RequestUpdatedError(SimulatorError):
+    """A submitted choice revealed a restriction; inspect the refreshed own view."""
 
 
 class InvalidChoiceError(SimulatorError):
@@ -87,6 +94,8 @@ class OwnPokemon:
     moves: tuple[str, ...]
     ability: str
     item: str
+    commanding: bool = False
+    reviving: bool = False
 
 
 @dataclass(frozen=True)
@@ -103,6 +112,10 @@ class ActiveOptions:
     trapped: bool
     maybe_trapped: bool
     can_mega_evolve: bool
+    can_mega_evolve_x: bool = False
+    can_mega_evolve_y: bool = False
+    maybe_disabled: bool = False
+    maybe_locked: bool = False
 
 
 @dataclass(frozen=True)
@@ -239,12 +252,22 @@ class ChampionsBattle:
             if not response["ok"]:
                 error = str(response.get("error", "Engine rejected command"))
                 if payload["op"] == "step":
+                    if response.get("updated"):
+                        if not isinstance(response.get("frame"), dict):
+                            raise SimulatorError("Missing refreshed request frame")
+                        try:
+                            self.state = self._project(response["frame"])
+                        except (KeyError, TypeError, ValueError, StopIteration) as exc:
+                            raise SimulatorError(
+                                "Malformed refreshed request frame"
+                            ) from exc
+                        raise RequestUpdatedError(error)
                     raise InvalidChoiceError(error)
                 raise SimulatorError(error)
             if not isinstance(response.get("frame"), dict):
                 raise SimulatorError("Missing engine frame")
             return dict(response["frame"])
-        except InvalidChoiceError:
+        except (InvalidChoiceError, RequestUpdatedError):
             raise
         except (OSError, Empty, ValueError, SimulatorError) as exc:
             self.close()
@@ -273,6 +296,8 @@ class ChampionsBattle:
                     tuple(m.get("moves", [])),
                     m.get("baseAbility", ""),
                     m.get("item", ""),
+                    m.get("commanding", False),
+                    m.get("reviving", False),
                 )
                 for m in side.get("pokemon", [])
             )
@@ -289,17 +314,40 @@ class ChampionsBattle:
                 )
                 for m in sheet
             )
+            for active in request.get("active", []):
+                unsupported = {
+                    k
+                    for k in (
+                        "canZMove",
+                        "canDynamax",
+                        "maxMoves",
+                        "canTerastallize",
+                        "canUltraBurst",
+                    )
+                    if active.get(k)
+                }
+                if unsupported:
+                    raise SimulatorError(
+                        f"Unsupported M-C request mechanics: {sorted(unsupported)}"
+                    )
             options = tuple(
                 ActiveOptions(
                     tuple(
                         MoveOption(
-                            m["move"], m["target"], m["pp"], m.get("disabled", False)
+                            m["move"],
+                            m.get("target", "randomNormal"),
+                            m.get("pp", 0),
+                            bool(m.get("disabled", False)),
                         )
                         for m in active.get("moves", [])
                     ),
                     active.get("trapped", False),
                     active.get("maybeTrapped", False),
                     bool(active.get("canMegaEvo", False)),
+                    bool(active.get("canMegaEvoX", False)),
+                    bool(active.get("canMegaEvoY", False)),
+                    active.get("maybeDisabled", False),
+                    active.get("maybeLocked", False),
                 )
                 for active in request.get("active", [])
             )
@@ -326,7 +374,19 @@ class ChampionsBattle:
             views[1],
         )
 
-    def step(self, p1: str | None, p2: str | None) -> BattleState:
+    def step(
+        self, p1: str | None | JointChoice, p2: str | None | JointChoice
+    ) -> BattleState:
+        from .actions import JointChoice
+
+        submitted = []
+        for player, choice in (("p1", p1), ("p2", p2)):
+            if isinstance(choice, JointChoice):
+                if choice.view != (self.state.p1 if player == "p1" else self.state.p2):
+                    raise ValueError("Stale choice or wrong player request")
+                choice = choice.command
+            submitted.append(choice)
+        p1, p2 = submitted
         if self.state.ended:
             raise SimulatorError("Battle has ended")
         if any(

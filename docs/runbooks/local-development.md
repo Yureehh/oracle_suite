@@ -18,16 +18,16 @@ uv build --package strixia-agon
 
 `uv python install` manages Python; `.python-version` selects the 3.12 line. Initial
 package installs are editable. `--locked` checks that metadata matches `uv.lock`;
-`--all-packages` includes both library shells in the root environment. mypy targets
-source and tests explicitly, and pytest discovers both test directories without
+`--all-packages` includes both libraries in the root environment. mypy targets
+source and tests explicitly, and pytest discovers package and worker tests without
 manually setting PYTHONPATH. Build outputs go to ignored `dist/` and are never published.
 
 If the lockfile is stale after an intentional dependency change, run `uv lock`, review
 the diff, then sync again. Do not use `--frozen` to hide stale metadata. Format with
 `uv run --locked --all-packages ruff format .` and rerun the applicable checks.
 
-There is no server to start or service to configure. `.env.example` documents conventions
-and has no mandatory variables. Development needs package-index access on a cold cache.
+`.env.example` has no mandatory variables; the local batch coordinator needs no server.
+Development needs package-index access on a cold cache.
 Missing network/tools must be reported as limitations, not success. When runtime
 applications arrive, document each process command, its dependencies and recovery path.
 
@@ -40,3 +40,9 @@ uv run --locked --all-packages python scripts/pokemon_battle.py
 
 Requires Node and Git. See the [battle guide](../planning/pokemon/foundation/005-adapter.md).
 Integration tests skip without the built engine; CI prepares it before tests.
+
+## Durable independent-game batches
+
+See the [local batch runbook](local-batches.md) for submission, parallel execution,
+status, explicit resume and export. It uses local SQLite and files, with no installed
+server database. Root checks include the worker's tests and type checking.

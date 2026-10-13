@@ -4,7 +4,8 @@ Updated: 2026-10-13
 
 **Status:** foundation research and a local Python simulator adapter are implemented.
 See the [battle guide](../../../docs/planning/pokemon/foundation/005-adapter.md).
-API, website, worker, models and analysis functionality remain unimplemented. This brief owns product requirements;
+A local durable batch worker and paired action menus are implemented.
+API, website, models and analysis functionality remain unimplemented. This brief owns product requirements;
 [the planning board](../../../docs/planning/pokemon/kanban.md) owns progress.
 
 ## Agreed scope and boundaries

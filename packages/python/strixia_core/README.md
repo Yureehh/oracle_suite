@@ -1,16 +1,14 @@
 # Strixia Core
 
-Core is the boundary for genuinely shared infrastructure. Today it is an installable
-package shell with an import smoke test and no runtime dependencies or public contracts.
-It is not a dumping ground for common-looking helpers.
+Core 0.3.0 supplies the first demonstrated shared infrastructure: local SQLite run
+records and immutable filesystem artifacts. RunStore keeps frozen configurations,
+attempt history, fenced game publication, explicit resume, export and backup.
+Artifacts publishes without overwriting and verifies byte counts and SHA-256 hashes.
+There are no third-party Python runtime dependencies or game-domain imports.
 
-Runs, workers, artifacts, configuration, persistence, model metadata and access control
-are potential responsibilities only when real workloads justify them. Release 0 will
-first define a durable execution slice. PostgreSQL, a Python worker and replaceable
-artifact storage are provisional choices; none is implemented here.
+The real consumer is the [local batch coordinator](../../../docs/runbooks/local-batches.md).
+This is a concrete local implementation, not a generic persistence/plugin framework.
+Database schemas and exports are versioned. Future PostgreSQL/Aurora migration needs
+an implementation and migration verification; it is not installed today.
 
-Use the root [development commands](../../../docs/runbooks/local-development.md).
-Core must not depend on Agon or applications. See the
-[dependency boundaries](../../../docs/architecture/boundaries.md) and local `AGENTS.md`.
-Open decisions include actual run semantics, adapter interfaces and the first concrete
-consumers; avoid creating those contracts before their use case is defined.
+Read the [boundaries](../../../docs/architecture/boundaries.md) and scoped instructions.

@@ -158,3 +158,12 @@ mark hypothetical states explicitly, and never claim recovered hidden RNG.
 Explanations should say, for example, “Game 1: opponent spread unknown” and later
 “Game 3: earlier damage supports these ranges under the stated modifiers.” Saved game-one
 analysis must never retroactively receive game-three evidence.
+
+## Search horizon follow-up — 2026-10-13
+
+The owner reports a newer mikumiku37 claim of looking two turns ahead. That update
+has not been independently verified. The [original author post](https://www.smogon.com/forums/threads/mikumiku37-a-self-play-vgc-bot-reached-1-on-the-vgc-reg-m-c-ladder.3789199/)
+describes a one-turn simultaneous matrix method, distinct from the two-turn approach
+it compares against. [PKA-031](epics/e06.md#pka-031) owns the horizon/budget comparison;
+[PKA-029](epics/e06.md#pka-029) establishes the initial bounded joint-action solve.
+No fixed lookahead depth is chosen from the reported claim alone.
