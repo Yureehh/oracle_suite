@@ -1,8 +1,8 @@
-# Oracle — Pokémon Arena
+# Strixia — Pokémon Agon
 
 Created: 2026-10-12
 
-This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/arena/pokemon/README.md) defines requirements. PKA-004 local Git setup is implemented and in review; no application implementation is approved. No story is owner-accepted yet.
+This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/agon/pokemon/README.md) defines requirements. PKA-004 local Git setup is owner-accepted. PKA-063 branding/package migration is approved; no application implementation is approved.
 
 P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/practice; P3 = deferred. These priorities describe value, not permission or a promised date. S = small, M = several reviewable steps, L/refine = must split before approval. Dependencies are story IDs, not implementation authorization.
 
@@ -22,16 +22,15 @@ None.
 
 ## In Progress
 
-None.
+- [PKA-063: Apply the Strixia identity](epics/e01.md#pka-063) — E01, P0, S, no dependencies. Owner approved the full local branding/package migration on 2026-10-13.
 
 ## In Review
 
-- [PKA-004: Establish main/dev/task branch workflow](epics/e01.md#pka-004) — E01, P0, S, no dependencies. Local baseline and dev created; checks passed on 2026-10-13. Owner acceptance pending; no remote, tags or publication.
 - [PKA-000: Deliver the complete planning board](epics/e01.md#pka-000) — E01, P0, M, no dependencies. Files created and checks passed on 2026-10-12; waiting for owner acceptance. No application code or Git publication.
 
 ## Done
 
-None.
+- [PKA-004: Establish main/dev/task branch workflow](epics/e01.md#pka-004) — E01, P0, S, no dependencies. Owner accepted the verified local setup on 2026-10-13 and separately configured/published the main/dev remote baseline.
 
 ## Blocked
 
@@ -55,8 +54,8 @@ None.
 | [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
 | [PKA-017](epics/e04.md#pka-017) | Parse recorded simulator traces | E04 | P0 | S | PKA-016 |
 | [PKA-018](epics/e04.md#pka-018) | Import public Showdown replays | E04 | P1 | M | PKA-017 |
-| [PKA-019](epics/e04.md#pka-019) | Create the first real Oracle web route | E04 | P1 | M | PKA-015 |
-| [PKA-020](epics/e04.md#pka-020) | Render the Foresight replay viewer | E04 | P0 | M | PKA-017, PKA-019 |
+| [PKA-019](epics/e04.md#pka-019) | Create the first real Strixia web route | E04 | P1 | M | PKA-015 |
+| [PKA-020](epics/e04.md#pka-020) | Render the Theoria replay viewer | E04 | P0 | M | PKA-017, PKA-019 |
 | [PKA-021](epics/e04.md#pka-021) | Import team text and optional stat spreads | E04 | P1 | S | PKA-002 |
 | [PKA-022](epics/e04.md#pka-022) | Gate counterfactual analysis by state fidelity | E04 | P1 | S | PKA-009, PKA-018, PKA-021 |
 | [PKA-023](epics/e05.md#pka-023) | Represent hidden-state scenario priors | E05 | P1 | M | PKA-003, PKA-021 |
@@ -83,9 +82,9 @@ None.
 | [PKA-044](epics/e07.md#pka-044) | Test a reusable Champions base checkpoint | E07 | P2 | L/refine | PKA-041, PKA-043, PKA-035 |
 | [PKA-045](epics/e07.md#pka-045) | Profile and optimize the measured training bottleneck | E07 | P1 | M | PKA-041, PKA-039 |
 | [PKA-046](epics/e08.md#pka-046) | Record experiment and model lineage | E08 | P1 | S | PKA-013, PKA-040 |
-| [PKA-047](epics/e08.md#pka-047) | Build the offline Model League | E08 | P1 | M | PKA-016, PKA-010, PKA-035 |
+| [PKA-047](epics/e08.md#pka-047) | Build the offline model league | E08 | P1 | M | PKA-016, PKA-010, PKA-035 |
 | [PKA-048](epics/e08.md#pka-048) | Gate champion promotion by evidence | E08 | P1 | S | PKA-046, PKA-047, PKA-041 |
-| [PKA-049](epics/e08.md#pka-049) | Show actual experiments in Oracle Lab | E08 | P1 | M | PKA-046, PKA-047, PKA-019 |
+| [PKA-049](epics/e08.md#pka-049) | Show actual experiments in Strixia Lyceum | E08 | P1 | M | PKA-046, PKA-047, PKA-019 |
 | [PKA-050](epics/e09.md#pka-050) | Evaluate preview candidate selections | E09 | P1 | M | PKA-021, PKA-029, PKA-047 |
 | [PKA-051](epics/e09.md#pka-051) | Run a matchup Gauntlet | E09 | P1 | M | PKA-047, PKA-050, PKA-035 |
 | [PKA-052](epics/e09.md#pka-052) | Expand interactive scenario branches on demand | E09 | P2 | M | PKA-009, PKA-023, PKA-029, PKA-034, PKA-019 |

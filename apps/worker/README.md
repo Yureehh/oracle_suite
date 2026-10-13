@@ -1,4 +1,4 @@
-# Oracle worker
+# Strixia worker
 
 This is the reserved entrypoint for computational execution outside API requests.
 There is no worker process, queue client or job framework in the scaffold.

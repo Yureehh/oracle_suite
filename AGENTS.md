@@ -1,4 +1,4 @@
-# Oracle repository instructions
+# Strixia repository instructions
 
 ## Before changing code
 
@@ -23,14 +23,14 @@ See [official discovery guidance](https://developers.openai.com/codex/guides/age
 - `packages/python/oracle_core/AGENTS.md`
 - `packages/python/oracle_arena/AGENTS.md`
 - `packages/python/oracle_arena/src/oracle_arena/pokemon/AGENTS.md`
-- `products/arena/pokemon/AGENTS.md` (also read for Pokémon code changes)
-- `products/bets/AGENTS.md` and `products/lab/AGENTS.md`
+- `products/agon/pokemon/AGENTS.md` (also read for Pokémon code changes)
+- `products/pythia/AGENTS.md` and `products/lyceum/AGENTS.md`
 - `apps/api/AGENTS.md`, `apps/web/AGENTS.md`, `apps/worker/AGENTS.md`
 
 ## Architecture
 
 Keep domain boundaries clear and dependencies acyclic. Core must not depend on
-Arena, Bets, Lab, or applications. Computational libraries must not depend on web
+Agon, Pythia, Lyceum, or applications. Computational libraries must not depend on web
 frameworks, UI components, or concrete databases without a demonstrated need.
 Keep game-specific mechanics in their game domain. Share abstractions only when
 actual consumers justify them. Keep CPU/GPU work out of synchronous API handlers.
@@ -67,7 +67,7 @@ proper secret storage at application boundaries. Validate external inputs and re
 authorization boundaries. Public endpoints must not accidentally expose private
 research data or artifacts. Keep generated datasets, checkpoints, databases and
 runtime storage out of Git; keep small reviewed fixtures in package test directories.
-Do not commit, push, publish, migrate Bets, or choose a license without authorization.
+Do not commit, push, publish, migrate the external Oracle Bets project, or choose a license without authorization.
 
 ## Completion contract
 
@@ -77,7 +77,7 @@ could not run and explain why. Keep trivial-change responses brief.
 
 ## Pokémon planning continuity
 
-For Pokémon work, read `products/arena/pokemon/README.md`, its scoped instructions,
+For Pokémon work, read `products/agon/pokemon/README.md`, its scoped instructions,
 `docs/planning/pokemon/README.md`, the board and the selected epic card. The board is
 canonical for task state; only owner acceptance moves In Review to Done. Current plan
 creation approval does not authorize application implementation or Git publication.

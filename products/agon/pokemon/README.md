@@ -1,6 +1,6 @@
-# Oracle Arena — Pokémon Champions VGC
+# Strixia Agon — Pokémon Champions VGC
 
-Updated: 2026-10-12
+Updated: 2026-10-13
 
 **Status:** package namespaces and installation tests only. Product direction and a
 persistent full-scope Kanban now exist; simulator, API, website, worker, models and
@@ -12,8 +12,8 @@ analysis functionality remain unimplemented. This brief owns product requirement
 - Initial target: Pokémon Champions Regulation M-C (“Reg C”), doubles Best-of-3 Open
   Team Sheets. Models support Champions regulations only; study native stat allocations
   and mechanics, not historical Scarlet/Violet EV/IV training or Random Battles.
-- One reusable Pokémon intelligence engine. Foresight, Delphi, Augur and Forge are
-  provisional product identities, not separate simulators, packages or services.
+- One reusable Pokémon intelligence engine. Theoria, Delphi, Metis and Techne are
+  accepted product identities, not separate simulators, packages or services.
 - Showdown is the initial simulator reference; poke-env plus a narrow Node bridge is
   the accepted candidate direction, conditional on compatibility/correctness evidence.
   Replace an inadequate client layer if warranted; no custom mechanics without approval.
@@ -36,22 +36,28 @@ analysis functionality remain unimplemented. This brief owns product requirement
 - Build for top-quality models with measured efficiency and justified spend. Compute
   follows model/data design and pilot evidence; no paid run or strong-result promise.
 
-## Product experiences
+## Product experiences and shared research views
+
+Accepted product names are Theoria — Replay and decision analysis, Delphi — Matchup
+exploration and preparation, Metis — Agents and learning, and Techne — Team and spread
+optimization. Gauntlet, the model league, practice and coaching are features within
+these products, not additional brands. [ADR 0003](../../../docs/decisions/0003-strixia-branding.md)
+records the hierarchy.
 
 | Experience | End-to-end scope | Foundation |
 | --- | --- | --- |
-| Foresight | Replay import/navigation, visible state, grounded evaluation timeline, alternatives and blunder review | Recorded evidence, fidelity gates, beliefs, evaluators and optional search |
+| Theoria | Replay import/navigation, visible state, grounded evaluation timeline, alternatives and blunder review | Recorded evidence, fidelity gates, beliefs, evaluators and optional search |
 | Delphi | Two-team matchup exploration, mandatory preview optimizer, alternatives, candidate payoff heatmap and on-demand flowcharts | Shared simulation/evaluation with bounded search and cache identity |
-| Augur | Baselines, train → evaluate → compare → promote → reuse, regulation checkpoints, self-play and Model League | Correct environment, team corpus, held-out evaluation and lineage |
-| Gauntlet | Candidate teams versus representative archetypes, intervals, weak matchups and metagame sensitivity | Same agents, set execution and stored evidence as League |
-| Practice | Local battles, AI sparring and explicitly consensual assisted scrims | Same simulator, legal actions, beliefs and recommendations |
-| Forge | Champions stat-spread optimization, later team planning and matchup verification | Rules, breakpoint constraints and reliable conditional matchup evidence |
-| Lab | Actual run metrics, configs, model comparisons, checkpoints and reproducibility views | Existing producer records; no separate Pokémon training backend |
+| Metis | Baselines, train → evaluate → compare → promote → reuse, regulation checkpoints, self-play and model league | Correct environment, team corpus, held-out evaluation and lineage |
+| Delphi: Gauntlet | Candidate teams versus representative archetypes, intervals, weak matchups and metagame sensitivity | Same agents, set execution and stored evidence as model league |
+| Metis: practice and coaching | Local battles, AI sparring and explicitly consensual assisted scrims | Same simulator, legal actions, beliefs and recommendations; shared Theoria/Delphi analysis |
+| Techne | Champions stat-spread optimization, later team planning and matchup verification | Rules, breakpoint constraints and reliable conditional matchup evidence |
+| Lyceum | Actual run metrics, configs, model comparisons, checkpoints and reproducibility views | Existing producer records; no separate Pokémon training backend |
 
 Pokémon-specific training and research implementations belong under
 `packages/python/oracle_arena/src/oracle_arena/pokemon/`. Thin process entrypoints belong
 in apps; narrow shared lifecycle/artifact functionality belongs in Core once required.
-Research protocols and decisions belong in docs; Lab makes their actual results visible.
+Research protocols and decisions belong in docs; Lyceum makes their actual results visible.
 
 ## Conditional research choices
 
@@ -75,7 +81,7 @@ known. No mandatory long-term feature is dropped by that bounded near-term targe
 
 Decision puzzles, spectator mode, public bots, advanced weakness tracking, metagame
 views, additional formats and broad automated team planning remain deferred. Other
-Arena games are outside this Pokémon backlog. Public releases need separate approval,
+Agon games are outside this Pokémon backlog. Public releases need separate approval,
 actual authorization/privacy boundaries and an agreed licensing/asset policy.
 
 ## Collaboration

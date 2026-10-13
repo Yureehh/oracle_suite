@@ -1,8 +1,8 @@
-# Oracle Bets
+# Strixia Pythia
 
-Bets is Oracle's predictive intelligence domain: probabilistic forecasts, evaluation,
+Pythia is Strixia's predictive intelligence domain: probabilistic forecasts, evaluation,
 historical analysis and research workflows. It already has separate development work.
-No Bets package or application is created in this scaffold.
+No Pythia package or application is created in this scaffold.
 
 ## Inspected existing project
 
@@ -48,7 +48,7 @@ No data schema or performance claim is inferred from these path names.
 Keep the separate repository and runtime intact until a dedicated integration task.
 Inventory its real CLI, data ownership, storage/migration behavior, model lifecycle,
 package boundaries and regression checks before moving anything. Compare its current
-lockfile and ML requirements against Oracle's workspace resolution; Python alignment
+lockfile and ML requirements against Strixia's workspace resolution; Python alignment
 alone does not demonstrate dependency compatibility. Its existing ty workflow need
 not be replaced just because this scaffold uses mypy.
 
@@ -59,9 +59,9 @@ extract shared behavior only after actual interfaces and consumers are understoo
 Do not simply copy sources and rename packages or merge databases.
 
 Resolve licensing for the combined repository with the owner; Bets's existing license
-does not authorize assigning a new license to Oracle. This inventory is a snapshot,
+does not authorize assigning a new license to Strixia. This inventory is a snapshot,
 not a second product specification: refer to the actual Bets docs for authoritative
-behavior. Core reuse and Lab views should follow compatible real run/artifact interfaces.
+behavior. Core reuse and Lyceum views should follow compatible real run/artifact interfaces.
 
 Open decisions: integration timing, source/history strategy, dependency isolation,
 interface compatibility and license reconciliation. Migration and new forecasting

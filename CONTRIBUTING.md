@@ -77,7 +77,7 @@ automation now; future tags identify approved reproducible releases.
 
 1. Write the canonical specification under `products/<domain>/<product>/`; link to
    it from architecture docs rather than copying its requirements.
-2. For another Arena game, start with game-specific code under `oracle_arena` when
+2. For another Agon game, start with game-specific code under `oracle_arena` when
    that package fits. Do not force Pokémon observations or actions onto Magic.
 3. Split into a new `src/` package only for demonstrated ownership, dependency, or
    runtime isolation needs. Add its exact path to workspace members and include its
@@ -94,6 +94,7 @@ automation now; future tags identify approved reproducible releases.
    representative workloads and record uncertainty and reproducibility metadata.
 9. Record consequential architectural choices in an ADR and update status docs.
 
-Bets requires a separate integration plan based on its inspected implementation.
+The external Oracle Bets project requires a separate Pythia integration plan based
+on its inspected implementation.
 Its migration, license reconciliation, dependency resolution, data handling, and
 regression testing are outside this bootstrap.

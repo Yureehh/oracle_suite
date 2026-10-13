@@ -1,4 +1,4 @@
-# Oracle API
+# Strixia API
 
 This directory is reserved for the future backend entrypoint. It contains documentation
 only; there is no FastAPI application, server command or API dependency yet.

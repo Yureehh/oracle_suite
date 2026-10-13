@@ -10,7 +10,7 @@ Algorithms, model architectures, representations and search methods are research
 choices requiring evidence. A high predicted value does not establish optimal strategy.
 Report evaluation metrics, uncertainty and provenance; keep analysis/training reproducible.
 
-Foresight, Delphi, Augur and Forge are provisional branding, never automatic service
+Theoria, Delphi, Metis and Techne are accepted branding, never automatic service
 boundaries. Reuse Pokémon simulation/evaluation across products. Respect platform rules
 and competitive fair-play constraints for automated play. Read this directory’s README for agreed requirements and `docs/planning/pokemon/`
 for the current board, story and research gates. Do not invent unapproved mechanics.
@@ -29,7 +29,7 @@ acceptance permits Done. Do not automatically start another task. Board approval
 not approval to code, commit, push, spend or deploy. Use the documented main/dev/task
 branch workflow once Git setup is separately authorized.
 
-Pokémon training code belongs in Arena; Lab views existing run/model records. Keep
+Pokémon training code belongs in Agon; Lyceum views existing run/model records. Keep
 neutral/learned beliefs explicit, preserve chronological set evidence and state-fidelity
 limits. Missing-spread replay imports stay viewer-only; supplied spreads alone never
 prove exact counterfactual reconstruction. Optimize measured quality per cost, never

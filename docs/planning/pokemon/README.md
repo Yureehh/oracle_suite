@@ -1,19 +1,20 @@
-# Oracle — Pokémon Arena planning
+# Strixia — Pokémon Agon planning
 
 Created: 2026-10-12
 
 This directory is the persistent repository-local Kanban requested by the owner.
 The [board](kanban.md) is authoritative for status, priority and dependency IDs.
-The twelve epic files contain 62 product/workflow stories; PKA-000 tracks delivery
-of this planning work. The [product brief](../../../products/arena/pokemon/README.md)
+The twelve epic files contain 63 product/workflow stories; PKA-000 tracks delivery
+of this planning work. The [product brief](../../../products/agon/pokemon/README.md)
 is authoritative for product requirements. [Roadmap](roadmap.md) defines sequencing,
 [research](research.md) records technical options, and [learning](learning.md) explains
 concepts. These are different responsibilities, not competing backlogs.
 
-No GitHub board was created: the repository has no remote and the previously checked
-CLI token lacked Projects access. Source-controlled Markdown is the selected fallback.
-The scaffold and board are saved in local Git history under PKA-004. There is no
-remote backup or hosted merge-request workflow yet.
+No GitHub board was created: at planning creation there was no remote and the checked
+CLI token lacked Projects access. Source-controlled Markdown remains authoritative.
+The owner subsequently configured [the remote](https://github.com/Yureehh/oracle_suite)
+and published the initial main/dev baseline. Local task-branch changes still require
+separate push/merge authorization; no task merge request exists yet.
 
 ## Start here
 
@@ -28,8 +29,9 @@ simulator integration, legal actions, baseline agents and Bo3 execution. The boa
 lists those individual stories by status; the epic file holds their scope and acceptance.
 It is one backlog viewed in two ways, not two independent task lists.
 
-PKA-004's initial Git snapshot/branch setup is implemented and awaits review. The
-next candidate is PKA-001's simulator compatibility probe. The commit/version policy is in
+PKA-004's initial Git snapshot/branch setup is owner-accepted. PKA-063 tracks the
+approved Strixia migration; PKA-001 remains the next simulator research candidate.
+The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 
 ## Workflow
@@ -78,8 +80,8 @@ before approval; append new IDs and preserve their parent as a scope record.
 PKA-004 created the initial local history and dev from main on 2026-10-13. Its small
 setup-evidence commit is part of that approved initialization; both branch heads are
 aligned at the completed setup. Future work starts on task branches from dev.
-Remote ownership and hosted branch protections remain pending separate authorization;
-they cannot be configured without a remote. Do not stage unrelated files.
+The remote is now configured by the owner; hosted branch protections have not been
+verified or changed in this task. Do not stage unrelated files.
 Local task commits follow the owner-authorized contribution policy.
 
 ## Story conventions

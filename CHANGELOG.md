@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Adopted Strixia / Agon / Pythia / Lyceum and Theoria / Delphi / Metis / Techne;
+  moved product definitions to the accepted domain folders. Historical names and
+  the external Oracle Bets project remain preserved.
+
 - Added the owner-requested Pokémon planning board, 62 product/workflow stories,
   learning guide and version-specific PufferLib research gates.
 - Recorded Champions M-C scope, collaborative approval rules, optional search,

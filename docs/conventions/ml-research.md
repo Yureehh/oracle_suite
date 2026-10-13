@@ -1,7 +1,7 @@
 # Research reproducibility
 
 No experiment tracker or metadata schema is implemented. The first workload should
-record enough evidence to reproduce a run before Lab displays it. Keep records with
+record enough evidence to reproduce a run before Lyceum displays it. Keep records with
 the producing workload; promote contracts to Core only when justified.
 
 For each experiment capture:

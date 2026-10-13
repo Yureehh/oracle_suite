@@ -1,4 +1,4 @@
-# Arena rules
+# Agon rules
 
 Keep game rules and mechanics domain-specific. Separate environments, policies,
 evaluation and training conceptually; create modules only when code needs them.

@@ -37,7 +37,7 @@ Sources: [poke-env data loader](https://github.com/hsahovic/poke-env/blob/master
 [Showdown simulator API](https://github.com/smogon/pokemon-showdown/blob/master/sim/SIMULATOR.md).
 Inspection references from 2026-10-12: Showdown `942cda71d14bf0618bd57991708a2e2734b6daba`,
 poke-env `7ff6212e4e738efd46f1ea52035b37a8bba1e386`. No dependency is installed/pinned in
-Oracle yet; PKA-001 must recheck and select an exact tested pair.
+Strixia yet; PKA-001 must recheck and select an exact tested pair.
 
 ## PufferLib: conditional candidate
 
@@ -58,10 +58,10 @@ model export and interrupted-run recovery. Profile simulator/Node IPC, collectio
 inference and gradient updates separately. A faster trainer does not fix a simulation
 bottleneck or incorrect transitions. Native integration cost may exceed its benefit.
 Adopt only if correctness and measured quality per time/cost improve. Do not introduce
-PufferLib's visualization as a second authoritative experiment store alongside Lab.
+PufferLib's visualization as a second authoritative experiment store alongside Lyceum.
 
 Alternative reference: [CleanRL PPO implementations](https://docs.cleanrl.dev/rl-algorithms/ppo/).
-Neither library is installed, benchmarked or demonstrated working with Oracle today.
+Neither library is installed, benchmarked or demonstrated working with Strixia today.
 No claim of a universally best RL library is justified.
 
 ## Model, data and regulation transfer
