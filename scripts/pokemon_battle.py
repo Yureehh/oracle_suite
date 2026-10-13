@@ -50,15 +50,16 @@ def main() -> None:
         battle.step("team 1234", "team 1234")
         for _ in range(500):
             if battle.state.ended:
-                print(
-                    f"Finished on turn {battle.state.turn}: winner={battle.state.winner or 'tie'}"
-                )
-                return
+                break
             battle.step(
                 None if battle.state.p1.must_wait else "default",
                 None if battle.state.p2.must_wait else "default",
             )
-        raise RuntimeError("Demonstration exceeded 500 decision boundaries")
+        if not battle.state.ended:
+            raise RuntimeError("Demonstration exceeded 500 decision boundaries")
+        print(
+            f"Finished on turn {battle.state.turn}: winner={battle.state.winner or 'tie'}"
+        )
 
 
 if __name__ == "__main__":

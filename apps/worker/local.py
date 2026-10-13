@@ -138,23 +138,25 @@ def run_game(config: dict[str, Any], index: int, checkout: Path) -> bytes:
         battle.step("team 1234", "team 1234")
         for _ in range(config["decision_limit"]):
             if battle.state.ended:
-                return json.dumps(
-                    {
-                        "schema": 1,
-                        "game": index,
-                        "seed": config["seeds"][index],
-                        "winner": battle.state.winner,
-                        "turn": battle.state.turn,
-                        "choices": choices,
-                        "public_history": battle.state.p1.public_history,
-                    },
-                    sort_keys=True,
-                ).encode()
+                break
             p1 = None if battle.state.p1.must_wait else "default"
             p2 = None if battle.state.p2.must_wait else "default"
             choices.append([p1, p2])
             battle.step(p1, p2)
-    raise RuntimeError("Game exceeded decision limit")
+        if not battle.state.ended:
+            raise RuntimeError("Game exceeded decision limit")
+        return json.dumps(
+            {
+                "schema": 1,
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": battle.state.winner,
+                "turn": battle.state.turn,
+                "choices": choices,
+                "public_history": battle.state.p1.public_history,
+            },
+            sort_keys=True,
+        ).encode()
 
 
 @contextmanager
@@ -230,12 +232,16 @@ def execute(
                             manifest = artifacts.write(run_id, attempt, index, data)
                             store.record_game(run_id, attempt, index, manifest)
                             finished[index] = manifest
+                        except Exception as exc:
+                            error = f"Game {index + 1}: {type(exc).__name__}: {exc}"
+                            continue
+                        try:
                             print(
                                 f"{run_id}: saved game {index + 1}; {len(finished)}/{config['games']}",
                                 flush=True,
                             )
-                        except Exception as exc:
-                            error = f"Game {index + 1}: {type(exc).__name__}: {exc}"
+                        except BrokenPipeError:
+                            pass  # A closed progress reader must not change game results.
                     if stop.is_set() or error is not None:
                         exhausted = True
             if error:

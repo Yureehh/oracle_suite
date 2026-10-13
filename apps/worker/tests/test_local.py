@@ -35,6 +35,71 @@ def test_seed_schedule_and_bounds() -> None:
         worker.configuration(None, True, [1, 2, 3, 4])
 
 
+def test_closed_progress_pipe_does_not_fail_games(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(worker, "validate_runtime", lambda *_: None)
+
+    def closed(*args: Any, **kwargs: Any) -> None:
+        raise BrokenPipeError("output reader exited")
+
+    monkeypatch.setattr(worker, "print", closed, raising=False)
+    run_id = submit(tmp_path, 2)
+    result = worker.execute(tmp_path, run_id, ROOT, 1, game=lambda *args: b"completed")
+    assert result["status"] == "succeeded" and result["error"] is None
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        assert set(store.completed(run_id)) == {0, 1}
+
+
+def test_final_allowed_decision_can_finish_game(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from types import SimpleNamespace
+
+    class Battle:
+        limit = 2
+
+        def __init__(self, *args: Any) -> None:
+            self.decisions = 0
+            player = SimpleNamespace(
+                must_wait=False, public_history=(), preview_pick_count=4
+            )
+            self.state = SimpleNamespace(
+                ended=False, winner="p1", turn=0, p1=player, p2=player
+            )
+
+        def __enter__(self) -> Battle:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            pass
+
+        def step(self, p1: str, p2: str) -> None:
+            if p1 != "team 1234":
+                self.decisions += 1
+                self.state.ended = self.decisions == self.limit
+
+    monkeypatch.setattr(worker, "ChampionsBattle", Battle)
+    config = worker.configuration(None, 1, [1, 2, 3, 4])
+    config["decision_limit"] = 2
+    trace = json.loads(worker.run_game(config, 0, ROOT))
+    assert len(trace["choices"]) == 3 and trace["winner"] == "p1"
+    Battle.limit = 3
+    with pytest.raises(RuntimeError, match="decision limit"):
+        worker.run_game(config, 0, ROOT)
+
+    demo_spec = importlib.util.spec_from_file_location(
+        "battle_demo", ROOT / "scripts/pokemon_battle.py"
+    )
+    assert demo_spec is not None and demo_spec.loader is not None
+    demo = importlib.util.module_from_spec(demo_spec)
+    demo_spec.loader.exec_module(demo)
+    Battle.limit = 500
+    monkeypatch.setattr(demo, "ChampionsBattle", Battle)
+    monkeypatch.setattr("sys.argv", ["pokemon_battle.py"])
+    demo.main()
+
+
 def test_parallel_cancel_and_resume(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:

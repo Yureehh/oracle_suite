@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Fixed worker progress-pipe failures changing run status and games finishing at the
+  final allowed decision being rejected in the worker and single-game demo. Added
+  regression checks for both entrypoints and for batches with closed output readers.
+
 - strixia-core 0.3.1: reserve SQLite backup destinations exclusively to prevent
   concurrent overwrite; added a regression that preserves a competing backup.
 
