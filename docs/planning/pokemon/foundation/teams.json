@@ -1,0 +1,234 @@
+[
+  [
+    {
+      "name": "Greninja",
+      "species": "Greninja",
+      "ability": "Torrent",
+      "moves": [
+        "Surf"
+      ],
+      "nature": "Timid",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Charizard",
+      "species": "Charizard",
+      "ability": "Blaze",
+      "moves": [
+        "Heat Wave"
+      ],
+      "nature": "Modest",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Garchomp",
+      "species": "Garchomp",
+      "ability": "Rough Skin",
+      "moves": [
+        "Earthquake"
+      ],
+      "nature": "Jolly",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Dragonite",
+      "species": "Dragonite",
+      "ability": "Inner Focus",
+      "moves": [
+        "Dragon Claw"
+      ],
+      "nature": "Adamant",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Gengar",
+      "species": "Gengar",
+      "ability": "Cursed Body",
+      "moves": [
+        "Shadow Ball"
+      ],
+      "nature": "Timid",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Scizor",
+      "species": "Scizor",
+      "ability": "Technician",
+      "moves": [
+        "Bullet Punch"
+      ],
+      "nature": "Adamant",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    }
+  ],
+  [
+    {
+      "name": "Blastoise",
+      "species": "Blastoise",
+      "ability": "Torrent",
+      "moves": [
+        "Surf"
+      ],
+      "nature": "Modest",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Venusaur",
+      "species": "Venusaur",
+      "ability": "Overgrow",
+      "moves": [
+        "Energy Ball"
+      ],
+      "nature": "Modest",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Tyranitar",
+      "species": "Tyranitar",
+      "ability": "Sand Stream",
+      "moves": [
+        "Rock Slide"
+      ],
+      "nature": "Adamant",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Gardevoir",
+      "species": "Gardevoir",
+      "ability": "Synchronize",
+      "moves": [
+        "Dazzling Gleam"
+      ],
+      "nature": "Modest",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Arcanine",
+      "species": "Arcanine",
+      "ability": "Intimidate",
+      "moves": [
+        "Flamethrower"
+      ],
+      "nature": "Modest",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    },
+    {
+      "name": "Gyarados",
+      "species": "Gyarados",
+      "ability": "Intimidate",
+      "moves": [
+        "Waterfall"
+      ],
+      "nature": "Adamant",
+      "item": "",
+      "level": 50,
+      "evs": {
+        "hp": 2,
+        "atk": 32,
+        "spa": 0,
+        "spd": 0,
+        "spe": 32,
+        "def": 0
+      }
+    }
+  ]
+]

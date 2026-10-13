@@ -1,0 +1,28 @@
+[project]
+name = "strixia-pokemon-foundation-probes"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "poke-env",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+poke-env = { git = "https://github.com/hsahovic/poke-env.git", rev = "7ff6212e4e738efd46f1ea52035b37a8bba1e386" }
+
+[tool.mypy]
+strict = true
+files = ["probe.py"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "ruff>=0.17.0",
+]
