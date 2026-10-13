@@ -10,9 +10,9 @@ One website (Next.js) → API (FastAPI) → durable metadata (PostgreSQL)
                             ↓                    ↑
                       artifact storage ← Python worker
                                               ↓
-                                     Arena / Bets workloads
+                                     Agon / Pythia workloads
                                               ↓
-                                  results consumed by Lab views
+                                  results consumed by Lyceum views
 ```
 
 This diagram is conceptual. Its arrows do not specify a queue protocol or storage

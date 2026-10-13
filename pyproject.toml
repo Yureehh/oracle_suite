@@ -1,7 +1,7 @@
 [project]
-name = "oracle-workspace"
+name = "strixia-workspace"
 version = "0.1.0"
-description = "Development workspace for Oracle"
+description = "Development workspace for Strixia"
 requires-python = ">=3.12"
 dependencies = []
 
@@ -9,7 +9,8 @@ dependencies = []
 package = false
 
 [tool.uv.workspace]
-members = ["packages/python/oracle_core", "packages/python/oracle_arena"]
+members = ["packages/python/strixia_core", "packages/python/strixia_agon"]
+exclude = ["scripts/pokemon_foundation"]
 
 [tool.ruff]
 target-version = "py312"
@@ -19,13 +20,13 @@ line-length = 88
 select = ["E4", "E7", "E9", "F", "I", "UP", "B"]
 
 [tool.pytest.ini_options]
-testpaths = ["packages/python/oracle_core/tests", "packages/python/oracle_arena/tests"]
+testpaths = ["packages/python/strixia_core/tests", "packages/python/strixia_agon/tests"]
 addopts = "--import-mode=importlib --strict-config --strict-markers"
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["packages/python/oracle_core/src", "packages/python/oracle_arena/src", "packages/python/oracle_core/tests", "packages/python/oracle_arena/tests"]
+files = ["packages/python/strixia_core/src", "packages/python/strixia_agon/src", "packages/python/strixia_core/tests", "packages/python/strixia_agon/tests"]
 
 [dependency-groups]
 dev = [

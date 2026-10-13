@@ -53,3 +53,8 @@ Monorepo ownership, Python-first development, uv, a thin Core and domain-specifi
 logic are established starting choices. FastAPI, Next.js, PostgreSQL, workers and
 filesystem artifacts are preferences/candidates to revisit with the first workload.
 Write a superseding ADR when requirements justify a material architectural change.
+
+## Current naming
+
+This record preserves the names used when accepted. [ADR 0003](0003-strixia-branding.md)
+updates current branding and local paths; the architectural/domain decisions remain.

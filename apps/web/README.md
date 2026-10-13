@@ -1,10 +1,10 @@
-# Oracle website
+# Strixia website
 
-This is the reserved entrypoint for one future Oracle website. It is documentation
+This is the reserved entrypoint for one future Strixia website. It is documentation
 only: no Next.js project, frontend dependencies, routes or running interface exists.
 
 TypeScript, React and Next.js are provisional preferences. The website should expose
-Arena, Bets and Lab with a coherent Oracle identity and room for product branding.
+Agon, Pythia and Lyceum with a coherent Strixia identity and room for product branding.
 Keep computation in Python libraries/workers and interact through API contracts.
 Core has no browser dependency and should not be imported directly by presentation.
 

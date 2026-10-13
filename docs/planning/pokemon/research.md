@@ -37,7 +37,7 @@ Sources: [poke-env data loader](https://github.com/hsahovic/poke-env/blob/master
 [Showdown simulator API](https://github.com/smogon/pokemon-showdown/blob/master/sim/SIMULATOR.md).
 Inspection references from 2026-10-12: Showdown `942cda71d14bf0618bd57991708a2e2734b6daba`,
 poke-env `7ff6212e4e738efd46f1ea52035b37a8bba1e386`. No dependency is installed/pinned in
-Oracle yet; PKA-001 must recheck and select an exact tested pair.
+Strixia yet; PKA-001 must recheck and select an exact tested pair.
 
 ## PufferLib: conditional candidate
 
@@ -58,10 +58,10 @@ model export and interrupted-run recovery. Profile simulator/Node IPC, collectio
 inference and gradient updates separately. A faster trainer does not fix a simulation
 bottleneck or incorrect transitions. Native integration cost may exceed its benefit.
 Adopt only if correctness and measured quality per time/cost improve. Do not introduce
-PufferLib's visualization as a second authoritative experiment store alongside Lab.
+PufferLib's visualization as a second authoritative experiment store alongside Lyceum.
 
 Alternative reference: [CleanRL PPO implementations](https://docs.cleanrl.dev/rl-algorithms/ppo/).
-Neither library is installed, benchmarked or demonstrated working with Oracle today.
+Neither library is installed, benchmarked or demonstrated working with Strixia today.
 No claim of a universally best RL library is justified.
 
 ## Model, data and regulation transfer
@@ -94,6 +94,36 @@ Research sources, all author-reported unless reproduced here:
 - [Jaxcalibur](https://jaxcalibur.github.io/): policy-only PPO training with custom JAX simulation; Random Singles methods are ideas rather than a VGC pretraining requirement.
 - [VGC-Bench](https://arxiv.org/abs/2506.10326): useful team-generalization and evaluation methodology; older benchmark formats/checkpoints need Champions compatibility checks.
 - [PokaiTrainer v2](https://arxiv.org/html/2608.29197v2): Champions M-B OTS Bayesian matrix/CFR search and simulation validation; full recipe is deferred.
+
+## Websites and bots for inspiration
+
+The bot/research references above remain model-method inspiration, not adopted engines
+or proven Strixia results. Product workflow references belong here alongside them.
+
+### VGC Gameplan Planner
+
+- Website: [VGC Planner](https://vgcplanner.app/).
+- Source and author documentation: [phc4rdoso/vgc-planner](https://github.com/phc4rdoso/vgc-planner).
+- Inspection date: 2026-10-13. Observed homepage: Regulation M-C label, team folders
+  containing opponent gameplans, a Showdown-paste import description, JSON import/export controls,
+  and a description of flowchart preparation. Deeper workflows were not exercised.
+- Author-documented behavior: branching turn-by-turn gameplans, named/colored lines,
+  replay-derived branches and sharing. The README describes turn results using a
+  Smogon damage calculator; these are author claims, not reproduced parity tests.
+- Primary fit: Delphi's matchup preparation and on-demand branches, especially
+  [PKA-050–052](epics/e09.md#pka-050). Metis may later supply agent suggestions for
+  those plans; Techne may use the same preparation context for candidate teams and
+  spreads. This does not move planning into a separate Metis implementation.
+- Documented assumptions: unless explicitly supplied, chance outcomes do not roll;
+  moves hit without critical hits, default speed ties favor the listed action order,
+  and HP uses average damage rolls. The author notes that Champions changes unknown
+  to the calculator are not modeled. These are planner conventions, not Strixia rules.
+  Its handling of legacy EV imports is not a requirement for our Champions-only scope.
+- Proposed adaptation: study the team/opponent organization, branch navigation and
+  presentation of assumptions. Preserve Strixia's authoritative simulator, uncertainty
+  and state-fidelity gates; do not claim a replay branch is an exact counterfactual.
+- Follow-up: [PKA-064](epics/e09.md#pka-064) produces a bounded workflow review before
+  any UI, importer, compatibility layer or mechanics are implemented from this reference.
 
 ## Search experiments and evaluation meaning
 

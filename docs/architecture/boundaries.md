@@ -2,16 +2,16 @@
 
 | Owner | Responsibility | Allowed direction once needed |
 | --- | --- | --- |
-| `oracle_core` | Narrow shared infrastructure and contracts | Standard library and justified infrastructure dependencies; no domains or apps |
-| `oracle_arena` | Game-specific simulation, policies, training, evaluation | Core when a real consumer requires it; no apps or Bets |
+| `strixia_core` | Narrow shared infrastructure and contracts | Standard library and justified infrastructure dependencies; no domains or apps |
+| `strixia_agon` | Game-specific simulation, policies, training, evaluation | Core when a real consumer requires it; no apps or Pythia |
 | `products/` | Canonical domain/product definitions | Documentation links, no duplicate implementation |
 | `apps/api` | Request validation and thin application orchestration | Domain libraries and selected adapters |
 | `apps/worker` | Computational execution and job orchestration | Domain libraries and execution adapters |
 | `apps/web` | Presentation and interaction | Public API contracts; no direct Python/package/database access |
-| Lab (future views) | Cross-domain inspection of real research results | Existing result metadata and artifact references |
+| Lyceum (future views) | Cross-domain inspection of real research results | Existing result metadata and artifact references |
 
 These are constraints for future code, not implemented dependency edges. There is
-currently no Core/Arena dependency. Introduce workspace dependencies with uv workspace
+currently no Core/Agon dependency. Introduce workspace dependencies with uv workspace
 sources only when needed; never rely on another member's accidentally installed
 dependencies. uv workspaces share a lock and environment; they do not enforce import
 boundaries. Review imports and test packages in isolation as behavior grows.
@@ -25,7 +25,7 @@ remain usable from tests, CLI tools and workers without web framework imports.
 Package runtime dependencies belong to package metadata. Optional training extras
 can keep heavy ML stacks out of unrelated development. Conflicting dependency or
 Python requirements may require independently managed environments rather than one
-workspace. Bets dependency compatibility must be assessed before integration.
+workspace. Pythia dependency compatibility must be assessed before integration.
 
 Application configuration and persistence adapters belong at process boundaries.
 Add a storage contract to Core only when its real use case makes replacement useful.

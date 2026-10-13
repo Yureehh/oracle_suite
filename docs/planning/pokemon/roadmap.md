@@ -10,9 +10,9 @@ end-to-end scope is Train → Evaluate → Analyze → Prepare → Simulate → 
 | --- | --- | --- | --- | --- |
 | 0 | Trustworthy Champions M-C integration choices | PKA-001–004 | Client/engine/stat mismatch | Pinned compatibility report, rule examples, player/set information contract |
 | 1 | Legal baseline battles and durable recorded sets | PKA-005–017 | Invalid actions, process failure, leakage | Complete repeatable Bo3, artifacts and restart/failure checks |
-| 2 | First useful Foresight web viewer | PKA-018–022 | Replay incompleteness | Real turn navigation with explicit unknowns and analysis eligibility |
+| 2 | First useful Theoria web viewer | PKA-018–022 | Replay incompleteness | Real turn navigation with explicit unknowns and analysis eligibility |
 | 3 | Belief-aware tactical analysis | PKA-023–029, 034 | Unsupported counterfactual certainty | Grounded facts/scenarios and bounded candidate matrix with visible assumptions |
-| 4 | Trainable Champions model and real research visibility | PKA-035–043, 046–049 | Throughput/generalization | Bounded actual training, grouped held-out league, lineage and honest Lab views |
+| 4 | Trainable Champions model and real research visibility | PKA-035–043, 046–049 | Throughput/generalization | Bounded actual training, grouped held-out league, lineage and honest Lyceum views |
 | 5 | Stronger decision analysis and tournament preparation | PKA-030–033, 050–052 | Search cost and pilot-dependent team ratings | Equal-budget experiments, calibrated support, regret evidence, preview and Gauntlet |
 | 6 | Reusable base, practice and optimization | PKA-044–045, 053–058 | Negative transfer and surrogate-objective bias | Transfer comparisons, local play, feasible spread tradeoffs and matchup evidence |
 | 7 | Approved public release and optional extensions | PKA-059–062 | Privacy, workload cost and scope expansion | Reviewed staging, authorization, backup/rollback, approved deployment |
@@ -38,8 +38,8 @@ first; throughput and pilot experiments then determine required compute. Do not 
 availability from permission to leave a PC running all day. No spending is authorized.
 
 Provisional target: stages 0–2, then a narrow evidence-based analysis slice. First PPO
-and basic League/Lab are stretch outcomes until measured. Strong generalization,
-advanced search, complete Forge and public hosting are longer-term work. Reassess the
+and basic League/Lyceum are stretch outcomes until measured. Strong generalization,
+advanced search, complete Techne and public hosting are longer-term work. Reassess the
 calendar after simulator compatibility, corpus availability and actual learning pilots.
 Frozen M-C remains a reproducible reference even when the live regulation changes.
 Support a later Champions regulation only through an explicit compatibility/adaptation

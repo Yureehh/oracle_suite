@@ -1,6 +1,6 @@
-# Oracle
+# Strixia
 
-Oracle is a Python-first platform for AI engineering and research: reinforcement
+Strixia is a Python-first platform for AI engineering and research: reinforcement
 learning, game theory, search, simulation, probabilistic prediction, and reproducible
 experiments. Its mission is to turn rigorous computational work into useful tools
 through one eventual web experience.
@@ -11,18 +11,21 @@ simulator, trained model, database, or experiment tracker yet.
 
 ## Platform
 
-- **Arena:** competitive game AI. Pokémon VGC is the first flagship; Magic: The
+- **Agon:** competitive game AI. Pokémon VGC is the first flagship; Magic: The
   Gathering and Poker are future possibilities.
-- **Bets:** probabilistic forecasting and evaluation. A separate existing project
+- **Pythia:** probabilistic forecasting and evaluation. A separate existing project
   was inspected; it remains unchanged and outside this workspace. See its
-  [inventory and integration plan](products/bets/README.md).
-- **Lab:** future cross-domain views of real runs, metrics, and artifacts produced
+  [inventory and integration plan](products/pythia/README.md).
+- **Lyceum:** future cross-domain views of real runs, metrics, and artifacts produced
   by workloads. It will reuse their experiment infrastructure.
 - **Core:** narrowly shared infrastructure, introduced only for demonstrated needs.
   The current package contains no runtime functionality.
 
-Pokémon product names Foresight, Delphi, Augur, and Forge are provisional branding,
-not package or service boundaries. A common game engine should serve future products.
+Pokémon products are **Theoria — Replay and decision analysis**, **Delphi — Matchup
+exploration and preparation**, **Metis — Agents and learning**, and **Techne — Team
+and spread optimization**. These names are accepted branding, not package or service
+boundaries. A common game engine should serve future products. See
+[ADR 0003](docs/decisions/0003-strixia-branding.md) for the naming and migration policy.
 
 ## Repository map
 
@@ -36,12 +39,12 @@ oracle_suite/
 │   ├── web/       # future website; README and scoped instructions
 │   └── worker/    # future execution process; README and scoped instructions
 ├── packages/python/
-│   ├── oracle_core/  # pyproject, README, AGENTS, src/oracle_core, tests
-│   └── oracle_arena/ # pyproject, README, AGENTS, src/oracle_arena/pokemon, tests
+│   ├── strixia_core/  # pyproject, README, AGENTS, src/strixia_core, tests
+│   └── strixia_agon/ # pyproject, README, AGENTS, src/strixia_agon/pokemon, tests
 ├── products/
-│   ├── arena/pokemon/ # product vision and constraints
-│   ├── bets/          # existing-project inventory and future integration
-│   └── lab/           # cross-domain research visibility
+│   ├── agon/pokemon/  # product vision and constraints
+│   ├── pythia/        # existing-project inventory and future integration
+│   └── lyceum/        # cross-domain research visibility
 ├── docs/
 │   ├── architecture/ # overview, boundaries, deployment
 │   ├── decisions/    # architecture decision records
@@ -52,7 +55,7 @@ oracle_suite/
 └── .github/workflows/ci.yml
 ```
 
-The directory is named `oracle_suite` by owner choice; it is the Oracle repository
+The directory is named `oracle_suite` by owner choice; it is the Strixia repository
 root. `products/` owns product definitions, `packages/python/` owns reusable code,
 and `apps/` owns executable application boundaries. `docs/` owns engineering guides.
 
@@ -72,14 +75,16 @@ are allowed by metadata but not yet verified.
 
 ## Getting started
 
-No remote is configured. Open this local checkout:
+The configured remote is [Yureehh/oracle_suite](https://github.com/Yureehh/oracle_suite).
+The repository URL and local checkout name remain unchanged by the branding migration.
+Open this local checkout:
 
 ```bash
 cd /Users/yureeh/dev/oracle_suite
 ```
 
-After a remote is chosen, clone its actual URL and open the resulting directory.
-Do not use a guessed repository URL. Install uv using the
+For another checkout, clone the configured URL and open the resulting directory.
+Install uv using the
 [official installation guide](https://docs.astral.sh/uv/getting-started/installation/).
 On macOS/Linux the documented installer is:
 
@@ -106,7 +111,7 @@ changing the lockfile. The scaffold is validated with uv 0.7.5, also pinned in C
 a newer uv can be used after checking lockfile compatibility.
 
 For formatting, use `uv run --locked --all-packages ruff format .`. For package
-builds, use `uv build --package oracle-core` and `uv build --package oracle-arena`.
+builds, use `uv build --package strixia-core` and `uv build --package strixia-agon`.
 Builds remain local and do not publish distributions.
 
 ## Development and roadmap
@@ -123,15 +128,15 @@ product scope and task approval workflow. A bounded Champions simulator compatib
 study now precedes runtime implementation, as recorded in
 [ADR 0002](docs/decisions/0002-pokemon-discovery-and-planning.md).
 
-The subsequent milestone is Oracle Release 0: a small durable Run lifecycle, API and
-worker, metadata, and artifacts, then the first genuine Pokémon Arena workload.
+The subsequent milestone is Strixia Release 0: a small durable Run lifecycle, API and
+worker, metadata, and artifacts, then the first genuine Pokémon Agon workload.
 Define its states, failure recovery, and acceptance tests before implementation.
-The [Pokémon product brief](products/arena/pokemon/README.md) records the agreed vision;
+The [Pokémon product brief](products/agon/pokemon/README.md) records the agreed vision;
 individual implementation designs still require discussion and approval. Later work can add verified
-research results, Lab views backed by those results, and a public web experience.
+research results, Lyceum views backed by those results, and a public web experience.
 There are no promised release dates or performance claims.
 
 ## License
 
 Licensing remains undecided. No public-source license is granted by this scaffold.
-The separate Bets project's license does not automatically license this repository.
+The separate Oracle Bets project's license does not automatically license this repository.

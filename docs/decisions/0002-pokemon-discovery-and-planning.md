@@ -49,3 +49,8 @@ Early experiments resolve the largest compatibility risks. The full vision is du
 while implementation stays small and approved. The backlog is scope coverage, not a
 fixed algorithm choice, deadline or claim of completion. Any conditional integration or
 research result that materially changes the design returns to owner discussion.
+
+## Current naming
+
+This record preserves the names used when accepted. [ADR 0003](0003-strixia-branding.md)
+updates current branding and local paths; the architectural/domain decisions remain.
