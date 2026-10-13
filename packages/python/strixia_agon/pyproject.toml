@@ -1,7 +1,7 @@
 [project]
-name = "oracle-core"
-version = "0.1.0"
-description = "Shared infrastructure boundary for Oracle"
+name = "strixia-agon"
+version = "0.2.0"
+description = "Competitive game AI boundary for Strixia"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []

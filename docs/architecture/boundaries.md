@@ -2,8 +2,8 @@
 
 | Owner | Responsibility | Allowed direction once needed |
 | --- | --- | --- |
-| `oracle_core` | Narrow shared infrastructure and contracts | Standard library and justified infrastructure dependencies; no domains or apps |
-| `oracle_arena` | Game-specific simulation, policies, training, evaluation | Core when a real consumer requires it; no apps or Pythia |
+| `strixia_core` | Narrow shared infrastructure and contracts | Standard library and justified infrastructure dependencies; no domains or apps |
+| `strixia_agon` | Game-specific simulation, policies, training, evaluation | Core when a real consumer requires it; no apps or Pythia |
 | `products/` | Canonical domain/product definitions | Documentation links, no duplicate implementation |
 | `apps/api` | Request validation and thin application orchestration | Domain libraries and selected adapters |
 | `apps/worker` | Computational execution and job orchestration | Domain libraries and execution adapters |

@@ -4,8 +4,8 @@ Strixia uses one modular repository and will expose its products through one web
 Python owns computation and backend logic. Application entrypoints stay separate
 from reusable domain libraries so simulation and research can run without a server.
 
-Today the workspace has two installable shells: `oracle-core` and `oracle-arena`.
-Agon includes the `oracle_arena.pokemon` namespace. Neither has runtime dependencies,
+Today the workspace has two installable shells: `strixia-core` and `strixia-agon`.
+Agon includes the `strixia_agon.pokemon` namespace. Neither has runtime dependencies,
 public functionality, or a dependency on the other. API, web, and worker directories
 contain documentation only. Products document intended outcomes, not implementations.
 

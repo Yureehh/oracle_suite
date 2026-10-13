@@ -49,7 +49,7 @@ do not routinely squash them into a single large feature commit.
 Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
 
 ```text
-feat(arena): validate coordinated switch choices
+feat(agon): validate coordinated switch choices
 fix(core): recover an interrupted run claim
 docs(pokemon): explain player information boundaries
 ```
@@ -69,7 +69,8 @@ Version only affected distributable packages. Keep package metadata, lockfile,
 installation expectations and changelog consistent in the same version-change commit.
 The non-distributable root workspace version is not a platform release counter.
 Model/checkpoint IDs and regulation lineage are independent of Python package versions.
-The current scaffold remains 0.1.0: today's policy adds no runtime capability.
+The renamed distributable shells are 0.2.0 for their incompatible import names;
+the non-distributable root metadata remains 0.1.0. Branding adds no runtime capability.
 Keep changes under Unreleased until a release is actually approved. No tags or release
 automation now; future tags identify approved reproducible releases.
 
@@ -77,7 +78,7 @@ automation now; future tags identify approved reproducible releases.
 
 1. Write the canonical specification under `products/<domain>/<product>/`; link to
    it from architecture docs rather than copying its requirements.
-2. For another Agon game, start with game-specific code under `oracle_arena` when
+2. For another Agon game, start with game-specific code under `strixia_agon` when
    that package fits. Do not force Pokémon observations or actions onto Magic.
 3. Split into a new `src/` package only for demonstrated ownership, dependency, or
    runtime isolation needs. Add its exact path to workspace members and include its

@@ -54,7 +54,7 @@ not be replaced just because this scaffold uses mypy.
 
 Use documented result metadata or an explicit adapter as the first integration boundary
 when a real consumer exists. Preserve its canonical datasets, evidence, model registry,
-configuration and history. Keep its existing Bets Core distinct from `oracle_core`;
+configuration and history. Keep its existing Bets Core distinct from `strixia_core`;
 extract shared behavior only after actual interfaces and consumers are understood.
 Do not simply copy sources and rename packages or merge databases.
 

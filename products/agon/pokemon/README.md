@@ -55,7 +55,7 @@ records the hierarchy.
 | Lyceum | Actual run metrics, configs, model comparisons, checkpoints and reproducibility views | Existing producer records; no separate Pokémon training backend |
 
 Pokémon-specific training and research implementations belong under
-`packages/python/oracle_arena/src/oracle_arena/pokemon/`. Thin process entrypoints belong
+`packages/python/strixia_agon/src/strixia_agon/pokemon/`. Thin process entrypoints belong
 in apps; narrow shared lifecycle/artifact functionality belongs in Core once required.
 Research protocols and decisions belong in docs; Lyceum makes their actual results visible.
 

@@ -20,9 +20,9 @@ paths. `AGENTS.override.md` takes precedence over `AGENTS.md` in the same direct
 configured fallback filenames and the instruction size limit also affect discovery.
 See [official discovery guidance](https://developers.openai.com/codex/guides/agents-md/).
 
-- `packages/python/oracle_core/AGENTS.md`
-- `packages/python/oracle_arena/AGENTS.md`
-- `packages/python/oracle_arena/src/oracle_arena/pokemon/AGENTS.md`
+- `packages/python/strixia_core/AGENTS.md`
+- `packages/python/strixia_agon/AGENTS.md`
+- `packages/python/strixia_agon/src/strixia_agon/pokemon/AGENTS.md`
 - `products/agon/pokemon/AGENTS.md` (also read for Pokémon code changes)
 - `products/pythia/AGENTS.md` and `products/lyceum/AGENTS.md`
 - `apps/api/AGENTS.md`, `apps/web/AGENTS.md`, `apps/worker/AGENTS.md`

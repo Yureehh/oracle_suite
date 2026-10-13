@@ -1,6 +1,6 @@
 # Pokémon code scope
 
-Read root instructions, `packages/python/oracle_arena/AGENTS.md`, and
+Read root instructions, `packages/python/strixia_agon/AGENTS.md`, and
 `products/agon/pokemon/AGENTS.md` before changing this subtree. The product rules
 are canonical; do not duplicate them here. See `products/agon/pokemon/README.md`
 for the agreed vision and current implementation status.

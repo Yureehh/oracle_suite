@@ -12,8 +12,8 @@ uv run --locked --all-packages ruff check .
 uv run --locked --all-packages ruff format --check .
 uv run --locked --all-packages mypy
 uv run --locked --all-packages pytest
-uv build --package oracle-core
-uv build --package oracle-arena
+uv build --package strixia-core
+uv build --package strixia-agon
 ```
 
 `uv python install` manages Python; `.python-version` selects the 3.12 line. Initial

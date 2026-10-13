@@ -5,7 +5,7 @@ agent policies, reinforcement learning, strategic evaluation and preparation too
 The first flagship is [Pokémon VGC](pokemon/README.md). Magic: The Gathering and Poker
 remain future possibilities without implementations or package boundaries.
 
-Today only `oracle-arena` is installable, with a Pokémon namespace and smoke tests.
+Today only `strixia-agon` is installable, with a Pokémon namespace and smoke tests.
 There is no functioning game engine. Reusable code belongs to that Python package;
 this directory owns product definitions. Core can supply shared execution and artifact
 capabilities when actual consumers justify them. Lyceum will inspect results produced by

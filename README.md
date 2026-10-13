@@ -39,8 +39,8 @@ oracle_suite/
 │   ├── web/       # future website; README and scoped instructions
 │   └── worker/    # future execution process; README and scoped instructions
 ├── packages/python/
-│   ├── oracle_core/  # pyproject, README, AGENTS, src/oracle_core, tests
-│   └── oracle_arena/ # pyproject, README, AGENTS, src/oracle_arena/pokemon, tests
+│   ├── strixia_core/  # pyproject, README, AGENTS, src/strixia_core, tests
+│   └── strixia_agon/ # pyproject, README, AGENTS, src/strixia_agon/pokemon, tests
 ├── products/
 │   ├── agon/pokemon/  # product vision and constraints
 │   ├── pythia/        # existing-project inventory and future integration
@@ -111,7 +111,7 @@ changing the lockfile. The scaffold is validated with uv 0.7.5, also pinned in C
 a newer uv can be used after checking lockfile compatibility.
 
 For formatting, use `uv run --locked --all-packages ruff format .`. For package
-builds, use `uv build --package oracle-core` and `uv build --package oracle-arena`.
+builds, use `uv build --package strixia-core` and `uv build --package strixia-agon`.
 Builds remain local and do not publish distributions.
 
 ## Development and roadmap
