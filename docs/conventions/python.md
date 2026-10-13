@@ -27,3 +27,16 @@ comprehensions, debugger calls, unreferenced async tasks and unused noqa suppres
 long. Docstring, naming and complexity enforcement are not enabled. Only safe lint
 fixes run automatically; review hook changes before staging them. The standalone
 foundation probe retains its separately scoped configuration.
+
+## Keep fixes small and prevent recurring debt
+
+- Keep progress output outside game/publication error handling. A closed output pipe
+  must not turn a saved result into a failed experiment.
+- Reserve new backup/export destinations with exclusive creation; checking existence
+  first does not prevent another process from creating the file before the write.
+- Check completion after the last allowed action. Test both completion at the bound
+  and rejection beyond it; do not increase the bound to hide an off-by-one error.
+- Add one focused regression for a reproduced bug. Share code only when existing
+  consumers need the same behavior; cosmetic shortening does not justify a new layer.
+- When a scaffold gains runtime behavior, update its prerequisite and verification
+  docs in the same change. Keep planned hosting and measured local behavior distinct.

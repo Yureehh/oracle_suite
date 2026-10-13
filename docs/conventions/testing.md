@@ -1,7 +1,11 @@
 # Testing
 
-The current tests verify installed distribution metadata, package imports and the
-Pokémon namespace. They do not validate simulator behavior or ML results. No pytest
+The current tests verify installed distribution metadata, package imports, the
+Pokémon namespace, native input guards, player information boundaries, paired choices,
+simulator rollback and local run/artifact persistence. Real-engine tests need the
+pinned Showdown checkout prepared first; CI prepares it before testing. The separate
+foundation probe has its own tests and lock. Tests do not establish actual-game fidelity
+or ML quality. No root pytest
 `pythonpath` setting masks installation failures. Importlib discovery permits package
 scopes without adding `__init__.py` to every tests directory.
 
@@ -10,7 +14,7 @@ Run `uv sync --locked --all-packages`, then
 [local development](../runbooks/local-development.md). Tests belong beside their owning
 package and must be included in root discovery when a new package is introduced.
 
-As behavior arrives, test contracts, edge cases, error paths and restart recovery.
+Test contracts, edge cases, error paths and restart recovery.
 Use small reviewed fixtures under `tests/fixtures/`, not root generated data. Seed
 stochastic tests and distinguish determinism from statistical guarantees. Keep slow
 integration/training tests explicit; introduce markers only when needed.

@@ -1,7 +1,9 @@
 # Local-first deployment path
 
-Nothing is provisioned. Development currently needs uv and Python only; there is
-no database, container, web server, paid hosting, or GPU prerequisite.
+Nothing is provisioned. Local development uses uv and Python; Champions simulation
+also needs Git and Node for the pinned engine. The local batch worker stores metadata
+in SQLite and artifacts on disk. No container, web server, paid hosting or GPU is
+required. See the [local batch runbook](../runbooks/local-batches.md).
 
 The provisional service direction is:
 
@@ -16,9 +18,9 @@ One website (Next.js) → API (FastAPI) → durable metadata (PostgreSQL)
 ```
 
 This diagram is conceptual. Its arrows do not specify a queue protocol or storage
-schema. The first useful deployment decision should follow the Release 0 workload:
-a durable run state machine, API, worker, recoverable task claims and artifacts.
-PostgreSQL and a local filesystem artifact store are candidates for that slice.
+schema. Local durable runs, recoverable claims, a worker and filesystem artifacts
+already exist; an API and hosted deployment remain planned. PostgreSQL is a candidate
+when a hosted workload needs shared metadata.
 Persistence requires migrations, backup/restore tests and interruption recovery.
 
 Begin with local processes and environment-driven application settings. Separate
