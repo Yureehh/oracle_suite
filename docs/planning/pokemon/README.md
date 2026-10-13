@@ -30,7 +30,7 @@ lists those individual stories by status; the epic file holds their scope and ac
 It is one backlog viewed in two ways, not two independent task lists.
 
 PKA-004's initial Git snapshot/branch setup is owner-accepted. PKA-063 tracks the
-approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and are owner-accepted. PKA-005/011 and the locally delivered PKA-006/012–014 await owner review.
+approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and are owner-accepted. PKA-005/011 await owner review. The owner accepted PKA-006/012–014 and authorized integration on 2026-10-13.
 The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 
