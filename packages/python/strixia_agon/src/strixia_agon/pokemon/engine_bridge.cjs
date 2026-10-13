@@ -6,8 +6,15 @@ const {extractChannelMessages} = require(path.join(process.argv[2], 'dist/sim/ba
 const FORMAT = 'gen9championsvgc2026regmcbo3';
 let battle;
 let errors = [];
+let updates = new Map();
 function send(type, data) {
-  if (type === 'sideupdate' && data[1]?.startsWith('|error|')) errors.push(data[1]);
+  if (type === 'sideupdate') {
+    const [player, ...lines] = (Array.isArray(data) ? data.join('\n') : data).split('\n');
+    for (const line of lines) {
+      if (line.startsWith('|error|')) errors.push(line);
+      if (line.startsWith('|request|')) updates.set(player, JSON.parse(line.slice(9)));
+    }
+  }
 }
 function frame(start = 0) {
   const events = extractChannelMessages(battle.log.slice(start).join('\n'), [0])[0].filter(line => !line.startsWith('|t:|'));
@@ -36,6 +43,7 @@ function command(input) {
   const snapshot = JSON.stringify(battle.toJSON());
   const start = battle.log.length;
   errors = [];
+  updates = new Map();
   try {
     for (const [i, side] of battle.sides.entries()) {
       const choice = input.choices[i];
@@ -51,15 +59,23 @@ function command(input) {
     battle.commitChoices();
     return frame(start);
   } catch (error) {
+    const revealed = errors.some(e => e.includes("[Unavailable choice]")) ? updates : new Map();
     battle.destroy();
     battle = Battle.fromJSON(snapshot);
     battle.send = send;
+    for (const side of battle.sides) {
+      if (revealed.has(side.id)) side.activeRequest = revealed.get(side.id);
+    }
+    if (revealed.size) {
+      error.updated = true;
+      error.frame = frame(battle.log.length);
+    }
     throw error;
   }
 }
 const input = readline.createInterface({input: process.stdin, crlfDelay: Infinity});
 input.on('line', line => {
   try { process.stdout.write(JSON.stringify({ok: true, frame: command(JSON.parse(line))}) + '\n'); }
-  catch (error) { process.stdout.write(JSON.stringify({ok: false, error: error.message}) + '\n'); }
+  catch (error) { process.stdout.write(JSON.stringify({ok: false, error: error.message, updated: !!error.updated, frame: error.frame}) + '\n'); }
 });
 input.on('close', () => { if (battle) battle.destroy(); });
