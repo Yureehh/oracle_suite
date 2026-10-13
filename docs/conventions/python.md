@@ -19,3 +19,11 @@ no logging or settings framework is installed for empty packages. Never log secr
 
 Keep computational code independent of HTTP handlers and UI. See the
 [boundaries](../architecture/boundaries.md) and [local commands](../runbooks/local-development.md).
+
+Ruff selects `E`, `F`, `W`, `I`, `UP`, `B`, `C4`, `T10`, `RUF006` and `RUF100`.
+These cover ordinary Python errors/style, imports, modernization, bug patterns,
+comprehensions, debugger calls, unreferenced async tasks and unused noqa suppressions.
+`E501` is excluded because the formatter handles layout while URLs/strings may stay
+long. Docstring, naming and complexity enforcement are not enabled. Only safe lint
+fixes run automatically; review hook changes before staging them. The standalone
+foundation probe retains its separately scoped configuration.

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added an installed local pre-commit suite for Ruff lint/format and basic file
+  hygiene, mirrored in CI. Expanded balanced Ruff correctness rules; no package
+  version bump or production dependency change.
+
+
 - strixia-agon 0.4.0: player-visible paired action menus, stale-choice checks and
   protocol-permitted request updates for unavailable choices. Added real-engine
   Mega, trapping, revival and replacement coverage and an evolving action register.

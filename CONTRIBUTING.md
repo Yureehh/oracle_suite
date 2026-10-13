@@ -15,7 +15,19 @@ with speculative contracts. Preserve existing work and document meaningful trade
 Use Python 3.12 and the root uv workspace. Add runtime dependencies with
 `uv add --package <package-name> <dependency>`; add tools with
 `uv add --group dev <tool>`. Update and review `uv.lock` whenever dependencies change.
-There is no pre-commit hook or mandatory external service.
+Install the local commit hooks after syncing the workspace:
+
+```bash
+uv sync --locked --all-packages
+uv run --locked --all-packages pre-commit install
+uv run --locked --all-packages pre-commit run --all-files
+```
+
+Hooks check file syntax, merge markers, files over 500 KiB, private keys and
+whitespace, then run Ruff lint fixes and formatting using the workspace lock.
+If a hook changes a file, review and stage that change before committing again.
+CI runs the same hook suite; new clones must install the Git hook themselves.
+Keep mypy and simulator tests in the full checks below rather than every commit.
 
 Before submitting a change:
 

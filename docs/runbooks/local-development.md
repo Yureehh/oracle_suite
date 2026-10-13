@@ -8,6 +8,8 @@ if missing; no manual virtualenv activation is needed. Validation uses uv 0.7.5.
 uv --version
 uv python install 3.12
 uv sync --locked --all-packages
+uv run --locked --all-packages pre-commit install
+uv run --locked --all-packages pre-commit run --all-files
 uv run --locked --all-packages ruff check .
 uv run --locked --all-packages ruff format --check .
 uv run --locked --all-packages mypy
@@ -46,3 +48,11 @@ Integration tests skip without the built engine; CI prepares it before tests.
 See the [local batch runbook](local-batches.md) for submission, parallel execution,
 status, explicit resume and export. It uses local SQLite and files, with no installed
 server database. Root checks include the worker's tests and type checking.
+
+## Commit hooks
+
+Hooks run on staged files; use `pre-commit run --all-files` through the locked uv
+workspace for a full check. Ruff uses the same locked version locally and in CI.
+The standard file hooks use a pinned upstream revision and isolated environments;
+the first run downloads them. No tests or type checker run during each commit.
+A fresh clone needs `pre-commit install`; Git does not clone installed hooks.
