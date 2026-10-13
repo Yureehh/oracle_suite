@@ -95,6 +95,36 @@ Research sources, all author-reported unless reproduced here:
 - [VGC-Bench](https://arxiv.org/abs/2506.10326): useful team-generalization and evaluation methodology; older benchmark formats/checkpoints need Champions compatibility checks.
 - [PokaiTrainer v2](https://arxiv.org/html/2608.29197v2): Champions M-B OTS Bayesian matrix/CFR search and simulation validation; full recipe is deferred.
 
+## Websites and bots for inspiration
+
+The bot/research references above remain model-method inspiration, not adopted engines
+or proven Strixia results. Product workflow references belong here alongside them.
+
+### VGC Gameplan Planner
+
+- Website: [VGC Planner](https://vgcplanner.app/).
+- Source and author documentation: [phc4rdoso/vgc-planner](https://github.com/phc4rdoso/vgc-planner).
+- Inspection date: 2026-10-13. Observed homepage: Regulation M-C label, team folders
+  containing opponent gameplans, a Showdown-paste import description, JSON import/export controls,
+  and a description of flowchart preparation. Deeper workflows were not exercised.
+- Author-documented behavior: branching turn-by-turn gameplans, named/colored lines,
+  replay-derived branches and sharing. The README describes turn results using a
+  Smogon damage calculator; these are author claims, not reproduced parity tests.
+- Primary fit: Delphi's matchup preparation and on-demand branches, especially
+  [PKA-050–052](epics/e09.md#pka-050). Metis may later supply agent suggestions for
+  those plans; Techne may use the same preparation context for candidate teams and
+  spreads. This does not move planning into a separate Metis implementation.
+- Documented assumptions: unless explicitly supplied, chance outcomes do not roll;
+  moves hit without critical hits, default speed ties favor the listed action order,
+  and HP uses average damage rolls. The author notes that Champions changes unknown
+  to the calculator are not modeled. These are planner conventions, not Strixia rules.
+  Its handling of legacy EV imports is not a requirement for our Champions-only scope.
+- Proposed adaptation: study the team/opponent organization, branch navigation and
+  presentation of assumptions. Preserve Strixia's authoritative simulator, uncertainty
+  and state-fidelity gates; do not claim a replay branch is an exact counterfactual.
+- Follow-up: [PKA-064](epics/e09.md#pka-064) produces a bounded workflow review before
+  any UI, importer, compatibility layer or mechanics are implemented from this reference.
+
 ## Search experiments and evaluation meaning
 
 Start from a correct small matrix game and bounded candidate choices. Double-oracle

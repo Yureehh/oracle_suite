@@ -72,6 +72,12 @@ See [research choices](../../../docs/planning/pokemon/research.md),
 [learning path](../../../docs/planning/pokemon/learning.md) and
 [ADR 0002](../../../docs/decisions/0002-pokemon-discovery-and-planning.md).
 
+[VGC Planner](https://vgcplanner.app/) is a product-workflow reference for Delphi's
+gameplans, with future Metis suggestions and Techne preparation connections. The
+[reference notes and PKA-064 review](../../../docs/planning/pokemon/research.md#vgc-gameplan-planner)
+distinguish observed UX, author-documented behavior and proposed adaptations. Its
+chance/mechanics assumptions do not replace our simulator and fidelity requirements.
+
 ## Delivery and deferred capabilities
 
 The roadmap first proves compatibility, then legal recorded Bo3 execution, useful

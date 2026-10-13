@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added VGC Planner as a Delphi workflow reference with Metis/Techne connections,
+  documented its stated simulation assumptions, and added the unimplemented PKA-064
+  review to Backlog. Recorded owner acceptance of PKA-004.
 - Breaking namespace migration: `oracle-core` / `oracle_core` become
   `strixia-core` / `strixia_core`; `oracle-arena` / `oracle_arena` become
   `strixia-agon` / `strixia_agon`, both at 0.2.0. Update imports, package selections
