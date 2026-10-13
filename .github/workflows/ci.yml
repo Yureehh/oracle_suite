@@ -23,6 +23,12 @@ jobs:
           version: "0.7.5"
       - name: Install Python
         run: uv python install 3.12
+      - name: Install Node for the pinned simulator
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: "26.0.0"
+      - name: Prepare pinned simulator
+        run: sh scripts/pokemon_foundation/prepare.sh --engine-only
       - name: Install locked workspace
         run: uv sync --locked --all-packages
       - name: Lint
