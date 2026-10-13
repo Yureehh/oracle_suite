@@ -13,8 +13,8 @@ concepts. These are different responsibilities, not competing backlogs.
 No GitHub board was created: at planning creation there was no remote and the checked
 CLI token lacked Projects access. Source-controlled Markdown remains authoritative.
 The owner subsequently configured [the remote](https://github.com/Yureehh/oracle_suite)
-and published the initial main/dev baseline. Local task-branch changes still require
-separate push/merge authorization; no task merge request exists yet.
+and published the initial main/dev baseline. The owner authorized publication and integration of the completed branding/foundation
+batch on 2026-10-13. Future stories require their own scoped approval.
 
 ## Start here
 
@@ -30,7 +30,7 @@ lists those individual stories by status; the epic file holds their scope and ac
 It is one backlog viewed in two ways, not two independent task lists.
 
 PKA-004's initial Git snapshot/branch setup is owner-accepted. PKA-063 tracks the
-approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and remain In Review for owner acceptance. The next integration task is PKA-005 after reviewing these findings.
+approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and are owner-accepted. PKA-005 and PKA-011 are the next discussion candidates.
 The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 

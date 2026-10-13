@@ -2,7 +2,7 @@
 
 Created: 2026-10-12
 
-This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/agon/pokemon/README.md) defines requirements. PKA-004 local Git setup is owner-accepted. PKA-063 branding/package migration is implemented and in review; the guided PKA-001–003 research batch is approved; production implementation is not.
+This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/agon/pokemon/README.md) defines requirements. PKA-004 local Git setup is owner-accepted. The owner accepted PKA-000, PKA-001–003 and PKA-063 and authorized publication/integration on 2026-10-13. Production implementation still requires story approval.
 
 P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/practice; P3 = deferred. These priorities describe value, not permission or a promised date. S = small, M = several reviewable steps, L/refine = must split before approval. Dependencies are story IDs, not implementation authorization.
 
@@ -10,8 +10,8 @@ P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-
-None.
+| [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
+| [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
 
 ## Ready for Approval
 
@@ -25,16 +25,18 @@ None.
 
 ## In Review
 
+None.
+
+## Done
+
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
 | [PKA-001](epics/e01.md#pka-001) | Probe Champions simulator compatibility | E01 | P0 | S | None |
 | [PKA-002](epics/e01.md#pka-002) | Validate Champions stat allocations and legality | E01 | P0 | S | PKA-001 |
 | [PKA-003](epics/e01.md#pka-003) | Define player observations and Bo3 knowledge | E01 | P0 | S | PKA-001, PKA-002 |
 
-- [PKA-063: Apply the Strixia identity](epics/e01.md#pka-063) — E01, P0, S, no dependencies. Full local rename verified on 2026-10-13, including isolated package installation. Owner acceptance pending.
-- [PKA-000: Deliver the complete planning board](epics/e01.md#pka-000) — E01, P0, M, no dependencies. Files created and checks passed on 2026-10-12; waiting for owner acceptance. No application code or Git publication.
-
-## Done
+- [PKA-000: Deliver the complete planning board](epics/e01.md#pka-000) — E01, P0, M, no dependencies. Owner accepted and authorized integration on 2026-10-13.
+- [PKA-063: Apply the Strixia identity](epics/e01.md#pka-063) — E01, P0, S, no dependencies. Owner accepted and authorized integration on 2026-10-13.
 
 - [PKA-004: Establish main/dev/task branch workflow](epics/e01.md#pka-004) — E01, P0, S, no dependencies. Owner accepted the verified local setup on 2026-10-13 and separately configured/published the main/dev remote baseline.
 
@@ -46,13 +48,11 @@ None.
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-| [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
 | [PKA-006](epics/e02.md#pka-006) | Enumerate legal doubles decisions | E02 | P0 | M | PKA-005 |
 | [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
 | [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
 | [PKA-009](epics/e02.md#pka-009) | Restore and branch controlled states | E02 | P1 | M | PKA-005 |
 | [PKA-010](epics/e02.md#pka-010) | Build a doubles-aware tactical baseline | E02 | P1 | M | PKA-006, PKA-002 |
-| [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
 | [PKA-012](epics/e03.md#pka-012) | Implement durable run metadata | E03 | P0 | M | PKA-011 |
 | [PKA-013](epics/e03.md#pka-013) | Store immutable workload artifacts | E03 | P0 | S | PKA-012 |
 | [PKA-014](epics/e03.md#pka-014) | Execute jobs in one local worker | E03 | P0 | M | PKA-012, PKA-013 |
@@ -107,6 +107,8 @@ None.
 | [PKA-064](epics/e09.md#pka-064) | Review VGC Planner workflows | E09 | P2 | S | None |
 
 ## Change history
+
+- 2026-10-13: Owner accepted completed planning, branding and foundation work and authorized commit/push/merge. Moved PKA-000, PKA-001–003 and PKA-063 to Done; selected PKA-005 and PKA-011 for discussion only. Training remains Python; Node is limited to the simulator boundary.
 
 - 2026-10-13: PKA-003 verified and moved to In Review; all three guided foundation cards await owner acceptance. Research reports document client stat/validator gaps and official evidence limits. No production implementation or publication.
 

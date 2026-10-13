@@ -29,6 +29,10 @@ acceptance permits Done. Do not automatically start another task. Board approval
 not approval to code, commit, push, spend or deploy. Use the documented main/dev/task
 branch workflow once Git setup is separately authorized.
 
+Keep training, policies, models, evaluation and set orchestration in Python. Limit
+JavaScript to the upstream Showdown engine boundary. Decide hosting and transport
+optimizations from measured workloads rather than speculative infrastructure.
+
 Pokémon training code belongs in Agon; Lyceum views existing run/model records. Keep
 neutral/learned beliefs explicit, preserve chronological set evidence and state-fidelity
 limits. Missing-spread replay imports stay viewer-only; supplied spreads alone never

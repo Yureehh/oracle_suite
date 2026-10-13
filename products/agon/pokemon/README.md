@@ -17,6 +17,9 @@ analysis functionality remain unimplemented. This brief owns product requirement
 - Showdown is the initial simulator reference; poke-env plus a narrow Node bridge is
   the accepted candidate direction, conditional on compatibility/correctness evidence.
   Replace an inadequate client layer if warranted; no custom mechanics without approval.
+- Training, policies, models, evaluation and set orchestration use Python. JavaScript
+  is limited to the Showdown engine boundary; it is not the training implementation.
+  Hosting and process/transport optimizations follow representative profiling.
 - Search is optional. Useful replay inspection precedes dependence on a strong RL model.
 - Information-aware analysis and fully specified scenarios share computation but have
   different visibility contracts. Agent policies never read privileged simulator state.
