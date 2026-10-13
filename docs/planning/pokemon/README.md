@@ -4,7 +4,7 @@ Created: 2026-10-12
 
 This directory is the persistent repository-local Kanban requested by the owner.
 The [board](kanban.md) is authoritative for status, priority and dependency IDs.
-The twelve epic files contain 64 product/workflow stories; PKA-000 tracks delivery
+The twelve epic files contain 66 product/workflow stories; PKA-000 tracks delivery
 of this planning work. The [product brief](../../../products/agon/pokemon/README.md)
 is authoritative for product requirements. [Roadmap](roadmap.md) defines sequencing,
 [research](research.md) records technical options, and [learning](learning.md) explains
@@ -30,7 +30,7 @@ lists those individual stories by status; the epic file holds their scope and ac
 It is one backlog viewed in two ways, not two independent task lists.
 
 PKA-004's initial Git snapshot/branch setup is owner-accepted. PKA-063 tracks the
-approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and are owner-accepted. PKA-005 and PKA-011 are the next discussion candidates.
+approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and are owner-accepted. PKA-005/011 and the locally delivered PKA-006/012–014 await owner review.
 The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 

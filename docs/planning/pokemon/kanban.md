@@ -27,6 +27,11 @@ None.
 | [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
 | [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
 
+| [PKA-006](epics/e02.md#pka-006) | Enumerate legal doubles decisions | E02 | P0 | M | PKA-005 |
+| [PKA-012](epics/e03.md#pka-012) | Implement durable run metadata | E03 | P0 | M | PKA-011 |
+| [PKA-013](epics/e03.md#pka-013) | Store immutable workload artifacts | E03 | P0 | S | PKA-012 |
+| [PKA-014](epics/e03.md#pka-014) | Execute jobs in one local worker | E03 | P0 | M | PKA-012, PKA-013 |
+
 ## Done
 
 | ID | Story | Epic | Priority | Size | Dependencies |
@@ -48,14 +53,10 @@ None.
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-| [PKA-006](epics/e02.md#pka-006) | Enumerate legal doubles decisions | E02 | P0 | M | PKA-005 |
 | [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
 | [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
 | [PKA-009](epics/e02.md#pka-009) | Restore and branch controlled states | E02 | P1 | M | PKA-005 |
 | [PKA-010](epics/e02.md#pka-010) | Build a doubles-aware tactical baseline | E02 | P1 | M | PKA-006, PKA-002 |
-| [PKA-012](epics/e03.md#pka-012) | Implement durable run metadata | E03 | P0 | M | PKA-011 |
-| [PKA-013](epics/e03.md#pka-013) | Store immutable workload artifacts | E03 | P0 | S | PKA-012 |
-| [PKA-014](epics/e03.md#pka-014) | Execute jobs in one local worker | E03 | P0 | M | PKA-012, PKA-013 |
 | [PKA-015](epics/e03.md#pka-015) | Expose run submission and status | E03 | P1 | S | PKA-014 |
 | [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
 | [PKA-017](epics/e04.md#pka-017) | Parse recorded simulator traces | E04 | P0 | S | PKA-016 |
@@ -106,6 +107,9 @@ None.
 | [PKA-062](epics/e12.md#pka-062) | Assess future Champions formats and public bots | E12 | P3 | L/refine | PKA-048, PKA-060 |
 | [PKA-064](epics/e09.md#pka-064) | Review VGC Planner workflows | E09 | P2 | S | None |
 
+| [PKA-065](epics/e03.md#pka-065) | Assess mid-turn recovery | E03 | P2 | S | PKA-009, PKA-014 |
+| [PKA-066](epics/e03.md#pka-066) | Assess shared execution and cloud failover | E03 | P2 | S | PKA-013, PKA-014 |
+
 ## Change history
 
 - 2026-10-13: Owner accepted completed planning, branding and foundation work and authorized commit/push/merge. Moved PKA-000, PKA-001–003 and PKA-063 to Done; selected PKA-005 and PKA-011 for discussion only. Training remains Python; Node is limited to the simulator boundary.
@@ -129,3 +133,5 @@ None.
 - 2026-10-13: PKA-063 moved to In Review after root checks, package builds, independent wheel imports, local link/instruction validation and task metadata/dependency checks. PKA-064 remains Backlog; PKA-001–003 have not started.
 
 - 2026-10-13: Owner approved implementation and publication of PKA-005 and the PKA-011 design. Delivered cards remain In Review pending final owner acceptance; merge authorization does not imply a review of the resulting source.
+
+- 2026-10-13: Owner approved and locally implemented PKA-006 and PKA-012–014 together; moved verified cards to In Review. Added PKA-065/066 for future resilience and a regulation revalidation gate under PKA-062. No automatic acceptance, push, merge or cloud spend.

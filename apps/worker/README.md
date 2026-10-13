@@ -1,13 +1,11 @@
-# Strixia worker
+# Strixia local worker
 
-This is the reserved entrypoint for computational execution outside API requests.
-There is no worker process, queue client or job framework in the scaffold.
+`local.py` is the runnable Python coordinator for one durable batch of independent
+Champions games. It uses Core's SQLite records and immutable artifacts, and Agon's
+pinned engine adapter. A bounded thread pool drives independent Node processes;
+training and policies remain Python. No queue broker or web framework is required.
 
-A future Python worker should execute real workloads reproducibly, record task states,
-handle failure/interruption, and refer to durable artifacts. Domain job logic belongs
-in owning libraries; process orchestration and infrastructure adapters belong here.
-Core can supply demonstrated lifecycle contracts when Release 0 needs them.
-
-PostgreSQL task claims and local artifact storage are initial candidates, not installed
-services. Resource allocation, retries, claim recovery and job semantics remain open
-until the first workload. See the [deployment path](../../docs/architecture/deployment.md).
+Read the [batch runbook](../../docs/runbooks/local-batches.md) for submission,
+execution, status, explicit resume, cancellation and export commands. Supported
+platforms are local macOS/Linux. There is no multi-host scheduling, cloud failover,
+mid-turn recovery, Bo3 runner or trainer in this implementation.
