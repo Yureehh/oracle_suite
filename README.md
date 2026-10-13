@@ -5,9 +5,10 @@ learning, game theory, search, simulation, probabilistic prediction, and reprodu
 experiments. Its mission is to turn rigorous computational work into useful tools
 through one eventual web experience.
 
-**Status: repository scaffold.** Only package installation, development tooling,
-smoke tests, and documentation exist here. There is no API, worker, frontend,
-simulator, trained model, database, or experiment tracker yet.
+**Status: first local simulation capability.** Agon 0.3.0 controls a pinned Champions
+M-C game from Python. Foundation reports and a durable-workload design accompany it.
+There is no API, worker, frontend, trained model, database or experiment tracker yet.
+See the [battle guide](docs/planning/pokemon/foundation/005-adapter.md).
 
 ## Platform
 
@@ -51,7 +52,7 @@ oracle_suite/
 │   ├── conventions/  # Python, testing, research, documentation
 │   └── runbooks/      # local development
 ├── infra/            # infrastructure guidance; no provisioned services
-├── scripts/          # automation policy; no scripts needed yet
+├── scripts/          # local battle demo and isolated foundation probes
 └── .github/workflows/ci.yml
 ```
 

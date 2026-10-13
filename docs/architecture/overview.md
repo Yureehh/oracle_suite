@@ -4,9 +4,9 @@ Strixia uses one modular repository and will expose its products through one web
 Python owns computation and backend logic. Application entrypoints stay separate
 from reusable domain libraries so simulation and research can run without a server.
 
-Today the workspace has two installable shells: `strixia-core` and `strixia-agon`.
-Agon includes the `strixia_agon.pokemon` namespace. Neither has runtime dependencies,
-public functionality, or a dependency on the other. API, web, and worker directories
+Core remains an installable shell. Agon 0.3.0 exposes a Python-controlled local
+Champions game, using a narrow Node subprocess for pinned Showdown. Neither package
+has Python runtime dependencies or a dependency on the other. API, web, and worker directories
 contain documentation only. Products document intended outcomes, not implementations.
 
 Agon owns game AI; Pokémon VGC is first. The separate Oracle Bets project is the future Pythia integration source

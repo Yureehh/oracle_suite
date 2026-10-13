@@ -1,8 +1,10 @@
 # Strixia Agon package
 
-Agon owns competitive game AI. The package is currently an installable shell with a
-Pokémon namespace and installation/import tests. No game mechanics, environment,
-policy, evaluator, trainer or simulator exists yet. There are no runtime dependencies.
+Agon owns competitive game AI. Version 0.3.0 provides a typed Python adapter for
+one local Champions M-C game. The [battle guide](../../../docs/planning/pokemon/foundation/005-adapter.md)
+explains setup and custom teams. Python has no third-party runtime dependencies;
+the adapter requires Node, Git and the built pinned Showdown checkout. Policies,
+training, evaluation and Bo3 orchestration remain future work.
 
 Preserve game-specific rules and separate simulation, policies, training and evaluation
 as real code arrives. Pokémon VGC is first; Magic and Poker are deferred. Neither a

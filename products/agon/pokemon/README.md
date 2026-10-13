@@ -2,9 +2,9 @@
 
 Updated: 2026-10-13
 
-**Status:** package namespaces and installation tests only. Product direction and a
-persistent full-scope Kanban now exist; simulator, API, website, worker, models and
-analysis functionality remain unimplemented. This brief owns product requirements;
+**Status:** foundation research and a local Python simulator adapter are implemented.
+See the [battle guide](../../../docs/planning/pokemon/foundation/005-adapter.md).
+API, website, worker, models and analysis functionality remain unimplemented. This brief owns product requirements;
 [the planning board](../../../docs/planning/pokemon/kanban.md) owns progress.
 
 ## Agreed scope and boundaries
@@ -14,9 +14,9 @@ analysis functionality remain unimplemented. This brief owns product requirement
   and mechanics, not historical Scarlet/Violet EV/IV training or Random Battles.
 - One reusable Pokémon intelligence engine. Theoria, Delphi, Metis and Techne are
   accepted product identities, not separate simulators, packages or services.
-- Showdown is the initial simulator reference; poke-env plus a narrow Node bridge is
-  the accepted candidate direction, conditional on compatibility/correctness evidence.
-  Replace an inadequate client layer if warranted; no custom mechanics without approval.
+- PKA-005 uses direct pinned Showdown through a narrow Node bridge. Foundation
+  research found this sufficient; poke-env remains a research dependency only.
+  No custom mechanics without approval.
 - Training, policies, models, evaluation and set orchestration use Python. JavaScript
   is limited to the Showdown engine boundary; it is not the training implementation.
   Hosting and process/transport optimizations follow representative profiling.

@@ -1,7 +1,8 @@
 # Development scripts
 
-No custom script is required for this scaffold: use the tested uv commands in the
-[local development runbook](../docs/runbooks/local-development.md).
+Run `pokemon_battle.py` for one Python-controlled Champions game. See the
+[battle guide](../docs/planning/pokemon/foundation/005-adapter.md) for setup and inputs,
+and the [local development runbook](../docs/runbooks/local-development.md) for checks.
 
 Add a script only when repeated real work is clearer than a documented tool command.
 Keep it portable, scoped, explicit about inputs and side effects, and independent of

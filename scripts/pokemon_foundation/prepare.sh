@@ -15,6 +15,7 @@ cmp "$checkout/package-lock.json" "$root/scripts/pokemon_foundation/showdown-pac
 cd "$checkout"
 npm ci --omit=optional
 node build
+if [ "${1:-}" = "--engine-only" ]; then exit 0; fi
 # Development configuration, not an upstream source patch. Local guests only.
 cat > config/config.js <<'JS'
 exports.port = 8765;
