@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import hashlib
 import importlib.metadata
 import json
 import os
@@ -14,6 +15,7 @@ import subprocess
 import time
 from collections.abc import Iterator
 from contextlib import contextmanager
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -24,7 +26,7 @@ POKE_ENV_REV = "7ff6212e4e738efd46f1ea52035b37a8bba1e386"
 FORMAT = "gen9championsvgc2026regmcbo3"
 
 
-def engine() -> dict[str, Any]:
+def engine(task: str) -> dict[str, Any]:
     revision = subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=STORAGE / "showdown", text=True
     ).strip()
@@ -33,7 +35,15 @@ def engine() -> dict[str, Any]:
     return dict(
         json.loads(
             subprocess.check_output(
-                ["node", str(Path(__file__).with_name("engine.cjs"))], text=True
+                [
+                    "node",
+                    str(
+                        Path(__file__).with_name(
+                            "engine.cjs" if task == "001" else "rules.cjs"
+                        )
+                    ),
+                ],
+                text=True,
             )
         )
     )
@@ -140,19 +150,23 @@ def local_server() -> Iterator[float]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("task", choices=["001"])
+    parser.add_argument("task", choices=["001", "002"])
     parser.add_argument(
         "--client", action="store_true", help="Starts an isolated local server"
     )
     args = parser.parse_args()
     started = time.perf_counter()
-    result = engine()
+    result = engine(args.task)
+    if args.client and args.task != "001":
+        parser.error("--client applies only to 001")
     if args.client:
         with local_server() as server_ms:
             result["server_startup_ms"] = server_ms
             result["client"] = asyncio.run(client(result.pop("packed_teams")))
     result["versions"] = {
         "python": platform.python_version(),
+        "npm": subprocess.check_output(["npm", "--version"], text=True).strip(),
+        "uv": subprocess.check_output(["uv", "--version"], text=True).strip(),
         "platform": platform.platform(),
         "processor": platform.processor(),
         "showdown_revision": SHOWDOWN_REV,
@@ -161,6 +175,15 @@ def main() -> None:
             dist.metadata["Name"]: dist.version
             for dist in importlib.metadata.distributions()
         },
+    }
+    result["evidence_utc"] = datetime.now(UTC).isoformat()
+    result["inputs_sha256"] = {
+        str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+        for p in [
+            ROOT / "docs/planning/pokemon/foundation/teams.json",
+            Path(__file__).with_name("uv.lock"),
+            Path(__file__).with_name("showdown-package-lock.json"),
+        ]
     }
     result["wall_ms"] = (time.perf_counter() - started) * 1000
     STORAGE.mkdir(parents=True, exist_ok=True)
