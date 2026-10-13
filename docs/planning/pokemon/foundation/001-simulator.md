@@ -4,7 +4,7 @@ Evidence date: 2026-10-13. [Reproduction](README.md). Owner review pending.
 
 Pins: Showdown `3a766f2cfb5e51c1e428cfe87d0dba91a8f01640` (0.11.11);
 poke-env `7ff6212e4e738efd46f1ea52035b37a8bba1e386` (0.16.1).
-Runtime: Node 26.0.0, Python 3.12.13, uv 0.7.5, macOS 26.6.2 arm64 (Apple M2).
+Runtime: Node 26.0.0, Python 3.12.13, uv 0.7.5, npm 11.12.1, macOS 26.6.2 arm64 (Apple M2).
 The copied upstream npm lock and standalone uv lock resolve dependencies exactly.
 Generated JSON includes installed Python distributions and runtime versions.
 
@@ -39,14 +39,14 @@ successful play therefore do not certify Champions data interpretation.
 
 ## Measured timings
 
-A final local run measured engine module load **58.77 ms**, first battle construction
-**6.37 ms**, then 100 varied-seed games in **643.36 ms** (median **5.68 ms/game**;
-about 155 battles/s for this narrow workload). Validation and battle construction are
+A final local run measured engine module load **39.03 ms**, first battle construction
+**4.48 ms**, then 100 varied-seed games in **483.98 ms** (median **4.69 ms/game**;
+about 207 battles/s for this narrow workload). Validation and battle construction are
 included in each warmed sample. JSON transfer and Python subprocess startup are
 excluded; runner total wall time is reported separately.
 
-Local server startup to listening measured **6,264.84 ms**. Three client sets took
-**11,549.74**, **17,435.46**, and **10,868.56 ms**, completing seven individual games.
+Local server startup to listening measured **2,694.18 ms**. Three client sets took
+**13,590.78**, **12,872.78**, and **16,882.57 ms**, completing seven individual games.
 The first set includes connection/login initialization; later sets reuse connections.
 This path includes server scheduling, websocket messages, client parsing and intergame
 readiness. Same supplied teams, preview and default action rule; server-generated

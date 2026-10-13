@@ -47,3 +47,14 @@ measure harness throughput, not strategic strength, RL throughput or a typical m
 The direct batch is bounded to 100 games and 500 decision boundaries per game; the
 client batch is three sets, with a 60-second deadline per set. Preparation/download
 and dependency installation are excluded from execution timings.
+
+## Verification recorded on 2026-10-13
+
+Standalone locked sync, Ruff lint/format, strict mypy for both probe modules, all
+three Node syntax checks and fifteen research tests passed. All five required root
+checks passed (three installation tests, six typed package/test files). A temporary
+checker verified local Markdown links/anchors/instruction paths, 65 unique cards,
+existing task metadata/dependencies, dependency cycles and historical records.
+Pinned Showdown tracked source remained unmodified. Local review found no remaining
+actionable implementation issue; the documented simulator/client/evidence limits
+remain review findings. All three task cards are In Review, not accepted or merged.

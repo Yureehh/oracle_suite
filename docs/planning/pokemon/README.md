@@ -30,7 +30,7 @@ lists those individual stories by status; the epic file holds their scope and ac
 It is one backlog viewed in two ways, not two independent task lists.
 
 PKA-004's initial Git snapshot/branch setup is owner-accepted. PKA-063 tracks the
-approved Strixia migration; PKA-001 remains the next simulator research candidate.
+approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and remain In Review for owner acceptance. The next integration task is PKA-005 after reviewing these findings.
 The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 

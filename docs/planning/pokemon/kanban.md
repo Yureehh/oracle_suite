@@ -10,7 +10,8 @@ P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-| [PKA-003](epics/e01.md#pka-003) | Define player observations and Bo3 knowledge | E01 | P0 | S | PKA-001, PKA-002 |
+
+None.
 
 ## Ready for Approval
 
@@ -28,6 +29,7 @@ None.
 | --- | --- | --- | --- | --- | --- |
 | [PKA-001](epics/e01.md#pka-001) | Probe Champions simulator compatibility | E01 | P0 | S | None |
 | [PKA-002](epics/e01.md#pka-002) | Validate Champions stat allocations and legality | E01 | P0 | S | PKA-001 |
+| [PKA-003](epics/e01.md#pka-003) | Define player observations and Bo3 knowledge | E01 | P0 | S | PKA-001, PKA-002 |
 
 - [PKA-063: Apply the Strixia identity](epics/e01.md#pka-063) — E01, P0, S, no dependencies. Full local rename verified on 2026-10-13, including isolated package installation. Owner acceptance pending.
 - [PKA-000: Deliver the complete planning board](epics/e01.md#pka-000) — E01, P0, M, no dependencies. Files created and checks passed on 2026-10-12; waiting for owner acceptance. No application code or Git publication.
@@ -105,6 +107,8 @@ None.
 | [PKA-064](epics/e09.md#pka-064) | Review VGC Planner workflows | E09 | P2 | S | None |
 
 ## Change history
+
+- 2026-10-13: PKA-003 verified and moved to In Review; all three guided foundation cards await owner acceptance. Research reports document client stat/validator gaps and official evidence limits. No production implementation or publication.
 
 - 2026-10-13: PKA-002 verified and moved to In Review. Fractional validator gap and official evidence gaps recorded; dependent PKA-003 may continue under guided-batch approval.
 

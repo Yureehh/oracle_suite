@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added locked, standalone Champions M-C foundation probes and reports for PKA-001–003,
+  covering engine/client compatibility, native rules/validator gaps and player privacy.
+  All three remain In Review; no production capability or package version changes.
+
 - Added VGC Planner as a Delphi workflow reference with Metis/Techne connections,
   documented its stated simulation assumptions, and added the unimplemented PKA-064
   review to Backlog. Recorded owner acceptance of PKA-004.
