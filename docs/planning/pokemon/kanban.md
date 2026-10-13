@@ -2,7 +2,7 @@
 
 Created: 2026-10-12
 
-This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/agon/pokemon/README.md) defines requirements. PKA-004 local Git setup is owner-accepted. PKA-063 branding/package migration is implemented and in review; no application implementation is approved.
+This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/agon/pokemon/README.md) defines requirements. PKA-004 local Git setup is owner-accepted. PKA-063 branding/package migration is implemented and in review; the guided PKA-001–003 research batch is approved; production implementation is not.
 
 P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/practice; P3 = deferred. These priorities describe value, not permission or a promised date. S = small, M = several reviewable steps, L/refine = must split before approval. Dependencies are story IDs, not implementation authorization.
 
@@ -10,7 +10,6 @@ P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-| [PKA-001](epics/e01.md#pka-001) | Probe Champions simulator compatibility | E01 | P0 | S | None |
 | [PKA-002](epics/e01.md#pka-002) | Validate Champions stat allocations and legality | E01 | P0 | S | PKA-001 |
 | [PKA-003](epics/e01.md#pka-003) | Define player observations and Bo3 knowledge | E01 | P0 | S | PKA-001, PKA-002 |
 
@@ -25,6 +24,8 @@ None.
 None.
 
 ## In Review
+
+| [PKA-001](epics/e01.md#pka-001) | Probe Champions simulator compatibility | E01 | P0 | S | None |
 
 - [PKA-063: Apply the Strixia identity](epics/e01.md#pka-063) — E01, P0, S, no dependencies. Full local rename verified on 2026-10-13, including isolated package installation. Owner acceptance pending.
 - [PKA-000: Deliver the complete planning board](epics/e01.md#pka-000) — E01, P0, M, no dependencies. Files created and checks passed on 2026-10-12; waiting for owner acceptance. No application code or Git publication.
@@ -102,6 +103,8 @@ None.
 | [PKA-064](epics/e09.md#pka-064) | Review VGC Planner workflows | E09 | P2 | S | None |
 
 ## Change history
+
+- 2026-10-13: PKA-001 verified and moved to In Review. Owner approved continuing dependent PKA-002–003 from verified findings without automatic acceptance.
 
 - 2026-10-13: Owner accepted PKA-004 and approved PKA-063's full local Strixia migration. Renamed current branding without changing existing task IDs, priorities or dependencies. Added PKA-064 as a Backlog workflow review with no prerequisite; listing VGC Planner does not authorize implementation.
 
