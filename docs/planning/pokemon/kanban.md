@@ -2,7 +2,7 @@
 
 Created: 2026-10-12
 
-This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/arena/pokemon/README.md) defines requirements. Scope planning is authorized; no application implementation is approved. No story is implemented or accepted.
+This is the authoritative status/priority/dependency index. Epic cards define scope and acceptance; the [product brief](../../../products/arena/pokemon/README.md) defines requirements. PKA-004 local Git setup is implemented and in review; no application implementation is approved. No story is owner-accepted yet.
 
 P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/practice; P3 = deferred. These priorities describe value, not permission or a promised date. S = small, M = several reviewable steps, L/refine = must split before approval. Dependencies are story IDs, not implementation authorization.
 
@@ -22,12 +22,11 @@ None.
 
 ## In Progress
 
-| ID | Story | Epic | Priority | Size | Dependencies |
-| --- | --- | --- | --- | --- | --- |
-| [PKA-004](epics/e01.md#pka-004) | Establish main/dev/task branch workflow | E01 | P0 | S | None |
+None.
 
 ## In Review
 
+- [PKA-004: Establish main/dev/task branch workflow](epics/e01.md#pka-004) — E01, P0, S, no dependencies. Local baseline and dev created; checks passed on 2026-10-13. Owner acceptance pending; no remote, tags or publication.
 - [PKA-000: Deliver the complete planning board](epics/e01.md#pka-000) — E01, P0, M, no dependencies. Files created and checks passed on 2026-10-12; waiting for owner acceptance. No application code or Git publication.
 
 ## Done
@@ -108,3 +107,5 @@ None.
 - 2026-10-12: PKA-000 moved to In Review after documentation and scaffold checks; owner acceptance pending.
 
 - 2026-10-13: Recorded atomic commit/version policy and a shorter planning entry point. PKA-004 initial snapshot/dev setup moved to Ready for Approval; no commit, tag or branch created.
+
+- 2026-10-13: Owner approved PKA-004. Saved the reviewed 67-file baseline, created dev from main, verified checks and moved PKA-004 to In Review. Setup evidence is a separate small initialization commit; branch heads are aligned. Future tasks use task branches and reviewed merge requests into dev when a remote is authorized.

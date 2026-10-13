@@ -6,7 +6,9 @@
   learning guide and version-specific PufferLib research gates.
 - Recorded Champions M-C scope, collaborative approval rules, optional search,
   information-aware analysis and evidence-first sequencing in ADR 0002.
-- Documented proposed main/dev/task-branch workflow; no Git history or remote setup.
+- Established local Git history and main/dev branches under PKA-004; documented
+  atomic Conventional Commits, version milestones and task branches targeting dev.
+  Remote setup and hosted merge requests remain pending.
 
 ## 0.1.0 scaffold — 2026-10-12
 

@@ -12,8 +12,8 @@ concepts. These are different responsibilities, not competing backlogs.
 
 No GitHub board was created: the repository has no remote and the previously checked
 CLI token lacked Projects access. Source-controlled Markdown is the selected fallback.
-Files are currently uncommitted; the board survives chats on disk but becomes protected
-by Git history only after an explicitly authorized commit. Do not claim a remote backup.
+The scaffold and board are saved in local Git history under PKA-004. There is no
+remote backup or hosted merge-request workflow yet.
 
 ## Start here
 
@@ -28,8 +28,8 @@ simulator integration, legal actions, baseline agents and Bo3 execution. The boa
 lists those individual stories by status; the epic file holds their scope and acceptance.
 It is one backlog viewed in two ways, not two independent task lists.
 
-Start with PKA-004's initial Git snapshot/branch setup, then PKA-001's simulator
-compatibility probe. The commit/version policy is in
+PKA-004's initial Git snapshot/branch setup is implemented and awaits review. The
+next candidate is PKA-001's simulator compatibility probe. The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 
 ## Workflow
@@ -75,11 +75,12 @@ before approval; append new IDs and preserve their parent as a scope record.
 - Promote a reviewed release from dev to main through an explicitly authorized PR.
   Do not merge main-only work into dev accidentally or rewrite shared history.
 
-Today Git is unborn main with untracked scaffold files. PKA-004 defines bootstrap
-inclusion, initial-history commit, dev creation, remote owner and branch protections.
-These cannot honestly be configured as active branch protection without a remote.
-Do not stage unrelated files. Initial snapshot/setup remains a separate approval;
-subsequent local task commits follow the owner-authorized contribution policy.
+PKA-004 created the initial local history and dev from main on 2026-10-13. Its small
+setup-evidence commit is part of that approved initialization; both branch heads are
+aligned at the completed setup. Future work starts on task branches from dev.
+Remote ownership and hosted branch protections remain pending separate authorization;
+they cannot be configured without a remote. Do not stage unrelated files.
+Local task commits follow the owner-authorized contribution policy.
 
 ## Story conventions
 
