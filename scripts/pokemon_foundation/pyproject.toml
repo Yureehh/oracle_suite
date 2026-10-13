@@ -14,11 +14,12 @@ poke-env = { git = "https://github.com/hsahovic/poke-env.git", rev = "7ff6212e4e
 
 [tool.mypy]
 strict = true
-files = ["probe.py"]
+files = ["probe.py", "observations.py"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 
 [dependency-groups]
 dev = [

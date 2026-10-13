@@ -39,7 +39,11 @@ def engine(task: str) -> dict[str, Any]:
                     "node",
                     str(
                         Path(__file__).with_name(
-                            "engine.cjs" if task == "001" else "rules.cjs"
+                            {
+                                "001": "engine.cjs",
+                                "002": "rules.cjs",
+                                "003": "visibility.cjs",
+                            }[task]
                         )
                     ),
                 ],
@@ -144,19 +148,26 @@ def local_server() -> Iterator[float]:
                 time.sleep(0.1)
             yield (time.perf_counter() - started) * 1000
         finally:
-            os.killpg(process.pid, signal.SIGTERM)
+            try:
+                os.killpg(process.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass  # Startup may have failed before cleanup.
             process.wait(timeout=10)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("task", choices=["001", "002"])
+    parser.add_argument("task", choices=["001", "002", "003"])
     parser.add_argument(
         "--client", action="store_true", help="Starts an isolated local server"
     )
     args = parser.parse_args()
     started = time.perf_counter()
     result = engine(args.task)
+    if args.task == "003":
+        from observations import example
+
+        result["projection"] = example(result)
     if args.client and args.task != "001":
         parser.error("--client applies only to 001")
     if args.client:

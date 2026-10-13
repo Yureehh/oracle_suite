@@ -6,6 +6,7 @@ No adapter, model, trainer or application is implemented.
 
 - [PKA-001: simulator compatibility](001-simulator.md)
 - [PKA-002: rules and legality](002-rules.md)
+- [PKA-003: observations and set knowledge](003-observations.md)
 - [Fixture teams](teams.json): six members each, level 50, no held items, one
   legal move per member, 66 native stat points each. Intentionally simple and
   noncompetitive; not a training corpus. Validation is mandatory before battle creation.
@@ -16,12 +17,14 @@ Run from the repository root (Node 26.0.0 and uv 0.7.5 were used):
 sh scripts/pokemon_foundation/prepare.sh
 uv run --project scripts/pokemon_foundation --locked python scripts/pokemon_foundation/probe.py 001 --client
 uv run --project scripts/pokemon_foundation --locked python scripts/pokemon_foundation/probe.py 002
+uv run --project scripts/pokemon_foundation --locked python scripts/pokemon_foundation/probe.py 003
 uv run --project scripts/pokemon_foundation --locked pytest scripts/pokemon_foundation/tests
-uv run --project scripts/pokemon_foundation --locked mypy --config-file scripts/pokemon_foundation/pyproject.toml scripts/pokemon_foundation/probe.py
+uv run --project scripts/pokemon_foundation --locked mypy --config-file scripts/pokemon_foundation/pyproject.toml scripts/pokemon_foundation/probe.py scripts/pokemon_foundation/observations.py
 uv run --project scripts/pokemon_foundation --locked ruff check scripts/pokemon_foundation
 uv run --project scripts/pokemon_foundation --locked ruff format --check scripts/pokemon_foundation
 node --check scripts/pokemon_foundation/engine.cjs
 node --check scripts/pokemon_foundation/rules.cjs
+node --check scripts/pokemon_foundation/visibility.cjs
 ```
 
 Preparation checks out the exact engine revision, verifies its npm lock against the

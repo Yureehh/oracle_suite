@@ -4,7 +4,7 @@ Evidence date: 2026-10-13. [Reproduction](README.md). Owner review pending.
 
 Pins: Showdown `3a766f2cfb5e51c1e428cfe87d0dba91a8f01640` (0.11.11);
 poke-env `7ff6212e4e738efd46f1ea52035b37a8bba1e386` (0.16.1).
-Runtime: Node 26.0.0, Python 3.12.13, uv 0.7.5, macOS 26.6.2 arm64.
+Runtime: Node 26.0.0, Python 3.12.13, uv 0.7.5, macOS 26.6.2 arm64 (Apple M2).
 The copied upstream npm lock and standalone uv lock resolve dependencies exactly.
 Generated JSON includes installed Python distributions and runtime versions.
 
