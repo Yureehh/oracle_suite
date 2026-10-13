@@ -80,3 +80,9 @@ confirming inclusion of the engine bridge. Local Markdown links, task anchors,
 instruction paths and dependency metadata were checked. These checks establish
 adapter behavior against the pin, not independent in-game fidelity or training speed.
 Implementation: `4494838`; usage documentation: `284b432`.
+
+Rebuilding the pinned upstream checkout succeeded with no tracked source changes.
+Its npm install reported 23 dependency advisories (1 low, 5 moderate, 17 high).
+These are upstream installation-audit counts, not a verified exploitability assessment
+of the narrow engine path. The reviewed pin/lock is preserved; upgrading or exposing
+a hosted simulator requires a separate dependency review.
