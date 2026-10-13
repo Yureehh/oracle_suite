@@ -70,3 +70,13 @@ validator rejection, hidden-world projection, malformed/failed/timed-out process
 and cleanup. Engine integration tests skip when the checkout is absent; CI prepares
 it and must run them. Training throughput is unmeasured: Python/Node communication
 has a cost, to be benchmarked with real workloads before choosing batching or hosting.
+
+## Verification recorded on 2026-10-13
+
+Locked workspace sync, Ruff lint/format, mypy (nine typed files), Node bridge syntax
+and all sixteen root tests passed without skips. The built 0.3.0 wheel imported and
+completed a validated game from an isolated environment outside the repository,
+confirming inclusion of the engine bridge. Local Markdown links, task anchors,
+instruction paths and dependency metadata were checked. These checks establish
+adapter behavior against the pin, not independent in-game fidelity or training speed.
+Implementation: `4494838`; usage documentation: `284b432`.

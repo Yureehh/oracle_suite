@@ -8,10 +8,7 @@ P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/
 
 ## Ready for Discussion
 
-| ID | Story | Epic | Priority | Size | Dependencies |
-| --- | --- | --- | --- | --- | --- |
-| [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
-| [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
+None.
 
 ## Ready for Approval
 
@@ -25,7 +22,10 @@ None.
 
 ## In Review
 
-None.
+| ID | Story | Epic | Priority | Size | Dependencies |
+| --- | --- | --- | --- | --- | --- |
+| [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
+| [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
 
 ## Done
 
@@ -127,3 +127,5 @@ None.
 - 2026-10-13: Owner approved PKA-004. Saved the reviewed 67-file baseline, created dev from main, verified checks and moved PKA-004 to In Review. Setup evidence is a separate small initialization commit; branch heads are aligned. Future tasks use task branches and reviewed merge requests into dev when a remote is authorized.
 
 - 2026-10-13: PKA-063 moved to In Review after root checks, package builds, independent wheel imports, local link/instruction validation and task metadata/dependency checks. PKA-064 remains Backlog; PKA-001–003 have not started.
+
+- 2026-10-13: Owner approved implementation and publication of PKA-005 and the PKA-011 design. Delivered cards remain In Review pending final owner acceptance; merge authorization does not imply a review of the resulting source.

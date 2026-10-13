@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- strixia-agon 0.3.0: added a Python-controlled local Champions M-C game, typed
+  private player views, native team validation, rejected-choice rollback and a demo.
+  Node is required only for the pinned engine; no Python runtime dependencies added.
+- PKA-011 defines completed-game recovery and durable publication requirements;
+  metadata, artifact storage and workers remain unimplemented.
+
 - Added locked, standalone Champions M-C foundation probes and reports for PKA-001–003,
   covering engine/client compatibility, native rules/validator gaps and player privacy.
   All three remain In Review; no production capability or package version changes.
