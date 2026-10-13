@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- strixia-agon 0.4.0: player-visible paired action menus, stale-choice checks and
+  protocol-permitted request updates for unavailable choices. Added real-engine
+  Mega, trapping, revival and replacement coverage and an evolving action register.
+- strixia-core 0.3.0: local SQLite run/attempt records, immutable checked artifacts,
+  explicit resume, versioned exports and backups. A Python worker executes bounded
+  parallel independent games and saves completion by game ID. No new dependencies.
+- Added future-regulation revalidation and deferred mid-turn recovery/cloud failover
+  stories PKA-065/066; recorded the unverified newer two-turn search report in PKA-031.
+
+
 - strixia-agon 0.3.0: added a Python-controlled local Champions M-C game, typed
   private player views, native team validation, rejected-choice rollback and a demo.
   Node is required only for the pinned engine; no Python runtime dependencies added.

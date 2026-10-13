@@ -338,12 +338,12 @@ wheels = [
 
 [[package]]
 name = "strixia-agon"
-version = "0.3.0"
+version = "0.4.0"
 source = { editable = "packages/python/strixia_agon" }
 
 [[package]]
 name = "strixia-core"
-version = "0.2.0"
+version = "0.3.0"
 source = { editable = "packages/python/strixia_core" }
 
 [[package]]
