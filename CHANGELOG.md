@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- strixia-core 0.3.1: reserve SQLite backup destinations exclusively to prevent
+  concurrent overwrite; added a regression that preserves a competing backup.
+
 - Added an installed local pre-commit suite for Ruff lint/format and basic file
   hygiene, mirrored in CI. Expanded balanced Ruff correctness rules; no package
   version bump or production dependency change.

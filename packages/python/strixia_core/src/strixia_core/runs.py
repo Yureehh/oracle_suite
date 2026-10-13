@@ -266,8 +266,13 @@ class RunStore:
             raise RunError("Export destination must not exist") from exc
 
     def backup(self, path: Path) -> None:
-        if path.resolve() == self._path or path.exists():
+        if path.resolve() == self._path:
             raise RunError("Backup destination must be new and different from source")
+        try:
+            with path.open("xb"):
+                pass
+        except FileExistsError as exc:
+            raise RunError("Backup destination must not exist") from exc
         target = sqlite3.connect(path)
         try:
             self._db.backup(target)
