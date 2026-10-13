@@ -1,0 +1,27 @@
+# Architecture overview
+
+Oracle uses one modular repository and will expose its products through one website.
+Python owns computation and backend logic. Application entrypoints stay separate
+from reusable domain libraries so simulation and research can run without a server.
+
+Today the workspace has two installable shells: `oracle-core` and `oracle-arena`.
+Arena includes the `oracle_arena.pokemon` namespace. Neither has runtime dependencies,
+public functionality, or a dependency on the other. API, web, and worker directories
+contain documentation only. Products document intended outcomes, not implementations.
+
+Arena owns game AI; Pokémon VGC is first. Bets already exists in a sibling repository
+and is not a workspace member. Lab will read actual experiment results from workloads.
+Core will acquire shared capabilities only for demonstrated use cases. Foresight,
+Delphi, Augur and Forge remain provisional product names sharing a Pokémon engine.
+
+Per [ADR 0002](../decisions/0002-pokemon-discovery-and-planning.md), a bounded Champions
+simulator compatibility study comes first. The subsequent Release 0 slice should
+define a durable execution lifecycle with one API,
+one Python worker, metadata, and artifacts; then connect one genuine Arena workload.
+PostgreSQL task claims and filesystem artifact storage are candidates, not installed
+components. No queue broker, auth framework, service-per-product architecture or
+universal game interface is needed for this scaffold.
+
+Read [boundaries](boundaries.md), [deployment](deployment.md), and the
+[initial ADR](../decisions/0001-monorepo-architecture.md). Product specifications live
+under `products/` and remain the authoritative domain documents.

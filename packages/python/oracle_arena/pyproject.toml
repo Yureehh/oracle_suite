@@ -1,0 +1,11 @@
+[project]
+name = "oracle-arena"
+version = "0.1.0"
+description = "Competitive game AI boundary for Oracle"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13"]
+build-backend = "uv_build"

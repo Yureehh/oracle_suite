@@ -1,0 +1,44 @@
+# Python and tooling
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/
+# Secrets (safe examples remain tracked)
+.env
+.env.*
+!.env.example
+# Editor and OS state
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+# Generated storage: keep fixtures and source outside these root directories
+/data/
+/models/
+/checkpoints/
+/runs/
+/artifacts/
+/reports/
+/logs/
+/storage/
+/tmp/
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+# Frontend
+node_modules/
+.next/
+out/
+*.tsbuildinfo
