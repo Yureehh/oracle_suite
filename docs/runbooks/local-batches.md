@@ -91,4 +91,5 @@ Implementation commits: `8389d2e` (storage), `3a56c36` (paired choices), `693bd8
 (worker). Full local review run `20261013-221827-96c07d9e` completed with no remaining
 findings after the saved-lock-digest regression was fixed and independently checked.
 Cross-model review was unavailable; the independent local adversarial review ran.
-Cards remain In Review; this delivery was committed locally, not pushed or merged.
+Initial handoff kept cards In Review and commits local. On 2026-10-13 the owner
+accepted PKA-006/012–014 and authorized publication and integration into dev.

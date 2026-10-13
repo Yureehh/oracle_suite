@@ -27,15 +27,15 @@ None.
 | [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
 | [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
 
-| [PKA-006](epics/e02.md#pka-006) | Enumerate legal doubles decisions | E02 | P0 | M | PKA-005 |
-| [PKA-012](epics/e03.md#pka-012) | Implement durable run metadata | E03 | P0 | M | PKA-011 |
-| [PKA-013](epics/e03.md#pka-013) | Store immutable workload artifacts | E03 | P0 | S | PKA-012 |
-| [PKA-014](epics/e03.md#pka-014) | Execute jobs in one local worker | E03 | P0 | M | PKA-012, PKA-013 |
 
 ## Done
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
+| [PKA-006](epics/e02.md#pka-006) | Enumerate legal doubles decisions | E02 | P0 | M | PKA-005 |
+| [PKA-012](epics/e03.md#pka-012) | Implement durable run metadata | E03 | P0 | M | PKA-011 |
+| [PKA-013](epics/e03.md#pka-013) | Store immutable workload artifacts | E03 | P0 | S | PKA-012 |
+| [PKA-014](epics/e03.md#pka-014) | Execute jobs in one local worker | E03 | P0 | M | PKA-012, PKA-013 |
 | [PKA-001](epics/e01.md#pka-001) | Probe Champions simulator compatibility | E01 | P0 | S | None |
 | [PKA-002](epics/e01.md#pka-002) | Validate Champions stat allocations and legality | E01 | P0 | S | PKA-001 |
 | [PKA-003](epics/e01.md#pka-003) | Define player observations and Bo3 knowledge | E01 | P0 | S | PKA-001, PKA-002 |
@@ -135,3 +135,5 @@ None.
 - 2026-10-13: Owner approved implementation and publication of PKA-005 and the PKA-011 design. Delivered cards remain In Review pending final owner acceptance; merge authorization does not imply a review of the resulting source.
 
 - 2026-10-13: Owner approved and locally implemented PKA-006 and PKA-012–014 together; moved verified cards to In Review. Added PKA-065/066 for future resilience and a regulation revalidation gate under PKA-062. No automatic acceptance, push, merge or cloud spend.
+
+- 2026-10-13: Owner accepted tested PKA-006 and PKA-012–014 and explicitly authorized push and merge into dev; moved those four cards to Done. Future-regulation, search and resilience stories remain unimplemented backlog.
