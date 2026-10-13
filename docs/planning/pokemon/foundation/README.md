@@ -2,7 +2,8 @@
 
 Research only, reviewed scope dated 2026-10-13: **M-C doubles, Bo3, OTS**.
 These probes establish compatibility, not accuracy independently verified in the game.
-No adapter, model, trainer or application is implemented.
+These probes implement no adapter, model, trainer or application. The subsequent
+[PKA-005 adapter](005-adapter.md) is a separate production capability.
 
 - [PKA-001: simulator compatibility](001-simulator.md)
 - [PKA-002: rules and legality](002-rules.md)

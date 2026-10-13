@@ -30,3 +30,13 @@ There is no server to start or service to configure. `.env.example` documents co
 and has no mandatory variables. Development needs package-index access on a cold cache.
 Missing network/tools must be reported as limitations, not success. When runtime
 applications arrive, document each process command, its dependencies and recovery path.
+
+## Local Champions game
+
+```bash
+sh scripts/pokemon_foundation/prepare.sh --engine-only
+uv run --locked --all-packages python scripts/pokemon_battle.py
+```
+
+Requires Node and Git. See the [battle guide](../planning/pokemon/foundation/005-adapter.md).
+Integration tests skip without the built engine; CI prepares it before tests.
