@@ -7,6 +7,9 @@ See the [battle guide](../../../docs/planning/pokemon/foundation/005-adapter.md)
 A local durable batch worker and paired action menus are implemented.
 Seeded uniform random policies and recorded Bo3 sets are implemented; their delivery
 is owner-accepted. The worker can run independent sets in parallel.
+Champions-native team imports, a frozen local team corpus and a single-game Python
+learning interface are implemented locally for owner review; see the
+[team/learning runbook](../../../docs/runbooks/team-learning.md).
 API, website, models and analysis functionality remain unimplemented. This brief owns product requirements;
 [the planning board](../../../docs/planning/pokemon/kanban.md) owns progress.
 

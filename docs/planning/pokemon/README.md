@@ -4,7 +4,7 @@ Created: 2026-10-12
 
 This directory is the persistent repository-local Kanban requested by the owner.
 The [board](kanban.md) is authoritative for status, priority and dependency IDs.
-The twelve epic files contain 67 product/workflow stories; PKA-000 tracks delivery
+The twelve epic files contain 69 product/workflow stories; PKA-000 tracks delivery
 of this planning work. The [product brief](../../../products/agon/pokemon/README.md)
 is authoritative for product requirements. [Roadmap](roadmap.md) defines sequencing,
 [research](research.md) records technical options, and [learning](learning.md) explains

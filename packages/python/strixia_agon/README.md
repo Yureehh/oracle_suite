@@ -29,3 +29,10 @@ restrictions. No greedy pair pruning or live hidden-state legality oracle is use
 separate policy seeds for each player, independent of scheduling; the engine still
 owns chance. Public prior-game history is retained as dated evidence, without spread
 inference or strategic adaptation. This baseline tests execution, not strength.
+
+Champions team imports preserve unknown spreads and validate complete teams against
+the pinned M-C engine. [Team import commands](../../../docs/runbooks/team-imports.md)
+accept classic text files/stdin and bounded PokePaste URLs.
+A [local corpus and single-game learning interface](../../../docs/runbooks/team-learning.md)
+provide source provenance, composition-group partitions, private player views and
+indexed paired decisions. There is no model, trainer or learning benchmark yet.
