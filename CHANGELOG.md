@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added a distinct recorded-Bo3 workload to the existing local worker: sequential
+  games within parallel independent sets, completed-game evidence reconstruction on
+  resume, and partial/final set status. Existing independent-game batches remain.
+  No metadata migration, trainer, API or cloud infrastructure.
+
 - strixia-agon 0.5.0: added a seeded uniform paired-action policy, bounded request
   refresh retries and pinned Bo3 scoring. Fixed rollback losing an earlier player's
   revealed request when the other player subsequently reveals a restriction.
