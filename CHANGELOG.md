@@ -5,6 +5,8 @@
 - strixia-agon 0.6.0: import Champions-native Showdown/PokePaste teams from text,
   files or bounded PokePaste URLs; preserve unknown spreads and validate complete
   teams against pinned M-C rules with normalized engine output.
+- Curate immutable local M-C corpus snapshots with source provenance, distinct
+  spread/move variants and composition-group holdouts; preserve rejected entries.
 
 - Added a distinct recorded-Bo3 workload to the existing local worker: sequential
   games within parallel independent sets, completed-game evidence reconstruction on

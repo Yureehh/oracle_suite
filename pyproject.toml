@@ -28,7 +28,7 @@ addopts = "--import-mode=importlib --strict-config --strict-markers"
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["packages/python/strixia_core/src", "packages/python/strixia_agon/src", "packages/python/strixia_core/tests", "packages/python/strixia_agon/tests", "scripts/pokemon_battle.py", "scripts/pokemon_teams.py", "apps/worker/local.py", "apps/worker/tests"]
+files = ["packages/python/strixia_core/src", "packages/python/strixia_agon/src", "packages/python/strixia_core/tests", "packages/python/strixia_agon/tests", "scripts/pokemon_battle.py", "scripts/pokemon_teams.py", "scripts/pokemon_corpus.py", "apps/worker/local.py", "apps/worker/tests"]
 
 [dependency-groups]
 dev = [
