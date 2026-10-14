@@ -1,7 +1,8 @@
 # PKA-003 — player observations and Bo3 knowledge
 
 Evidence date: 2026-10-13. M-C doubles, Bo3, OTS; [reproduction](README.md).
-Owner review pending. This is a research specification with projection examples,
+Owner accepted on 2026-10-13; review was pending at the original handoff.
+This is a research specification with projection examples,
 not a stable public library, observation tensor or production protocol parser.
 
 ## Information categories

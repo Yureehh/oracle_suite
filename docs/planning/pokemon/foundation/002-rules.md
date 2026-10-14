@@ -1,7 +1,8 @@
 # PKA-002 — Champions rules and legality
 
 Evidence date: 2026-10-13. M-C doubles, Bo3, OTS; [reproduction](README.md).
-The same [pinned versions](001-simulator.md) apply. Owner review pending.
+The same [pinned versions](001-simulator.md) apply. Owner accepted on 2026-10-13;
+review was pending at the original handoff.
 No in-game controlled experiment was run. “Engine” below means the inspected pin,
 not an official guarantee. Missing official details stay unverified.
 

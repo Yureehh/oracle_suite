@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Refreshed Pokémon planning against implemented capabilities, corrected integration
+  and coverage guidance, clarified the next random-policy/Bo3/stored-set slice and
+  evaluation dependencies, and recorded owner acceptance of PKA-005/011 on 2026-10-14.
+
 - Fixed worker progress-pipe failures changing run status and games finishing at the
   final allowed decision being rejected in the worker and single-game demo. Added
   regression checks for both entrypoints and for batches with closed output readers.
