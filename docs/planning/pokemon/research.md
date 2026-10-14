@@ -2,8 +2,9 @@
 
 Created: 2026-10-12
 
-This is a decision record for planning, not a claim that experiments were run.
-Technical candidates require compatibility tests and measured quality/cost comparisons.
+This records decisions, hypotheses and linked research evidence. Foundation probes
+have run; model/trainer/search candidates still require compatibility tests and
+measured quality/cost comparisons. A listed method is not an adopted dependency.
 
 ## Champions rules and integration
 
@@ -14,8 +15,9 @@ legality, rounding, PP and mechanics; do not create historical EV/IV training su
 The inspected Champions validator requires maxed IVs, while native stat points occupy
 the engine's `evs` field. The normal fixed-level implementation computes HP as base
 HP + allocated points + 75, and other stats as base + points + 20 before nature rounding.
-Field naming is not permission to apply the old 252-EV formula. Numeric allocation caps
-and complete format legality must be verified in PKA-002 before contracts/code.
+Field naming is not permission to apply the old 252-EV formula. The completed
+[PKA-002 report](foundation/002-rules.md) records 0–32 integer points per stat, at most
+66 in total, pinned validator behavior and unresolved official evidence limits.
 
 Sources: [format definitions](https://github.com/smogon/pokemon-showdown/blob/master/config/formats.ts),
 [Champions stat calculation](https://github.com/smogon/pokemon-showdown/blob/master/data/mods/champions/scripts.ts),
@@ -24,10 +26,11 @@ Sources: [format definitions](https://github.com/smogon/pokemon-showdown/blob/ma
 Showdown is a community simulator, so pinned source checks do not prove console parity.
 Record primary rule evidence and any unresolved mechanics disagreements.
 
-Use Showdown as the starting reference with poke-env for player orchestration where
-validated, and a narrow Node simulator bridge for controlled branching. Do not claim
-these are universally the best packages. Compare documented APIs, correctness, state
-access, development burden and measured performance in PKA-001. The inspected poke-env
+Current integration decision, tested 2026-10-13: Python uses direct Showdown through
+the [narrow Node bridge](foundation/005-adapter.md), pinned to
+`3a766f2cfb5e51c1e428cfe87d0dba91a8f01640`. poke-env is confined to the separately
+locked research probe. [PKA-001](foundation/001-simulator.md) compared the engine and
+client paths; it did not establish that any package is universally best. The inspected poke-env
 `GenData.from_format` selects data by generation, creating an unverified Champions-mod
 compatibility risk. Use actual engine requests/data for legality; patch or replace only
 an inadequate integration layer if evidence warrants it. A custom battle engine is a
@@ -35,9 +38,12 @@ separate high-cost decision requiring benchmarks, parity tests and owner approva
 
 Sources: [poke-env data loader](https://github.com/hsahovic/poke-env/blob/master/src/poke_env/data/gen_data.py),
 [Showdown simulator API](https://github.com/smogon/pokemon-showdown/blob/master/sim/SIMULATOR.md).
-Inspection references from 2026-10-12: Showdown `942cda71d14bf0618bd57991708a2e2734b6daba`,
-poke-env `7ff6212e4e738efd46f1ea52035b37a8bba1e386`. No dependency is installed/pinned in
-Strixia yet; PKA-001 must recheck and select an exact tested pair.
+Historical inspection references from 2026-10-12: Showdown
+`942cda71d14bf0618bd57991708a2e2734b6daba`, poke-env
+`7ff6212e4e738efd46f1ea52035b37a8bba1e386`. The original assessment proposed client
+orchestration subject to validation. The completed foundation reports supersede that
+proposal: production uses the engine pin above, and poke-env's tested Champions
+representation gaps prevent adopting it as the production observation layer.
 
 ## PufferLib: conditional candidate
 

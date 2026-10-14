@@ -171,3 +171,24 @@ def test_export_cannot_overwrite_database_or_file(tmp_path: Path) -> None:
             store.export_json(existing)
         assert existing.read_text() == "keep"
         assert store.get(run)["status"] == "queued"
+
+
+def test_backup_reserves_destination_exclusively(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    destination = tmp_path / "backup.db"
+    with RunStore(destination) as competing:
+        kept = competing.submit({"keep": True}, "competing")
+    original = destination.read_bytes()
+    exists = Path.exists
+    # Reproduce another writer winning after a stale existence check.
+    monkeypatch.setattr(
+        Path, "exists", lambda p: False if p == destination else exists(p)
+    )
+    with RunStore(tmp_path / "source.db") as store:
+        store.submit({}, "source")
+        with pytest.raises(RunError, match="destination"):
+            store.backup(destination)
+    assert destination.read_bytes() == original
+    with RunStore(destination) as competing:
+        assert competing.get(kept)["config"] == {"keep": True}

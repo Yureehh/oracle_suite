@@ -4,7 +4,7 @@ Created: 2026-10-12
 
 This directory is the persistent repository-local Kanban requested by the owner.
 The [board](kanban.md) is authoritative for status, priority and dependency IDs.
-The twelve epic files contain 66 product/workflow stories; PKA-000 tracks delivery
+The twelve epic files contain 67 product/workflow stories; PKA-000 tracks delivery
 of this planning work. The [product brief](../../../products/agon/pokemon/README.md)
 is authoritative for product requirements. [Roadmap](roadmap.md) defines sequencing,
 [research](research.md) records technical options, and [learning](learning.md) explains
@@ -30,7 +30,12 @@ lists those individual stories by status; the epic file holds their scope and ac
 It is one backlog viewed in two ways, not two independent task lists.
 
 PKA-004's initial Git snapshot/branch setup is owner-accepted. PKA-063 tracks the
-approved Strixia migration. PKA-001–003 now have [reproducible foundation reports](foundation/README.md) and are owner-accepted. PKA-005/011 await owner review. The owner accepted PKA-006/012–014 and authorized integration on 2026-10-13.
+accepted Strixia migration. PKA-001–003 have [reproducible foundation reports](foundation/README.md)
+and are owner-accepted. The owner explicitly accepted PKA-005/011 on 2026-10-14;
+verified dependent work does not automatically accept its prerequisites.
+The owner accepted PKA-006/012–014
+and authorized integration on 2026-10-13. PKA-007/008/016 are implemented and owner-accepted
+with publication/integration authorized on 2026-10-14; see [current sequencing](roadmap.md#current-sequencing).
 The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 
@@ -69,7 +74,7 @@ before approval; append new IDs and preserve their parent as a scope record.
 
 - `main`: accepted release-quality integration points.
 - `dev`: accepted development integration; not a dumping ground for unreviewed work.
-- `feat/pka-001-short-description`, `fix/pka-...`, or `docs/pka-...`: one selected task,
+- `codex/pka-007-short-description`: one selected task or explicitly approved batch,
   branched from dev once history and dev actually exist; proposed PR target is dev.
 - Keep implementation on the task branch through review. Owner acceptance plus
   passing checks precedes integration; local commits within an approved task follow the

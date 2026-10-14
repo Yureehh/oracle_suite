@@ -22,20 +22,21 @@ None.
 
 ## In Review
 
-| ID | Story | Epic | Priority | Size | Dependencies |
-| --- | --- | --- | --- | --- | --- |
-| [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
-| [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
-
+None.
 
 ## Done
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
+| [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
+| [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
+| [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
+| [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
+| [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
 | [PKA-006](epics/e02.md#pka-006) | Enumerate legal doubles decisions | E02 | P0 | M | PKA-005 |
 | [PKA-012](epics/e03.md#pka-012) | Implement durable run metadata | E03 | P0 | M | PKA-011 |
 | [PKA-013](epics/e03.md#pka-013) | Store immutable workload artifacts | E03 | P0 | S | PKA-012 |
-| [PKA-014](epics/e03.md#pka-014) | Execute jobs in one local worker | E03 | P0 | M | PKA-012, PKA-013 |
+| [PKA-014](epics/e03.md#pka-014) | Execute bounded parallel games locally | E03 | P0 | M | PKA-012, PKA-013 |
 | [PKA-001](epics/e01.md#pka-001) | Probe Champions simulator compatibility | E01 | P0 | S | None |
 | [PKA-002](epics/e01.md#pka-002) | Validate Champions stat allocations and legality | E01 | P0 | S | PKA-001 |
 | [PKA-003](epics/e01.md#pka-003) | Define player observations and Bo3 knowledge | E01 | P0 | S | PKA-001, PKA-002 |
@@ -53,12 +54,9 @@ None.
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-| [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
-| [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
 | [PKA-009](epics/e02.md#pka-009) | Restore and branch controlled states | E02 | P1 | M | PKA-005 |
-| [PKA-010](epics/e02.md#pka-010) | Build a doubles-aware tactical baseline | E02 | P1 | M | PKA-006, PKA-002 |
+| [PKA-010](epics/e02.md#pka-010) | Build a doubles-aware tactical baseline | E02 | P1 | M | PKA-006, PKA-002, PKA-007 |
 | [PKA-015](epics/e03.md#pka-015) | Expose run submission and status | E03 | P1 | S | PKA-014 |
-| [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
 | [PKA-017](epics/e04.md#pka-017) | Parse recorded simulator traces | E04 | P0 | S | PKA-016 |
 | [PKA-018](epics/e04.md#pka-018) | Import public Showdown replays | E04 | P1 | M | PKA-017 |
 | [PKA-019](epics/e04.md#pka-019) | Create the first real Strixia web route | E04 | P1 | M | PKA-015 |
@@ -69,7 +67,7 @@ None.
 | [PKA-024](epics/e05.md#pka-024) | Update beliefs from observed damage and order | E05 | P1 | M | PKA-023, PKA-002 |
 | [PKA-025](epics/e05.md#pka-025) | Carry justified knowledge across the set | E05 | P1 | S | PKA-024, PKA-008 |
 | [PKA-026](epics/e05.md#pka-026) | Explain uncertainty and belief changes | E05 | P1 | S | PKA-025, PKA-020 |
-| [PKA-027](epics/e06.md#pka-027) | Define a grounded heuristic evaluator | E06 | P1 | S | PKA-010, PKA-022 |
+| [PKA-027](epics/e06.md#pka-027) | Define a grounded heuristic evaluator | E06 | P1 | S | PKA-010 |
 | [PKA-028](epics/e06.md#pka-028) | Estimate outcomes under baseline continuations | E06 | P1 | M | PKA-009, PKA-010, PKA-023 |
 | [PKA-029](epics/e06.md#pka-029) | Solve a bounded simultaneous-action matrix | E06 | P1 | M | PKA-006, PKA-009, PKA-027, PKA-023 |
 | [PKA-030](epics/e06.md#pka-030) | Evaluate double-oracle action expansion | E06 | P2 | M | PKA-029 |
@@ -106,11 +104,41 @@ None.
 | [PKA-061](epics/e12.md#pka-061) | Explore decision puzzles and spectator mode | E12 | P3 | L/refine | PKA-033, PKA-048, PKA-052 |
 | [PKA-062](epics/e12.md#pka-062) | Assess future Champions formats and public bots | E12 | P3 | L/refine | PKA-048, PKA-060 |
 | [PKA-064](epics/e09.md#pka-064) | Review VGC Planner workflows | E09 | P2 | S | None |
-
 | [PKA-065](epics/e03.md#pka-065) | Assess mid-turn recovery | E03 | P2 | S | PKA-009, PKA-014 |
 | [PKA-066](epics/e03.md#pka-066) | Assess shared execution and cloud failover | E03 | P2 | S | PKA-013, PKA-014 |
+| [PKA-067](epics/e01.md#pka-067) | Run milestone Ponytail audits | E01 | P1 | S | None |
 
 ## Change history
+
+- 2026-10-14: Owner accepted PKA-007/008/016 and authorized committing, pushing
+  and merging all accumulated work into dev; moved the three cards to Done. Added
+  PKA-067 for milestone audit cadence; future stories remain unapproved backlog.
+
+- 2026-10-14: PKA-007/008/016 implemented, verified and moved to In Review. Agon 0.5.0
+  adds the random paired policy/scoring; the existing worker records and resumes
+  parallel independent sets. Independent review found a consecutive bilateral-request
+  rollback defect, now fixed and covered by a real-engine regression. Owner acceptance
+  and publication remain pending.
+
+- 2026-10-14: Owner approved implementation of PKA-007/008/016 after selecting
+  uniform complete paired-action sampling and pinned Showdown Bo3 scoring. The
+  batch retains observed public history without inference, uses completed-game
+  recovery and reuses the local coordinator for parallel independent sets. No
+  trainer, API, website, cloud service, push or merge is included.
+
+- 2026-10-14: Owner explicitly accepted PKA-005's Python simulator adapter and
+  PKA-011's durable-workload design after the completed audit; moved both to Done.
+  This acceptance does not authorize new feature implementation or publication.
+
+- 2026-10-14: PM review corrected stale foundation/integration guidance and action
+  coverage, selected PKA-007/008/016 for discussion only, added PKA-007 as the random
+  comparison prerequisite for PKA-010, and removed the public-replay prerequisite
+  from PKA-027's controlled-state evaluator. Imported-replay analysis still requires
+  PKA-022. Renamed PKA-014 to reflect its implemented bounded parallel games.
+  No new implementation, publication or spending is authorized by this refresh.
+  Coherence, feasibility and scope reviews completed. Validation passed: 67 unique
+  cards/board entries, dependency references/cycle checks, local links/anchors and
+  instruction paths, locked sync, Ruff lint/format, mypy and 49 repository tests.
 
 - 2026-10-13: Owner accepted completed planning, branding and foundation work and authorized commit/push/merge. Moved PKA-000, PKA-001–003 and PKA-063 to Done; selected PKA-005 and PKA-011 for discussion only. Training remains Python; Node is limited to the simulator boundary.
 

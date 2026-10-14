@@ -24,12 +24,32 @@ arrive before a champion. A promoted checkpoint can be offered later without mak
 training a dependency of the first practice interface. Team parsing/corpus preparation
 can proceed without the viewer, so model research is not blocked by frontend delivery.
 
-## First task
+## Current sequencing
 
-PKA-001 is the recommended first implementation/research task. It is not approved yet.
-Its design should constrain versions, legal example teams, local processes, reproducible
-probe checks and maximum execution duration. No paid experiment is included. PKA-002
-is the closely related stat/legality study; do not absorb it without agreeing scope.
+The owner accepted [foundation research](foundation/README.md), paired choices and
+local durable independent-game batches. The owner explicitly accepted the adapter
+and durable-workload design on 2026-10-14. The [board](kanban.md) remains authoritative;
+implementation, acceptance and publication are separate decisions.
+
+The following connected slice is implemented and owner-accepted:
+
+1. [PKA-007](epics/e02.md#pka-007): a seeded Python policy sampling complete paired
+   choices. Engine-default choices in the existing scripts are not this baseline.
+2. [PKA-008](epics/e02.md#pka-008): ordered Bo3 games with fixed teams, fresh previews,
+   correct resets and chronological permitted evidence.
+3. [PKA-016](epics/e03.md#pka-016): save that set using the existing run/artifact
+   storage, retaining completed-game progress without mid-turn recovery.
+
+The owner selected uniform paired sampling and pinned Showdown series scoring, then
+approved implementation on 2026-10-14. Games within a set are sequential; independent
+sets run in parallel. This slice adds no API, website, trainer, paid compute or new
+persistence framework. The owner accepted all three and authorized integration into dev on 2026-10-14.
+
+Next branches of work are [PKA-010](epics/e02.md#pka-010), a tactical baseline after
+the random policy, and [PKA-021](epics/e04.md#pka-021), native team input before
+[PKA-035](epics/e07.md#pka-035), the training/evaluation corpus. Then
+[PKA-037](epics/e07.md#pka-037) specifies the learning environment. Trace parsing and
+the viewer remain a separate useful track; they do not gate the training environment.
 
 ## End of 2026
 

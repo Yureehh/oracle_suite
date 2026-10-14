@@ -1,6 +1,6 @@
 # Strixia Core
 
-Core 0.3.0 supplies the first demonstrated shared infrastructure: local SQLite run
+Core 0.3.1 supplies the first demonstrated shared infrastructure: local SQLite run
 records and immutable filesystem artifacts. RunStore keeps frozen configurations,
 attempt history, fenced game publication, explicit resume, export and backup.
 Artifacts publishes without overwriting and verifies byte counts and SHA-256 hashes.

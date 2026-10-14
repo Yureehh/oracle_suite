@@ -1,6 +1,7 @@
 # PKA-001 — simulator compatibility
 
-Evidence date: 2026-10-13. [Reproduction](README.md). Owner review pending.
+Evidence date: 2026-10-13. [Reproduction](README.md). Owner accepted on 2026-10-13;
+review was pending at the original handoff.
 
 Pins: Showdown `3a766f2cfb5e51c1e428cfe87d0dba91a8f01640` (0.11.11);
 poke-env `7ff6212e4e738efd46f1ea52035b37a8bba1e386` (0.16.1).

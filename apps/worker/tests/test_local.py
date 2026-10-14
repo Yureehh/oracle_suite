@@ -26,6 +26,192 @@ def submit(storage: Path, games: int = 4) -> str:
         return store.submit(worker.configuration(None, games, [1, 2, 3, 4]), "batch")
 
 
+def test_parallel_sets_cancel_resume_and_immutable_evidence(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(worker, "validate_runtime", lambda *_: None)
+    config = worker.configuration(None, 1, [1, 2, 3, 4], sets=2)
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        run_id = store.submit(config, "sets")
+    stop = threading.Event()
+    barrier = threading.Barrier(2)
+
+    def first(config: dict[str, Any], index: int, checkout: Path) -> bytes:
+        assert index in (0, 3)
+        barrier.wait(timeout=5)
+        stop.set()
+        return json.dumps(
+            {
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": "p1",
+                "public_history": [f"G{index}"],
+            }
+        ).encode()
+
+    assert (
+        worker.execute(tmp_path, run_id, ROOT, 2, stop=stop, game=first)["status"]
+        == "cancelled"
+    )
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        saved = store.completed(run_id)
+        assert set(saved) == {0, 3}
+    artifacts = Artifacts(tmp_path / "artifacts")
+    original = {i: artifacts.read(m) for i, m in saved.items()}
+    started: list[int] = []
+
+    def remaining(config: dict[str, Any], index: int, checkout: Path) -> bytes:
+        assert index in (1, 4)
+        assert config["prior_public_history"] == ((f"G{index - 1}",),)
+        started.append(index)
+        return json.dumps(
+            {
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": "p1",
+                "public_history": [f"G{index}"],
+            }
+        ).encode()
+
+    result = worker.execute(tmp_path, run_id, ROOT, 2, resume=True, game=remaining)
+    assert result["status"] == "succeeded"
+    assert sorted(started) == [1, 4]
+    assert all(s["score"] == [2, 0] and s["winner"] == "p1" for s in result["sets"])
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        assert set(store.completed(run_id)) == {0, 1, 3, 4}
+    assert all(artifacts.read(saved[i]) == content for i, content in original.items())
+
+
+def test_real_recorded_set(tmp_path: Path) -> None:
+    config = worker.configuration(None, 1, [1, 2, 3, 4], sets=1)
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        run_id = store.submit(config, "real-set")
+    result = worker.execute(
+        tmp_path, run_id, ROOT / "tmp/pokemon-foundation/showdown", 2
+    )
+    assert result["status"] == "succeeded"
+    assert result["sets"][0]["ended"]
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        records = store.completed(run_id)
+    artifacts = Artifacts(tmp_path / "artifacts")
+    history: list[list[str]] = []
+    for index, manifest in sorted(records.items()):
+        trace = json.loads(artifacts.read(manifest))
+        assert trace["game"] == index and trace["prior_public_history"] == history
+        history.append(trace["public_history"])
+        assert trace["policy"] == "uniform-joint-v1"
+    assert 2 <= len(records) <= 3
+
+
+def test_set_failure_is_not_a_draw_and_resume_reuses_completed_game(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(worker, "validate_runtime", lambda *_: None)
+    config = worker.configuration(None, 1, [1, 2, 3, 4], sets=1)
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        run_id = store.submit(config, "failure")
+
+    def broken(config: dict[str, Any], index: int, checkout: Path) -> bytes:
+        if index == 1:
+            raise RuntimeError("transport failed")
+        return json.dumps(
+            {
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": "p1",
+                "public_history": ["game one"],
+            }
+        ).encode()
+
+    result = worker.execute(tmp_path, run_id, ROOT, 2, game=broken)
+    assert result["status"] == "failed"
+    assert result["sets"][0]["score"] == [1, 0]
+    assert result["sets"][0]["draws"] == 0 and not result["sets"][0]["ended"]
+    started: list[int] = []
+
+    def remaining(config: dict[str, Any], index: int, checkout: Path) -> bytes:
+        started.append(index)
+        return json.dumps(
+            {
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": "p1",
+                "public_history": ["game two"],
+            }
+        ).encode()
+
+    result = worker.execute(tmp_path, run_id, ROOT, 2, resume=True, game=remaining)
+    assert result["status"] == "succeeded" and started == [1]
+
+
+def test_set_records_reject_gaps_and_wrong_game_identity() -> None:
+    config = worker.configuration(None, 1, [1, 2, 3, 4], sets=1)
+    with pytest.raises(RunError, match="prefix"):
+        worker.pending_games(config, {1: {}})
+    with pytest.raises(RunError, match="identity"):
+        worker.pending_games(config, {0: {"game": 0, "seed": [0, 0, 0, 0]}})
+
+
+def test_parallel_failure_drains_peer_success_before_resume(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(worker, "validate_runtime", lambda *_: None)
+    config = worker.configuration(None, 1, [1, 2, 3, 4], sets=2)
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        run_id = store.submit(config, "peer-drain")
+    release = threading.Event()
+    barrier = threading.Barrier(2)
+    original_wait = worker.wait
+
+    def observed_failure(*args: Any, **kwargs: Any) -> Any:
+        result = original_wait(*args, **kwargs)
+        release.set()  # Peer finishes only after the failed future is collected.
+        return result
+
+    monkeypatch.setattr(worker, "wait", observed_failure)
+    started: list[int] = []
+
+    def game(config: dict[str, Any], index: int, checkout: Path) -> bytes:
+        started.append(index)
+        barrier.wait(timeout=5)
+        if index == 0:
+            raise RuntimeError("first set failed")
+        assert index == 3 and release.wait(timeout=5)
+        return json.dumps(
+            {
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": "p1",
+                "public_history": ["peer game"],
+            }
+        ).encode()
+
+    result = worker.execute(tmp_path, run_id, ROOT, 2, game=game)
+    assert result["status"] == "failed" and sorted(started) == [0, 3]
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        assert set(store.completed(run_id)) == {3}
+    resumed: list[int] = []
+
+    def remaining(config: dict[str, Any], index: int, checkout: Path) -> bytes:
+        resumed.append(index)
+        if index == 4:
+            assert config["prior_public_history"] == (("peer game",),)
+        return json.dumps(
+            {
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": "p1",
+                "public_history": [str(index)],
+            }
+        ).encode()
+
+    assert (
+        worker.execute(tmp_path, run_id, ROOT, 2, resume=True, game=remaining)["status"]
+        == "succeeded"
+    )
+    assert sorted(resumed) == [0, 1, 4]
+
+
 def test_seed_schedule_and_bounds() -> None:
     assert worker.game_seed([1, 2, 3, 4], 0) == worker.game_seed([1, 2, 3, 4], 0)
     assert worker.game_seed([1, 2, 3, 4], 0) != worker.game_seed([1, 2, 3, 4], 1)
@@ -33,6 +219,71 @@ def test_seed_schedule_and_bounds() -> None:
         worker.game_seed([1, 2, 3, -1], 0)
     with pytest.raises(ValueError):
         worker.configuration(None, True, [1, 2, 3, 4])
+
+
+def test_closed_progress_pipe_does_not_fail_games(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(worker, "validate_runtime", lambda *_: None)
+
+    def closed(*args: Any, **kwargs: Any) -> None:
+        raise BrokenPipeError("output reader exited")
+
+    monkeypatch.setattr(worker, "print", closed, raising=False)
+    run_id = submit(tmp_path, 2)
+    result = worker.execute(tmp_path, run_id, ROOT, 1, game=lambda *args: b"completed")
+    assert result["status"] == "succeeded" and result["error"] is None
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        assert set(store.completed(run_id)) == {0, 1}
+
+
+def test_final_allowed_decision_can_finish_game(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from types import SimpleNamespace
+
+    class Battle:
+        limit = 2
+
+        def __init__(self, *args: Any) -> None:
+            self.decisions = 0
+            player = SimpleNamespace(
+                must_wait=False, public_history=(), preview_pick_count=4
+            )
+            self.state = SimpleNamespace(
+                ended=False, winner="p1", turn=0, p1=player, p2=player
+            )
+
+        def __enter__(self) -> Battle:
+            return self
+
+        def __exit__(self, *args: Any) -> None:
+            pass
+
+        def step(self, p1: str, p2: str) -> None:
+            if p1 != "team 1234":
+                self.decisions += 1
+                self.state.ended = self.decisions == self.limit
+
+    monkeypatch.setattr(worker, "ChampionsBattle", Battle)
+    config = worker.configuration(None, 1, [1, 2, 3, 4])
+    config["decision_limit"] = 2
+    trace = json.loads(worker.run_game(config, 0, ROOT))
+    assert len(trace["choices"]) == 3 and trace["winner"] == "p1"
+    Battle.limit = 3
+    with pytest.raises(RuntimeError, match="decision limit"):
+        worker.run_game(config, 0, ROOT)
+
+    demo_spec = importlib.util.spec_from_file_location(
+        "battle_demo", ROOT / "scripts/pokemon_battle.py"
+    )
+    assert demo_spec is not None and demo_spec.loader is not None
+    demo = importlib.util.module_from_spec(demo_spec)
+    demo_spec.loader.exec_module(demo)
+    Battle.limit = 500
+    monkeypatch.setattr(demo, "ChampionsBattle", Battle)
+    monkeypatch.setattr("sys.argv", ["pokemon_battle.py"])
+    demo.main()
 
 
 def test_parallel_cancel_and_resume(
@@ -140,24 +391,29 @@ def test_real_engine_batch(tmp_path: Path) -> None:
         assert trace["choices"][0] == ["team 1234", "team 1234"]
 
 
+@pytest.mark.parametrize("bo3", [False, True])
 def test_process_death_preserves_completed_games(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, bo3: bool
 ) -> None:
     import selectors
     import subprocess
     import sys
 
     monkeypatch.setattr(worker, "validate_runtime", lambda *_: None)
-    run_id = submit(tmp_path, 2)
+    with RunStore(tmp_path / "runs.sqlite3") as store:
+        run_id = store.submit(
+            worker.configuration(None, 2, [1, 2, 3, 4], sets=1 if bo3 else None),
+            "killed",
+        )
     script = tmp_path / "crash_worker.py"
     script.write_text(
-        "import importlib.util, threading\n"
+        "import importlib.util, threading, json\n"
         f"spec=importlib.util.spec_from_file_location('worker', {str(ROOT / 'apps/worker/local.py')!r})\n"
         "module=importlib.util.module_from_spec(spec); spec.loader.exec_module(module)\n"
         "module.validate_runtime=lambda *_: None\n"
         "def game(config,index,checkout):\n"
         " if index==1: threading.Event().wait(60)\n"
-        " return str(index).encode()\n"
+        " return json.dumps({'game':index,'seed':config['seeds'][index],'winner':'p1','public_history':['game one']}).encode()\n"
         f"module.execute(module.Path({str(tmp_path)!r}), {run_id!r}, module.Path('.'), 1, game=game)\n"
     )
     process = subprocess.Popen(
@@ -188,7 +444,16 @@ def test_process_death_preserves_completed_games(
 
     def remainder(config: dict[str, Any], index: int, checkout: Path) -> bytes:
         executed.append(index)
-        return str(index).encode()
+        if bo3:
+            assert config["prior_public_history"] == (("game one",),)
+        return json.dumps(
+            {
+                "game": index,
+                "seed": config["seeds"][index],
+                "winner": "p1",
+                "public_history": ["game two"],
+            }
+        ).encode()
 
     assert (
         worker.execute(tmp_path, run_id, ROOT, 1, resume=True, game=remainder)["status"]

@@ -31,10 +31,8 @@ jobs:
         run: sh scripts/pokemon_foundation/prepare.sh --engine-only
       - name: Install locked workspace
         run: uv sync --locked --all-packages
-      - name: Lint
-        run: uv run --locked --all-packages ruff check .
-      - name: Check formatting
-        run: uv run --locked --all-packages ruff format --check .
+      - name: Check pre-commit hooks (including Ruff lint and format)
+        run: uv run --locked --all-packages pre-commit run --all-files --show-diff-on-failure
       - name: Check types
         run: uv run --locked --all-packages mypy
       - name: Test

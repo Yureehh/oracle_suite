@@ -47,6 +47,8 @@ optimizing. Avoid unrelated reformatting, symbol renaming, and cleanup. Remove o
 unused code introduced by your change. Keep documentation synchronized with actual
 behavior. Distinguish implemented functionality, plans, research claims, and measured
 results. Never fabricate implementation status, test outcomes, or benchmarks.
+Follow the [Python standards](docs/conventions/python.md), including the rules for
+exclusive file creation, progress output and decision-limit boundaries.
 
 Run from the root before reporting substantial work complete:
 

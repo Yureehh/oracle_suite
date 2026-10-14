@@ -66,7 +66,7 @@ and `apps/` owns executable application boundaries. `docs/` owns engineering gui
 
 | State | Technologies |
 | --- | --- |
-| Configured | Python 3.12 baseline, uv workspace and lockfile, uv_build, Ruff, mypy, pytest, GitHub Actions |
+| Configured | Python 3.12 baseline, uv workspace and lockfile, uv_build, Ruff, pre-commit, mypy, pytest, GitHub Actions |
 | Architectural preferences | FastAPI API, TypeScript/React/Next.js website, Python worker, one website |
 | Implemented local workload | SQLite metadata, immutable filesystem artifacts, bounded parallel Python coordinator |
 | Future candidates | PostgreSQL metadata on RDS/Aurora, shared artifact storage when needed |
