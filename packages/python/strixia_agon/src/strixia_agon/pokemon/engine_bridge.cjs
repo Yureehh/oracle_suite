@@ -1,7 +1,7 @@
 // Only engine operations live here; policies and training belong in Python.
 const path = require('node:path');
 const readline = require('node:readline');
-const {Battle, Teams, TeamValidator} = require(path.join(process.argv[2], 'dist/sim'));
+const {Battle, Dex, Teams, TeamValidator} = require(path.join(process.argv[2], 'dist/sim'));
 const {extractChannelMessages} = require(path.join(process.argv[2], 'dist/sim/battle'));
 const FORMAT = 'gen9championsvgc2026regmcbo3';
 let battle;
@@ -27,6 +27,14 @@ function frame(start = 0) {
     requests: battle.sides.map(s => ({...s.activeRequest, side: s.getRequestData()}))};
 }
 function command(input) {
+  if (input.op === 'validate') {
+    const reasons = TeamValidator.get(FORMAT).validateTeam(input.team);
+    if (reasons) throw new Error(reasons.join('\n'));
+    const dex = Dex.forFormat(FORMAT);
+    return {team: input.team.map(set => ({...set,
+      moves: set.moves.map(move => dex.moves.get(move).name),
+    }))};
+  }
   if (input.op === 'start') {
     if (battle) throw new Error('Battle already initialized');
     const teams = input.teams;

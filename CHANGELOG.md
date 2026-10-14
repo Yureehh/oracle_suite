@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- strixia-agon 0.6.0: import Champions-native Showdown/PokePaste teams from text,
+  files or bounded PokePaste URLs; preserve unknown spreads and validate complete
+  teams against pinned M-C rules with normalized engine output.
+
 - Added a distinct recorded-Bo3 workload to the existing local worker: sequential
   games within parallel independent sets, completed-game evidence reconstruction on
   resume, and partial/final set status. Existing independent-game batches remain.

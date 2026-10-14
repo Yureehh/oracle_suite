@@ -1,6 +1,6 @@
 [project]
 name = "strixia-agon"
-version = "0.5.0"
+version = "0.6.0"
 description = "Competitive game AI boundary for Strixia"
 readme = "README.md"
 requires-python = ">=3.12"
