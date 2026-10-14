@@ -20,12 +20,13 @@ None.
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
+None.
 
 ## In Review
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
+| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
 | [PKA-021](epics/e04.md#pka-021) | Import team text and optional stat spreads | E04 | P1 | S | PKA-002 |
 | [PKA-035](epics/e07.md#pka-035) | Curate a versioned M-C team corpus | E07 | P0 | M | PKA-002, PKA-021 |
 | [PKA-037](epics/e07.md#pka-037) | Define the trainable VGC environment | E07 | P0 | M | PKA-006, PKA-008, PKA-003 |
@@ -113,6 +114,14 @@ None.
 | [PKA-069](epics/e07.md#pka-069) | Extend the learning environment to Bo3 episodes | E07 | P1 | M | PKA-037, PKA-008, PKA-003 |
 
 ## Change history
+
+- 2026-10-15: PKA-038 verified and moved to In Review, pending owner acceptance.
+  Delivered full-history player inputs and two untrained models in local commits
+  `7ef3df0`, `90cfa58`, `6f4a89d`, `ddd0868`; 120 tests and repository checks passed.
+  Clean-source CPU/MPS matrix passed 72/72 cases; large-batch construction cost is
+  recorded for PKA-039. Full CE review has no unresolved findings; external Claude
+  transport failed before egress and the local adversarial fallback completed.
+  No training, push or merge.
 
 - 2026-10-14: PKA-021/035/037 implemented and moved to In Review, pending owner
   acceptance. Root checks passed with 96 tests; Agon 0.6.0 built and passed a

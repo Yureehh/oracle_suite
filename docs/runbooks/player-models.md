@@ -38,6 +38,36 @@ tracemalloc excludes native tensors. MPS allocation readings are end-of-case sna
 not GPU peaks. Measurements on a development machine are exploratory; they do not
 establish trainer throughput or an architectural winner.
 
+## Verified Mac measurements
+
+On 2026-10-15, all **72/72 cases passed** (36 CPU, 36 MPS) on the Apple M2 / 8 GB
+Mac, Python 3.12.13 and PyTorch 2.14.1. The clean source commit was
+`ddd08686fd96fe5bcdf1cdc21e38a5ac5ff4c241`; ignored artifacts are retained under
+`tmp/model-probes/pka-038-verified-2026-10-15/` (`config.json`, individual cases and
+`results.json`). Every case retained its requested history and completed fifty
+measured passes after five warm-ups.
+
+Parameter counts: **1,037,090 MLP**, **877,986 attention**. Selected synthetic costs:
+
+| Device | Model | Menu / history / batch | Build batch (ms) | Median forward (ms) |
+| --- | --- | --- | ---: | ---: |
+| CPU | MLP | Ordinary / 64 / 1 | 18.78 | 1.587 |
+| CPU | Attention | Ordinary / 64 / 1 | 16.85 | 2.297 |
+| MPS | MLP | Ordinary / 64 / 1 | 35.63 | 5.009 |
+| MPS | Attention | Ordinary / 64 / 1 | 20.95 | 4.206 |
+| CPU | MLP | Preview / 256 / 32 | 8267.88 | 311.255 |
+| CPU | Attention | Preview / 256 / 32 | 8001.27 | 357.494 |
+| MPS | MLP | Preview / 256 / 32 | 7407.67 | 205.037 |
+| MPS | Attention | Preview / 256 / 32 | 6357.48 | 208.993 |
+
+The largest child peak RSS was 1,134.7 MiB; this is process RSS with the scope above,
+not total Mac or GPU peak memory. Batch construction dominates these large preview
+workloads. PKA-039 must profile representation construction and simulator collection
+alongside model/update cost before claiming scalable training throughput. These
+measurements neither rank learning quality nor establish PPO throughput. CPU was
+faster for these single-observation ordinary cases; MPS helped the largest forward
+passes. Device choice remains workload-dependent.
+
 ## Library interface
 
 `load_mechanics(checkout)` exports static Champions Dex data only and checks the
