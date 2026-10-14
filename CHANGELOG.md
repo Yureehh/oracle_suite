@@ -7,6 +7,8 @@
   teams against pinned M-C rules with normalized engine output.
 - Curate immutable local M-C corpus snapshots with source provenance, distinct
   spread/move variants and composition-group holdouts; preserve rejected entries.
+- Add a Python single-game learning environment with simultaneous legal-menu
+  indices, private observations, outcome rewards and explicit truncation/errors.
 
 - Added a distinct recorded-Bo3 workload to the existing local worker: sequential
   games within parallel independent sets, completed-game evidence reconstruction on
