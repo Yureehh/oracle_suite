@@ -7,7 +7,7 @@ if missing; no manual virtualenv activation is needed. Validation uses uv 0.7.5.
 ```bash
 uv --version
 uv python install 3.12
-uv sync --locked --all-packages
+uv sync --locked --all-packages --extra learning
 uv run --locked --all-packages pre-commit install
 uv run --locked --all-packages pre-commit run --all-files
 uv run --locked --all-packages ruff check .
@@ -56,3 +56,7 @@ workspace for a full check. Ruff uses the same locked version locally and in CI.
 The standard file hooks use a pinned upstream revision and isolated environments;
 the first run downloads them. No tests or type checker run during each commit.
 A fresh clone needs `pre-commit install`; Git does not clone installed hooks.
+
+Full source typing and model checks require the optional `learning` extra. CI installs
+it explicitly. A simulator-only installation can omit it; optional Torch tests skip
+there, while observation construction remains available without Torch.

@@ -18,7 +18,9 @@ None.
 
 ## In Progress
 
-None.
+| ID | Story | Epic | Priority | Size | Dependencies |
+| --- | --- | --- | --- | --- | --- |
+| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
 
 ## In Review
 
@@ -79,7 +81,6 @@ None.
 | [PKA-033](epics/e06.md#pka-033) | Detect decision regret without hindsight | E06 | P1 | M | PKA-029, PKA-026, PKA-022 |
 | [PKA-034](epics/e06.md#pka-034) | Render payoff heatmaps and alternative actions | E06 | P1 | S | PKA-029, PKA-020 |
 | [PKA-036](epics/e07.md#pka-036) | Assess replay demonstrations for initialization | E07 | P1 | S | PKA-018, PKA-035, PKA-003 |
-| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
 | [PKA-039](epics/e07.md#pka-039) | Evaluate PufferLib and a transparent PPO reference | E07 | P1 | M | PKA-037, PKA-038 |
 | [PKA-040](epics/e07.md#pka-040) | Run a tiny learning correctness experiment | E07 | P1 | S | PKA-039 |
 | [PKA-041](epics/e07.md#pka-041) | Train the first M-C policy/value checkpoint | E07 | P1 | M | PKA-040, PKA-035, PKA-038 |

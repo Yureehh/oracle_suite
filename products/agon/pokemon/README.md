@@ -10,7 +10,9 @@ is owner-accepted. The worker can run independent sets in parallel.
 Champions-native team imports, a frozen local team corpus and a single-game Python
 learning interface are implemented locally for owner review; see the
 [team/learning runbook](../../../docs/runbooks/team-learning.md).
-API, website, models and analysis functionality remain unimplemented. This brief owns product requirements;
+Two untrained compact policy/value candidates and full-history player representations
+are implemented locally for review; see the [model guide](../../../docs/runbooks/player-models.md).
+API, website, training and analysis functionality remain unimplemented. This brief owns product requirements;
 [the planning board](../../../docs/planning/pokemon/kanban.md) owns progress.
 
 ## Agreed scope and boundaries
