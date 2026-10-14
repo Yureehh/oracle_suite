@@ -100,18 +100,7 @@ def test_full_game_projection_and_paired_mapping() -> None:
         assert len(observation.history) > len(previous.history)
         assert (
             previous.history
-            == encode(
-                replace(
-                    battle.state.p1,
-                    public_history=previous.candidates[0].choice.view.public_history,
-                    turn=1,
-                    phase="move",
-                    own_team=previous.candidates[0].choice.view.own_team,
-                    active_options=previous.candidates[0].choice.view.active_options,
-                ),
-                teams[0],
-                mechanics,
-            ).history
+            == encode(previous.candidates[0].choice.view, teams[0], mechanics).history
         )
 
 
@@ -171,3 +160,187 @@ def test_damage_order_and_unknown_zero_are_not_inferences() -> None:
         assert obs.pokemon[6].states[NUMERIC_FIELDS.index("stat_spe")] == UNKNOWN
         assert obs.pokemon[6].states[NUMERIC_FIELDS.index("points_spe")] == UNKNOWN
         assert obs.pokemon[0].states[NUMERIC_FIELDS.index("hp")] == KNOWN
+
+
+def test_registered_stats_and_active_effect_context() -> None:
+    from strixia_agon.pokemon.representation import NUMERIC_FIELDS, SCALES
+
+    checkout, teams = inputs()
+    mechanics = load_mechanics(checkout)
+    with ChampionsBattle(checkout, teams, (1, 2, 3, 4)) as battle:
+        battle.step("team 1234", "team 1234")
+        view = replace(
+            battle.state.p1,
+            public_history=battle.state.p1.public_history
+            + (
+                "|-singleturn|p1a: Greninja|Protect",
+                "|-sidestart|p2: p2|move: Spikes",
+                "|-sidestart|p2: p2|move: Spikes",
+                "|-fieldstart|move: Trick Room",
+                "|turn|2",
+            ),
+        )
+        obs = encode(view, teams[0], mechanics)
+        speed = NUMERIC_FIELDS.index("registered_stat_spe")
+        actual = dict(battle.state.p1.own_team[0].stats)["spe"]
+        assert obs.pokemon[0].values[speed] * SCALES["registered_stat_spe"] == actual
+        assert mechanics.category("effect", "protect") not in obs.pokemon[0].categories
+        assert any(
+            mechanics.category("effect", "trickroom") in f.categories for f in obs.field
+        )
+        assert any(
+            f.values[NUMERIC_FIELDS.index("effect_count")] * 6 == 2 for f in obs.field
+        )
+        assert any(e.kind == "-singleturn" for e in obs.history)
+        assert obs.history[-1].audience == "p1"
+
+
+def test_padding_absence_unknown_and_not_applicable_categories() -> None:
+    checkout, _ = inputs()
+    mechanics = load_mechanics(checkout)
+    assert mechanics.category("item", None) == 1
+    assert mechanics.category("item", "") == 2
+    assert mechanics.vocabulary[0] == "<pad>"
+    with pytest.raises(TypeError):
+        mechanics.species["onix"]["baseStats"]["spe"] = 999
+
+
+def test_same_game_history_preserves_private_evidence_without_public_duplicates() -> (
+    None
+):
+    checkout, teams = inputs()
+    mechanics = load_mechanics(checkout)
+    with ChampionsBattle(checkout, teams, (1, 2, 3, 4)) as battle:
+        battle.step("team 1234", "team 1234")
+        old_view = battle.state.p1
+        old = encode(old_view, teams[0], mechanics)
+        battle.step("default", "default")
+        new = encode(battle.state.p1, teams[0], mechanics, EvidenceContext(old.history))
+        assert new.history[: len(old.history)] == old.history
+        assert sum(e.kind == "own-state" for e in new.history) == 2
+        without = encode(battle.state.p1, teams[0], mechanics)
+        assert [(e.kind, e.payload) for e in new.history if e.audience == "public"] == [
+            (e.kind, e.payload) for e in without.history if e.audience == "public"
+        ]
+        with pytest.raises(RepresentationError, match="Future|match"):
+            encode(old_view, teams[0], mechanics, EvidenceContext(new.history))
+        restored = encode(
+            old_view,
+            teams[0],
+            mechanics,
+            EvidenceContext(new.history, cutoff=old.history[-1].sequence),
+        )
+        assert restored.history[:-1] == old.history
+
+
+def test_public_event_context_never_contains_private_allocations_or_future_pp() -> None:
+    from strixia_agon.pokemon.representation import NUMERIC_FIELDS
+
+    checkout, teams = inputs()
+    mechanics = load_mechanics(checkout)
+    with ChampionsBattle(checkout, teams, (1, 2, 3, 4)) as battle:
+        battle.step("team 1234", "team 1234")
+        obs = encode(battle.state.p1, teams[0], mechanics)
+        actor_contexts = [
+            f for e in obs.history if e.audience == "public" for f in e.context
+        ]
+        assert all(
+            f.states[NUMERIC_FIELDS.index("points_spe")] != 1 for f in actor_contexts
+        )
+        assert all(
+            f.states[NUMERIC_FIELDS.index("move0_pp")] != 1 for f in actor_contexts
+        )
+        assert obs.pokemon[0].states[NUMERIC_FIELDS.index("move0_pp")] == 1
+        other = encode(battle.state.p2, teams[1], mechanics)
+        public = tuple(e for e in other.history if e.audience == "public")
+        with pytest.raises(RepresentationError, match="perspective"):
+            encode(
+                battle.state.p1, teams[0], mechanics, EvidenceContext(public, game=2)
+            )
+
+
+def test_temporary_ability_resets_on_switch() -> None:
+    checkout, teams = inputs()
+    mechanics = load_mechanics(checkout)
+    with ChampionsBattle(checkout, teams, (1, 2, 3, 4)) as b:
+        b.step("team 1234", "team 1234")
+        view = replace(
+            b.state.p1,
+            public_history=b.state.p1.public_history
+            + (
+                "|-ability|p2a: Blastoise|Insomnia|[from] move: Worry Seed",
+                "|switch|p2a: Gardevoir|Gardevoir, L50, M|100/100",
+                "|switch|p2a: Blastoise|Blastoise, L50, M|100/100",
+            ),
+        )
+        obs = encode(view, teams[0], mechanics)
+        assert obs.pokemon[6].categories[3] == mechanics.category("ability", "Torrent")
+
+
+def test_candidate_actor_target_preview_and_switch_references() -> None:
+    from strixia_agon.pokemon.representation import NUMERIC_FIELDS
+
+    checkout, teams = inputs()
+    mechanics = load_mechanics(checkout)
+    with ChampionsBattle(checkout, teams, (1, 2, 3, 4)) as b:
+        preview = encode(b.state.p1, teams[0], mechanics)
+        assert next(
+            c for c in preview.candidates if c.choice.command == "team 4132"
+        ).references == ((3, -1), (0, -1), (2, -1), (1, -1))
+        b.step("team 4132", "team 1234")
+        obs = encode(b.state.p1, teams[0], mechanics)
+        move = next(c for c in obs.candidates if c.choice.command == "move 1 1, move 1")
+        assert move.references == ((3, 6), (0, -1))
+        assert move.parts[0].categories[0] == mechanics.category("move", "Dragon Claw")
+        assert move.parts[0].values[NUMERIC_FIELDS.index("power")] == 80 / 250
+        switch = next(
+            c for c in obs.candidates if c.choice.command == "switch 3, move 1"
+        )
+        assert switch.references == ((3, 2), (0, -1))
+
+
+def test_form_change_separates_registered_and_current_ability() -> None:
+    checkout, teams = inputs()
+    mechanics = load_mechanics(checkout)
+    with ChampionsBattle(checkout, teams, (1, 2, 3, 4)) as b:
+        b.step("team 1234", "team 1234")
+        view = replace(
+            b.state.p1,
+            public_history=b.state.p1.public_history
+            + ("|detailschange|p2a: Blastoise|Blastoise-Mega, L50, M",),
+        )
+        obs = encode(view, teams[0], mechanics)
+        assert obs.pokemon[6].categories[:4] == (
+            mechanics.category("species", "Blastoise"),
+            mechanics.category("species", "Blastoise-Mega"),
+            mechanics.category("ability", "Torrent"),
+            1,
+        )
+
+
+def test_private_refresh_cannot_enter_earlier_same_turn_observation() -> None:
+    from strixia_agon.pokemon.simulator import RequestUpdatedError
+
+    checkout, teams = inputs()
+    mechanics = load_mechanics(checkout)
+    for team in teams:
+        for i in range(2):
+            team[i] = replace(team[i], moves=("Protect",))
+        team[0] = replace(
+            team[0], species="Gengar", ability="Cursed Body", item="Gengarite"
+        )
+    teams[0][4] = replace(
+        teams[0][4], species="Blastoise", ability="Torrent", moves=("Surf",)
+    )
+    with ChampionsBattle(checkout, teams, (1, 2, 3, 4)) as b:
+        b.step("team 1234", "team 1234")
+        b.step("move 1 mega, move 1", "move 1 mega, move 1")
+        old = b.state.p1
+        other = b.state.p2
+        with pytest.raises(RequestUpdatedError):
+            b.step("move 1, switch 3", "move 1, move 1")
+        refreshed = encode(b.state.p1, teams[0], mechanics)
+        assert old.public_history == b.state.p1.public_history
+        assert b.state.p2 == other
+        with pytest.raises(RepresentationError, match="Future"):
+            encode(old, teams[0], mechanics, EvidenceContext(refreshed.history))

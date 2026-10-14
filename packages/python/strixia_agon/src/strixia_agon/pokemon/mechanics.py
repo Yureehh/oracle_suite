@@ -101,6 +101,7 @@ def load_mechanics(checkout: Path) -> Mechanics:
     vocab.update(
         f"status:{v}" for v in ("brn", "par", "slp", "psn", "tox", "frz", "fnt")
     )
+    vocab.update(f"target:{identifier(move['target'])}" for move in data["moves"])
     vocab.update(f"category:{x}" for x in ("physical", "special", "status"))
     vocab.update(f"flag:{x}" for move in data["moves"] for x in move["flags"])
     vocabulary = ("<pad>", "<unknown>", "<absent>", *sorted(vocab))

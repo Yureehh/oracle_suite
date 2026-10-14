@@ -40,9 +40,23 @@ NUMERIC_FIELDS = (
     "target",
     "mega",
     "effect_count",
+    "outcome",
+    "commanding",
+    "reviving",
+    "force_switch",
+    "must_wait",
+    "trapped",
+    "maybe_trapped",
+    "maybe_disabled",
+    "maybe_locked",
+    "can_mega",
     "before_fraction",
     "after_fraction",
-    *(f"move{i}_{k}" for i in range(4) for k in ("power", "priority", "accuracy")),
+    *(
+        f"move{i}_{k}"
+        for i in range(4)
+        for k in ("power", "priority", "accuracy", "pp", "disabled")
+    ),
     *(f"registered_stat_{s}" for s in STATS),
     *(f"base_{s}" for s in STATS),
     *(f"stat_{s}" for s in STATS),
@@ -67,7 +81,13 @@ SCALES = dict.fromkeys(NUMERIC_FIELDS, 1.0) | {
     **{
         f"move{i}_{k}": v
         for i in range(4)
-        for k, v in (("power", 250.0), ("priority", 7.0), ("accuracy", 100.0))
+        for k, v in (
+            ("power", 250.0),
+            ("priority", 7.0),
+            ("accuracy", 100.0),
+            ("pp", 64.0),
+            ("disabled", 1.0),
+        )
     },
     **{f"registered_stat_{s}": 1000.0 for s in STATS},
     **{f"base_{s}": 255.0 for s in STATS},
@@ -102,7 +122,6 @@ COSMETIC = frozenset(
         "-fail",
         "-immune",
         "-notarget",
-        "-activate",
         "-block",
         "cant",
         "-hint",
@@ -149,7 +168,6 @@ STATE_EVENTS = frozenset(
         "-start",
         "-end",
         "-singleturn",
-        "-singlemove",
         "-item",
         "-enditem",
         "-ability",
@@ -182,8 +200,12 @@ def features(
     unknown = set(numbers) - set(NUMERIC_FIELDS)
     if unknown:
         raise RepresentationError(f"Unknown numeric fields {unknown}")
+    try:
+        category_ids = tuple(m.category(k, v) for k, v in categories)
+    except ValueError as exc:
+        raise RepresentationError(str(exc)) from exc
     return Features(
-        tuple(m.category(k, v) for k, v in categories),
+        category_ids,
         tuple(float(numbers.get(k) or 0.0) / SCALES[k] for k in NUMERIC_FIELDS),
         tuple(
             NA if k not in numbers else UNKNOWN if numbers[k] is None else KNOWN
@@ -202,11 +224,12 @@ class Evidence:
     payload: tuple[str, ...]
     features: Features
     context: tuple[Features, ...]
+    perspective: str = ""
 
 
 @dataclass(frozen=True)
 class EvidenceContext:
-    """Completed earlier-game evidence; audience and cutoff are checked on encode."""
+    """Earlier evidence; audience, chronological prefix and cutoff are checked."""
 
     records: tuple[Evidence, ...] = ()
     game: int = 1
@@ -243,6 +266,7 @@ class _Mon:
     level: int
     current_species: str = ""
     current_ability: str | None = None
+    base_ability: str | None = None
     current_item: str | None = None
     status: str | None = None
     hp: float | None = None
@@ -252,6 +276,7 @@ class _Mon:
     selected: bool | None = None
     boosts: dict[str, int] = field(default_factory=dict)
     effects: dict[str, int] = field(default_factory=dict)
+    single_turn: set[str] = field(default_factory=set)
     types: tuple[str, ...] | None = None
 
 
@@ -289,7 +314,7 @@ def encode(
         if context.cutoff is None or r.sequence <= context.cutoff
     )
     if any(
-        r.game >= context.game or r.audience not in ("public", view.player)
+        r.game > context.game or r.audience not in ("public", view.player)
         for r in prior
     ):
         raise RepresentationError("Future or wrong-player prior evidence")
@@ -298,6 +323,8 @@ def encode(
         for a, b in zip(prior, prior[1:], strict=False)
     ):
         raise RepresentationError("Prior evidence is not chronological")
+    if any(r.perspective != view.player for r in prior):
+        raise RepresentationError("Wrong evidence perspective")
     mons = [_Mon(t.species, t.ability, t.item, t.nature, t.moves, 50) for t in own_team]
     mons += [
         _Mon(t.species, t.ability, t.item, t.nature, t.moves, t.level)
@@ -306,6 +333,7 @@ def encode(
     for mon in mons:
         mon.current_species = mon.species
         mon.current_ability = mon.ability
+        mon.base_ability = mon.ability
         mon.current_item = mon.item
     aliases: dict[tuple[str, str], int] = {}
     own_side = view.player
@@ -347,7 +375,7 @@ def encode(
     weather = ""
     turn = 0
 
-    def token(i: int) -> Features:
+    def token(i: int, private: bool = False) -> Features:
         mon = mons[i]
         data = mechanics.species.get(identifier(mon.current_species))
         if data is None:
@@ -381,7 +409,7 @@ def encode(
         }
         nums.update({f"stat_{s}": None for s in STATS})
         nums.update({f"registered_stat_{s}": None for s in STATS})
-        if i < 6:
+        if i < 6 and private:
             base = mechanics.species[identifier(mon.species)]["baseStats"]
             nature = mechanics.natures[identifier(mon.nature)]
             for stat in STATS:
@@ -401,6 +429,22 @@ def encode(
                     value = ((value * factor) & 65535) // 100
                 nums[f"registered_stat_{stat}"] = float(value)
         for n, move_name in enumerate(mon.moves):
+            active_move = (
+                next(
+                    (
+                        option
+                        for option in view.active_options[mon.active].moves
+                        if identifier(option.move) == identifier(move_name)
+                    ),
+                    None,
+                )
+                if private and i < 6 and 0 <= mon.active < len(view.active_options)
+                else None
+            )
+            nums[f"move{n}_pp"] = float(active_move.pp) if active_move else None
+            nums[f"move{n}_disabled"] = (
+                float(active_move.disabled) if active_move else None
+            )
             move_data = mechanics.moves[identifier(move_name)]
             cats.extend(
                 [("type", move_data["type"]), ("category", move_data["category"])]
@@ -424,19 +468,21 @@ def encode(
         )
         nums.update(
             {
-                f"points_{s}": float(own_team[i].stat_points[s]) if i < 6 else None
+                f"points_{s}": float(own_team[i].stat_points[s])
+                if i < 6 and private
+                else None
                 for s in STATS
             }
         )
         return features(mechanics, cats, **nums)
 
-    def field_tokens() -> tuple[Features, ...]:
+    def field_tokens(current: bool = False) -> tuple[Features, ...]:
         base = features(
             mechanics,
             [("effect", weather)],
             turn=float(turn),
             game=float(context.game),
-            phase=float(PHASES.index(view.phase)),
+            phase=float(PHASES.index(view.phase)) if current else None,
         )
         return (
             base,
@@ -451,6 +497,20 @@ def encode(
             ),
         )
 
+    previous_public = tuple(
+        r for r in prior if r.game == context.game and r.audience == "public"
+    )
+    if any(
+        r.game == context.game
+        and r.kind == "own-state"
+        and (
+            int(r.payload[0]) > len(view.public_history)
+            or int(r.payload[1]) > view.revision
+        )
+        for r in prior
+    ):
+        raise RepresentationError("Future own-state evidence")
+    consumed = 0
     records = list(prior)
     sequence = prior[-1].sequence if prior else 0
     for line in view.public_history:
@@ -467,12 +527,37 @@ def encode(
         nums: dict[str, float | None] = {}
         if kind == "turn":
             turn = int(p[0])
-        if p and re.match(r"^p[12][ab]?: ", p[0]):
+        if (
+            p
+            and kind not in ("-sidestart", "-sideend", "-cureteam")
+            and re.match(r"^p[12][ab]?: ", p[0])
+        ):
             species = (
                 p[1].split(",")[0] if kind in ("switch", "drag", "replace") else None
             )
             actor = resolve(p[0], species)
         before = token(actor) if actor >= 0 else None
+        if kind in ("-status", "-curestatus"):
+            cats.append(("status", p[1]))
+        elif kind in ("-item", "-enditem"):
+            cats.append(("item", p[1]))
+        elif kind in ("-ability", "-endability") and len(p) > 1:
+            cats.append(("ability", p[1]))
+        elif kind in ("detailschange", "-formechange", "switch", "drag", "replace"):
+            cats.append(("species", p[1].split(",")[0]))
+        elif kind in ("-start", "-end", "-singleturn", "-fieldstart", "-fieldend"):
+            effect_name = p[1] if actor >= 0 else p[0]
+            cats.append(("effect", _effect(effect_name)))
+        elif kind in ("-sidestart", "-sideend"):
+            cats.append(("effect", _effect(p[1])))
+        elif kind == "-weather" and p[0] != "none":
+            cats.append(("effect", _effect(p[0])))
+        elif kind in ("-boost", "-unboost", "-setboost"):
+            nums[f"boost_{p[1]}"] = float(p[2]) * (-1 if kind == "-unboost" else 1)
+        elif kind in ("win", "tie"):
+            nums["outcome"] = (
+                0.0 if kind == "tie" else 1.0 if p[0] == view.player else -1.0
+            )
         if kind in ("switch", "drag", "replace"):
             slot = ord(p[0][2]) - ord("a")
             side = actor // 6
@@ -483,6 +568,7 @@ def encode(
                     mon.effects.clear()
                     mon.types = None
             mon = mons[actor]
+            mon.current_ability = mon.base_ability
             mon.active = slot
             mon.selected = True
             mon.current_species = p[1].split(",")[0]
@@ -558,10 +644,13 @@ def encode(
             effect = _effect(p[0] if side == -1 else p[1])
             key = (side, effect)
             if kind.endswith("start"):
-                field_effects[key] = field_effects.get(key, 0) + 1
+                field_effects[key] = min(
+                    field_effects.get(key, 0) + 1,
+                    {"spikes": 3, "toxicspikes": 2}.get(effect, 1),
+                )
             else:
                 field_effects.pop(key, None)
-        elif kind in ("-start", "-end", "-singleturn", "-singlemove"):
+        elif kind in ("-start", "-end", "-singleturn"):
             effect = _effect(p[1])
             mon = mons[actor]
             if effect == "typechange":
@@ -572,12 +661,17 @@ def encode(
                 mon.effects.pop(effect, None)
             else:
                 mon.effects[effect] = turn
+                if kind == "-singleturn":
+                    mon.single_turn.add(effect)
         elif kind in ("-item", "-enditem"):
             mons[actor].current_item = p[1] if kind == "-item" else ""
         elif kind in ("-ability", "-endability"):
             mons[actor].current_ability = p[1] if kind == "-ability" else ""
         elif kind in ("detailschange", "-formechange"):
             mons[actor].current_species = p[1].split(",")[0]
+            mons[actor].current_ability = None
+            if kind == "detailschange":
+                mons[actor].base_ability = None
         elif kind == "-transform":
             # Copying hidden opponent stats would require guesses; do not invent them.
             raise RepresentationError("Transform representation is unsupported")
@@ -597,50 +691,54 @@ def encode(
                         cats.append(("status", source))
                     elif f"effect:{source}" in mechanics.indices:
                         cats.append(("effect", source))
-            sequence += 1
-            nums.update(
-                game=float(context.game),
-                turn=float(turn),
-                sequence=float(sequence),
-                event_kind=float(EVENT_KINDS.index(kind)),
-                slot=float(actor + 1) / 12,
-                target=float(target + 1) / 12,
-            )
-            snapshots = field_tokens() + tuple(
-                x
-                for x in (before, token(target) if target >= 0 else None)
-                if x is not None
-            )
-            records.append(
-                Evidence(
-                    context.game,
-                    turn,
-                    sequence,
-                    "public",
-                    kind,
-                    tuple(p),
-                    features(mechanics, cats, **nums),
-                    snapshots,
+            if consumed < len(previous_public):
+                previous_record = previous_public[consumed]
+                if (
+                    previous_record.kind,
+                    previous_record.payload,
+                    previous_record.turn,
+                ) != (kind, tuple(p), turn):
+                    raise RepresentationError(
+                        "Prior evidence does not match current public history"
+                    )
+                consumed += 1
+            else:
+                sequence += 1
+                nums.update(
+                    game=float(context.game),
+                    turn=float(turn),
+                    sequence=float(sequence),
+                    event_kind=float(EVENT_KINDS.index(kind)),
+                    slot=float(actor + 1) / 12,
+                    target=float(target + 1) / 12,
                 )
-            )
+                snapshots = field_tokens() + tuple(
+                    x
+                    for x in (before, token(target) if target >= 0 else None)
+                    if x is not None
+                )
+                records.append(
+                    Evidence(
+                        context.game,
+                        turn,
+                        sequence,
+                        "public",
+                        kind,
+                        tuple(p),
+                        features(mechanics, cats, **nums),
+                        snapshots,
+                        view.player,
+                    )
+                )
         # Volatiles explicitly emitted as single-turn effects expire on the next turn.
         if kind == "turn":
             for mon in mons:
                 for effect, started in tuple(mon.effects.items()):
-                    if (
-                        effect
-                        in (
-                            "protect",
-                            "endure",
-                            "wideguard",
-                            "quickguard",
-                            "helpinghand",
-                            "followme",
-                            "ragepowder",
-                        )
-                        and started < turn
-                    ):
+                    if effect in mon.single_turn and started < turn:
                         mon.effects.pop(effect)
+                        mon.single_turn.discard(effect)
+    if consumed != len(previous_public):
+        raise RepresentationError("Future public evidence")
     pokemon = []
     for i in range(12):
         f = token(i)
@@ -653,7 +751,7 @@ def encode(
             ]
             if not matches and view.phase != "teampreview":
                 mons[i].selected = False
-                pokemon.append(token(i))
+                pokemon.append(token(i, private=True))
                 continue
             if len(matches) != 1:
                 raise RepresentationError(
@@ -669,9 +767,34 @@ def encode(
             if mon.selected is None:
                 mon.selected = None if view.phase == "teampreview" else True
             mon.current_item = own.item
-            f = token(i)
+            mon.base_ability = own.ability
+            if mon.current_ability is None:
+                mon.current_ability = own.ability
+            f = token(i, private=True)
             values = list(f.values)
             states = list(f.states)
+            private_flags = {
+                "commanding": own.commanding,
+                "reviving": own.reviving,
+                "must_wait": view.must_wait,
+            }
+            if 0 <= mon.active < len(view.active_options):
+                options = view.active_options[mon.active]
+                private_flags.update(
+                    trapped=options.trapped,
+                    maybe_trapped=options.maybe_trapped,
+                    maybe_disabled=options.maybe_disabled,
+                    maybe_locked=options.maybe_locked,
+                    can_mega=options.can_mega_evolve
+                    or options.can_mega_evolve_x
+                    or options.can_mega_evolve_y,
+                )
+            if 0 <= mon.active < len(view.force_switch):
+                private_flags["force_switch"] = view.force_switch[mon.active]
+            for name, flag in private_flags.items():
+                k = NUMERIC_FIELDS.index(name)
+                values[k] = float(flag)
+                states[k] = KNOWN
             for stat, value in own.stats:
                 k = NUMERIC_FIELDS.index("stat_" + stat)
                 values[k] = value / SCALES["stat_" + stat]
@@ -686,7 +809,7 @@ def encode(
             sequence,
             view.player,
             "own-state",
-            (),
+            (str(len(view.public_history)), str(view.revision)),
             features(
                 mechanics,
                 game=float(context.game),
@@ -695,6 +818,7 @@ def encode(
                 event_kind=float(EVENT_KINDS.index("own-state")),
             ),
             tuple(pokemon[:6]),
+            view.player,
         )
     )
     # Candidate references use the stable registered order, not request reordering.
@@ -771,7 +895,7 @@ def encode(
         context.game,
         view.turn,
         tuple(pokemon),
-        field_tokens(),
+        field_tokens(current=True),
         tuple(records),
         tuple(candidates),
     )
