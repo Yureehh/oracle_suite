@@ -26,7 +26,6 @@ None.
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
-| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
 | [PKA-021](epics/e04.md#pka-021) | Import team text and optional stat spreads | E04 | P1 | S | PKA-002 |
 | [PKA-035](epics/e07.md#pka-035) | Curate a versioned M-C team corpus | E07 | P0 | M | PKA-002, PKA-021 |
 | [PKA-037](epics/e07.md#pka-037) | Define the trainable VGC environment | E07 | P0 | M | PKA-006, PKA-008, PKA-003 |
@@ -35,6 +34,7 @@ None.
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
+| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
 | [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
 | [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
 | [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
@@ -114,6 +114,9 @@ None.
 | [PKA-069](epics/e07.md#pka-069) | Extend the learning environment to Bo3 episodes | E07 | P1 | M | PKA-037, PKA-008, PKA-003 |
 
 ## Change history
+
+- 2026-10-15: Owner accepted PKA-038 and authorized push/merge into dev. Marked
+  PKA-038 Done; PKA-039/040 remain unapproved future implementation.
 
 - 2026-10-15: PKA-038 verified and moved to In Review, pending owner acceptance.
   Delivered full-history player inputs and two untrained models in local commits
