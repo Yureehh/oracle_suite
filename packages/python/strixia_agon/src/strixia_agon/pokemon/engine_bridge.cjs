@@ -41,6 +41,7 @@ function command(input) {
   if (!battle || battle.ended) throw new Error('Battle is not active');
   if (input.op !== 'step') throw new Error('Unknown operation');
   const snapshot = JSON.stringify(battle.toJSON());
+  const requests = battle.sides.map(side => structuredClone(side.activeRequest));
   const start = battle.log.length;
   errors = [];
   updates = new Map();
@@ -63,8 +64,9 @@ function command(input) {
     battle.destroy();
     battle = Battle.fromJSON(snapshot);
     battle.send = send;
-    for (const side of battle.sides) {
-      if (revealed.has(side.id)) side.activeRequest = revealed.get(side.id);
+    for (const [i, side] of battle.sides.entries()) {
+      // fromJSON regenerates requests; retain facts revealed by earlier retries.
+      side.activeRequest = revealed.has(side.id) ? revealed.get(side.id) : requests[i];
     }
     if (revealed.size) {
       error.updated = true;

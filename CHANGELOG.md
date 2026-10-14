@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- strixia-agon 0.5.0: added a seeded uniform paired-action policy, bounded request
+  refresh retries and pinned Bo3 scoring. Fixed rollback losing an earlier player's
+  revealed request when the other player subsequently reveals a restriction.
+  No new runtime dependencies.
+
 - Refreshed Pokémon planning against implemented capabilities, corrected integration
   and coverage guidance, clarified the next random-policy/Bo3/stored-set slice and
   evaluation dependencies, and recorded owner acceptance of PKA-005/011 on 2026-10-14.
