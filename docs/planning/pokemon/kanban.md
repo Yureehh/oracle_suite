@@ -8,14 +8,7 @@ P0 = foundation; P1 = first useful analysis/research; P2 = stronger preparation/
 
 ## Ready for Discussion
 
-| ID | Story | Epic | Priority | Size | Dependencies |
-| --- | --- | --- | --- | --- | --- |
-| [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
-| [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
-| [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
-
-These form the next proposed discussion batch, not an implementation approval.
-Discuss dependent contracts together; implementation still follows dependency order.
+None.
 
 ## Ready for Approval
 
@@ -29,7 +22,11 @@ None.
 
 ## In Review
 
-None.
+| ID | Story | Epic | Priority | Size | Dependencies |
+| --- | --- | --- | --- | --- | --- |
+| [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
+| [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
+| [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
 
 ## Done
 
@@ -113,6 +110,18 @@ None.
 | [PKA-066](epics/e03.md#pka-066) | Assess shared execution and cloud failover | E03 | P2 | S | PKA-013, PKA-014 |
 
 ## Change history
+
+- 2026-10-14: PKA-007/008/016 implemented, verified and moved to In Review. Agon 0.5.0
+  adds the random paired policy/scoring; the existing worker records and resumes
+  parallel independent sets. Independent review found a consecutive bilateral-request
+  rollback defect, now fixed and covered by a real-engine regression. Owner acceptance
+  and publication remain pending.
+
+- 2026-10-14: Owner approved implementation of PKA-007/008/016 after selecting
+  uniform complete paired-action sampling and pinned Showdown Bo3 scoring. The
+  batch retains observed public history without inference, uses completed-game
+  recovery and reuses the local coordinator for parallel independent sets. No
+  trainer, API, website, cloud service, push or merge is included.
 
 - 2026-10-14: Owner explicitly accepted PKA-005's Python simulator adapter and
   PKA-011's durable-workload design after the completed audit; moved both to Done.

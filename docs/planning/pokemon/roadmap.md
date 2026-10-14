@@ -31,7 +31,7 @@ local durable independent-game batches. The owner explicitly accepted the adapte
 and durable-workload design on 2026-10-14. The [board](kanban.md) remains authoritative;
 implementation, acceptance and publication are separate decisions.
 
-The recommended next discussion is one connected slice:
+The following connected slice is implemented and awaiting owner acceptance:
 
 1. [PKA-007](epics/e02.md#pka-007): a seeded Python policy sampling complete paired
    choices. Engine-default choices in the existing scripts are not this baseline.
@@ -40,9 +40,10 @@ The recommended next discussion is one connected slice:
 3. [PKA-016](epics/e03.md#pka-016): save that set using the existing run/artifact
    storage, retaining completed-game progress without mid-turn recovery.
 
-Discuss these together, then approve exact scopes before implementing them in that
-order. Games within one set are sequential; independent sets can later run in parallel.
-This slice needs no API, website, trainer, paid compute or new persistence framework.
+The owner selected uniform paired sampling and pinned Showdown series scoring, then
+approved implementation on 2026-10-14. Games within a set are sequential; independent
+sets run in parallel. This slice adds no API, website, trainer, paid compute or new
+persistence framework. The board keeps all three In Review until owner acceptance.
 
 Next branches of work are [PKA-010](epics/e02.md#pka-010), a tactical baseline after
 the random policy, and [PKA-021](epics/e04.md#pka-021), native team input before

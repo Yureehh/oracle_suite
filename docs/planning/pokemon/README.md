@@ -34,8 +34,8 @@ accepted Strixia migration. PKA-001–003 have [reproducible foundation reports]
 and are owner-accepted. The owner explicitly accepted PKA-005/011 on 2026-10-14;
 verified dependent work does not automatically accept its prerequisites.
 The owner accepted PKA-006/012–014
-and authorized integration on 2026-10-13. The next discussion candidates are the
-random policy, Bo3 runner and stored set in [current sequencing](roadmap.md#current-sequencing).
+and authorized integration on 2026-10-13. PKA-007/008/016 are implemented and In Review
+following the owner's 2026-10-14 approval; see [current sequencing](roadmap.md#current-sequencing).
 The commit/version policy is in
 [CONTRIBUTING.md](../../../CONTRIBUTING.md#commits-and-versions); do not duplicate it here.
 

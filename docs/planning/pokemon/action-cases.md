@@ -25,7 +25,7 @@ Source anchors: [choice validation](https://github.com/smogon/pokemon-showdown/b
 | Locked moves and exhausted PP / Struggle | Locked requests may omit PP; synthetic Struggle tested | Recharge/two-turn move requests, partially hidden locks |
 | Hidden trapping | Keep uncertain switches selectable; real Mega Gengar Shadow Tag rejection updates own request | Shadow Tag, Arena Trap, Magnet Pull, typing/item/ability exemptions |
 | Perish Song plus trapping | Track legality separately from survival strategy; full scenario fixture remains future coverage | Legal species/moves and escape rules in each regulation |
-| A submission reveals disabled/locked/trapped information | Preserve only protocol-emitted private request changes; roll back queued choices/history/turn/RNG | Real Imprison disabled reveal tested alongside trapping; locked-move combinations remain future coverage |
+| A submission reveals disabled/locked/trapped information | Preserve only protocol-emitted private request changes; roll back queued choices/history/turn/RNG. Consecutive bilateral trap refreshes retain each player's earlier reveal | Real Imprison and single/bilateral Mega Gengar trapping are engine tested; locked-move combinations remain future coverage |
 | Commander | Commanding slot passes; projection tested | Real Dondozo/Tatsugiri interaction and eligibility |
 | Revival Blessing | Legal Pawmot fixture: choose fainted ally, reject healthy target; engine tested | Revival plus simultaneous replacement / multiple revivals |
 | Duplicate Mega / Mega X/Y | Shared usage filtered and engine tested with Charizardite X/Y; these stones use ordinary mega command in M-C | New stones/forms and request flags; separate megax/megay flags if actually exposed |
