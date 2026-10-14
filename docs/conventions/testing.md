@@ -24,3 +24,13 @@ against defined baselines with time/ruleset-appropriate splits. Do not add a cov
 percentage target for empty shells or tests that simply mirror implementation.
 Benchmarks should be separate from correctness gates, with workload and hardware
 recorded. An unexecuted CI run is not a passing check.
+
+## Audit cadence
+
+Use focused reviews for individual changes. Run a whole-repository Ponytail audit
+after an epic milestone or roughly three to five completed behavioral stories,
+before substantial training or a public release, and after major simulator,
+observation, action or persistence changes. Record the inspected commit, findings,
+reproductions and remaining limits in a dated report under `docs/audits/`. Track
+follow-up scope and the next trigger in [PKA-067](../planning/pokemon/epics/e01.md#pka-067);
+an audit report does not itself authorize repairs or publication.

@@ -31,7 +31,7 @@ local durable independent-game batches. The owner explicitly accepted the adapte
 and durable-workload design on 2026-10-14. The [board](kanban.md) remains authoritative;
 implementation, acceptance and publication are separate decisions.
 
-The following connected slice is implemented and awaiting owner acceptance:
+The following connected slice is implemented and owner-accepted:
 
 1. [PKA-007](epics/e02.md#pka-007): a seeded Python policy sampling complete paired
    choices. Engine-default choices in the existing scripts are not this baseline.
@@ -43,7 +43,7 @@ The following connected slice is implemented and awaiting owner acceptance:
 The owner selected uniform paired sampling and pinned Showdown series scoring, then
 approved implementation on 2026-10-14. Games within a set are sequential; independent
 sets run in parallel. This slice adds no API, website, trainer, paid compute or new
-persistence framework. The board keeps all three In Review until owner acceptance.
+persistence framework. The owner accepted all three and authorized integration into dev on 2026-10-14.
 
 Next branches of work are [PKA-010](epics/e02.md#pka-010), a tactical baseline after
 the random policy, and [PKA-021](epics/e04.md#pka-021), native team input before

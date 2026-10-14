@@ -1,12 +1,12 @@
 # Strixia Agon — Pokémon Champions VGC
 
-Updated: 2026-10-13
+Updated: 2026-10-14
 
 **Status:** foundation research and a local Python simulator adapter are implemented.
 See the [battle guide](../../../docs/planning/pokemon/foundation/005-adapter.md).
 A local durable batch worker and paired action menus are implemented.
 Seeded uniform random policies and recorded Bo3 sets are implemented; their delivery
-awaits owner review. The worker can run independent sets in parallel.
+is owner-accepted. The worker can run independent sets in parallel.
 API, website, models and analysis functionality remain unimplemented. This brief owns product requirements;
 [the planning board](../../../docs/planning/pokemon/kanban.md) owns progress.
 

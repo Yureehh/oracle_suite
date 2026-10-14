@@ -22,16 +22,15 @@ None.
 
 ## In Review
 
-| ID | Story | Epic | Priority | Size | Dependencies |
-| --- | --- | --- | --- | --- | --- |
-| [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
-| [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
-| [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
+None.
 
 ## Done
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
+| [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
+| [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
+| [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
 | [PKA-005](epics/e02.md#pka-005) | Implement a minimal simulator adapter | E02 | P0 | M | PKA-001, PKA-002, PKA-003 |
 | [PKA-011](epics/e03.md#pka-011) | Design the first durable workload | E03 | P0 | S | PKA-001, PKA-003 |
 | [PKA-006](epics/e02.md#pka-006) | Enumerate legal doubles decisions | E02 | P0 | M | PKA-005 |
@@ -105,11 +104,15 @@ None.
 | [PKA-061](epics/e12.md#pka-061) | Explore decision puzzles and spectator mode | E12 | P3 | L/refine | PKA-033, PKA-048, PKA-052 |
 | [PKA-062](epics/e12.md#pka-062) | Assess future Champions formats and public bots | E12 | P3 | L/refine | PKA-048, PKA-060 |
 | [PKA-064](epics/e09.md#pka-064) | Review VGC Planner workflows | E09 | P2 | S | None |
-
 | [PKA-065](epics/e03.md#pka-065) | Assess mid-turn recovery | E03 | P2 | S | PKA-009, PKA-014 |
 | [PKA-066](epics/e03.md#pka-066) | Assess shared execution and cloud failover | E03 | P2 | S | PKA-013, PKA-014 |
+| [PKA-067](epics/e01.md#pka-067) | Run milestone Ponytail audits | E01 | P1 | S | None |
 
 ## Change history
+
+- 2026-10-14: Owner accepted PKA-007/008/016 and authorized committing, pushing
+  and merging all accumulated work into dev; moved the three cards to Done. Added
+  PKA-067 for milestone audit cadence; future stories remain unapproved backlog.
 
 - 2026-10-14: PKA-007/008/016 implemented, verified and moved to In Review. Agon 0.5.0
   adds the random paired policy/scoring; the existing worker records and resumes
