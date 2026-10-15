@@ -1,7 +1,7 @@
 // Only engine operations live here; policies and training belong in Python.
 const path = require('node:path');
 const readline = require('node:readline');
-const {Battle, Teams, TeamValidator} = require(path.join(process.argv[2], 'dist/sim'));
+const {Battle, Dex, Teams, TeamValidator} = require(path.join(process.argv[2], 'dist/sim'));
 const {extractChannelMessages} = require(path.join(process.argv[2], 'dist/sim/battle'));
 const FORMAT = 'gen9championsvgc2026regmcbo3';
 let battle;
@@ -27,6 +27,34 @@ function frame(start = 0) {
     requests: battle.sides.map(s => ({...s.activeRequest, side: s.getRequestData()}))};
 }
 function command(input) {
+  if (input.op === 'mechanics') {
+    const dex = Dex.forFormat(FORMAT);
+    const species = dex.species.all().filter(s => s.exists).map(s => ({
+      id: s.id, name: s.name, baseStats: s.baseStats, types: s.types, baseSpecies: s.baseSpecies,
+      weightkg: s.weightkg, isNonstandard: s.isNonstandard || null,
+    }));
+    const moves = dex.moves.all().filter(m => m.exists).map(m => ({
+      id: m.id, name: m.name, type: m.type, category: m.category,
+      basePower: m.basePower, accuracy: m.accuracy, pp: m.pp,
+      priority: m.priority, target: m.target, flags: Object.keys(m.flags).sort(),
+    }));
+    return {format: FORMAT, species, moves,
+      items: dex.items.all().filter(x => x.exists).map(x => x.id).sort(),
+      abilities: dex.abilities.all().filter(x => x.exists).map(x => x.id).sort(),
+      natures: dex.natures.all().map(x => x.id).sort(),
+      natureModifiers: Object.fromEntries(dex.natures.all().map(x => [x.id, {plus: x.plus || null, minus: x.minus || null}])),
+      effects: Object.keys(dex.data.Conditions).sort(),
+      types: dex.types.names().sort(),
+    };
+  }
+  if (input.op === 'validate') {
+    const reasons = TeamValidator.get(FORMAT).validateTeam(input.team);
+    if (reasons) throw new Error(reasons.join('\n'));
+    const dex = Dex.forFormat(FORMAT);
+    return {team: input.team.map(set => ({...set,
+      moves: set.moves.map(move => dex.moves.get(move).name),
+    }))};
+  }
   if (input.op === 'start') {
     if (battle) throw new Error('Battle already initialized');
     const teams = input.teams;

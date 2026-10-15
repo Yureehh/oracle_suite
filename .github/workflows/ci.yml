@@ -30,7 +30,7 @@ jobs:
       - name: Prepare pinned simulator
         run: sh scripts/pokemon_foundation/prepare.sh --engine-only
       - name: Install locked workspace
-        run: uv sync --locked --all-packages
+        run: uv sync --locked --all-packages --extra learning
       - name: Check pre-commit hooks (including Ruff lint and format)
         run: uv run --locked --all-packages pre-commit run --all-files --show-diff-on-failure
       - name: Check types

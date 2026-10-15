@@ -2,6 +2,21 @@
 
 ## Unreleased
 
+- strixia-agon 0.7.0: pinned Champions metadata and full chronological player
+  representations with explicit uncertainty, private audiences and complete paired
+  candidates. Added optional PyTorch 2.14.1 MLP/attention policy-value prototypes,
+  padded batches and bounded CPU/MPS inference probes; neither model is trained.
+- Player-view revisions advance only when that player's permitted content changes,
+  preventing same-turn request revelations from entering earlier observations.
+
+- strixia-agon 0.6.0: import Champions-native Showdown/PokePaste teams from text,
+  files or bounded PokePaste URLs; preserve unknown spreads and validate complete
+  teams against pinned M-C rules with normalized engine output.
+- Curate immutable local M-C corpus snapshots with source provenance, distinct
+  spread/move variants and composition-group holdouts; preserve rejected entries.
+- Add a Python single-game learning environment with simultaneous legal-menu
+  indices, private observations, outcome rewards and explicit truncation/errors.
+
 - Added a distinct recorded-Bo3 workload to the existing local worker: sequential
   games within parallel independent sets, completed-game evidence reconstruction on
   resume, and partial/final set status. Existing independent-game batches remain.

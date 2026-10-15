@@ -1,11 +1,11 @@
 # Strixia Agon package
 
-Agon owns competitive game AI. Version 0.5.0 provides a typed Python adapter, complete
+Agon owns competitive game AI. Version 0.7.0 provides a typed Python adapter, complete
 paired action menus and a seeded uniform random policy for Champions M-C games.
 The [battle guide](../../../docs/planning/pokemon/foundation/005-adapter.md)
 explains setup and custom teams. Python has no third-party runtime dependencies;
-the adapter requires Node, Git and the built pinned Showdown checkout. Policies,
-training and model evaluation remain future work. The [local batch worker](../../../docs/runbooks/local-batches.md)
+the adapter requires Node, Git and the built pinned Showdown checkout. Neural policy/value prototypes are available through the optional learning extra;
+training remains future work. The [local batch worker](../../../docs/runbooks/local-batches.md)
 executes and records bounded Bo3 sets, using Agon's pinned series scoring.
 
 Preserve game-specific rules and separate simulation, policies, training and evaluation
@@ -29,3 +29,11 @@ restrictions. No greedy pair pruning or live hidden-state legality oracle is use
 separate policy seeds for each player, independent of scheduling; the engine still
 owns chance. Public prior-game history is retained as dated evidence, without spread
 inference or strategic adaptation. This baseline tests execution, not strength.
+
+Champions team imports preserve unknown spreads and validate complete teams against
+the pinned M-C engine. [Team import commands](../../../docs/runbooks/team-imports.md)
+accept classic text files/stdin and bounded PokePaste URLs.
+A [local corpus and single-game learning interface](../../../docs/runbooks/team-learning.md)
+provide source provenance, composition-group partitions, private player views and
+indexed paired decisions. Two untrained compact models and measured inference probes are available; there is
+no trainer or learned-strength result. See the [player/model runbook](../../../docs/runbooks/player-models.md).

@@ -18,16 +18,23 @@ None.
 
 ## In Progress
 
+| ID | Story | Epic | Priority | Size | Dependencies |
+| --- | --- | --- | --- | --- | --- |
 None.
 
 ## In Review
 
-None.
+| ID | Story | Epic | Priority | Size | Dependencies |
+| --- | --- | --- | --- | --- | --- |
+| [PKA-021](epics/e04.md#pka-021) | Import team text and optional stat spreads | E04 | P1 | S | PKA-002 |
+| [PKA-035](epics/e07.md#pka-035) | Curate a versioned M-C team corpus | E07 | P0 | M | PKA-002, PKA-021 |
+| [PKA-037](epics/e07.md#pka-037) | Define the trainable VGC environment | E07 | P0 | M | PKA-006, PKA-008, PKA-003 |
 
 ## Done
 
 | ID | Story | Epic | Priority | Size | Dependencies |
 | --- | --- | --- | --- | --- | --- |
+| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
 | [PKA-007](epics/e02.md#pka-007) | Implement a random legal policy | E02 | P0 | S | PKA-006 |
 | [PKA-008](epics/e02.md#pka-008) | Execute a full Bo3 set | E02 | P0 | M | PKA-007, PKA-003 |
 | [PKA-016](epics/e03.md#pka-016) | Persist one complete baseline set | E03 | P0 | S | PKA-008, PKA-014 |
@@ -61,7 +68,6 @@ None.
 | [PKA-018](epics/e04.md#pka-018) | Import public Showdown replays | E04 | P1 | M | PKA-017 |
 | [PKA-019](epics/e04.md#pka-019) | Create the first real Strixia web route | E04 | P1 | M | PKA-015 |
 | [PKA-020](epics/e04.md#pka-020) | Render the Theoria replay viewer | E04 | P0 | M | PKA-017, PKA-019 |
-| [PKA-021](epics/e04.md#pka-021) | Import team text and optional stat spreads | E04 | P1 | S | PKA-002 |
 | [PKA-022](epics/e04.md#pka-022) | Gate counterfactual analysis by state fidelity | E04 | P1 | S | PKA-009, PKA-018, PKA-021 |
 | [PKA-023](epics/e05.md#pka-023) | Represent hidden-state scenario priors | E05 | P1 | M | PKA-003, PKA-021 |
 | [PKA-024](epics/e05.md#pka-024) | Update beliefs from observed damage and order | E05 | P1 | M | PKA-023, PKA-002 |
@@ -75,10 +81,7 @@ None.
 | [PKA-032](epics/e06.md#pka-032) | Validate and calibrate learned evaluation | E06 | P1 | M | PKA-041, PKA-047 |
 | [PKA-033](epics/e06.md#pka-033) | Detect decision regret without hindsight | E06 | P1 | M | PKA-029, PKA-026, PKA-022 |
 | [PKA-034](epics/e06.md#pka-034) | Render payoff heatmaps and alternative actions | E06 | P1 | S | PKA-029, PKA-020 |
-| [PKA-035](epics/e07.md#pka-035) | Curate a versioned M-C team corpus | E07 | P0 | M | PKA-002, PKA-021 |
 | [PKA-036](epics/e07.md#pka-036) | Assess replay demonstrations for initialization | E07 | P1 | S | PKA-018, PKA-035, PKA-003 |
-| [PKA-037](epics/e07.md#pka-037) | Define the trainable VGC environment | E07 | P0 | M | PKA-006, PKA-008, PKA-003 |
-| [PKA-038](epics/e07.md#pka-038) | Compare compact policy/value representations | E07 | P1 | M | PKA-037, PKA-035 |
 | [PKA-039](epics/e07.md#pka-039) | Evaluate PufferLib and a transparent PPO reference | E07 | P1 | M | PKA-037, PKA-038 |
 | [PKA-040](epics/e07.md#pka-040) | Run a tiny learning correctness experiment | E07 | P1 | S | PKA-039 |
 | [PKA-041](epics/e07.md#pka-041) | Train the first M-C policy/value checkpoint | E07 | P1 | M | PKA-040, PKA-035, PKA-038 |
@@ -107,8 +110,33 @@ None.
 | [PKA-065](epics/e03.md#pka-065) | Assess mid-turn recovery | E03 | P2 | S | PKA-009, PKA-014 |
 | [PKA-066](epics/e03.md#pka-066) | Assess shared execution and cloud failover | E03 | P2 | S | PKA-013, PKA-014 |
 | [PKA-067](epics/e01.md#pka-067) | Run milestone Ponytail audits | E01 | P1 | S | None |
+| [PKA-068](epics/e12.md#pka-068) | Let challengers choose the agent's team | E12 | P2 | M | PKA-021, PKA-062 |
+| [PKA-069](epics/e07.md#pka-069) | Extend the learning environment to Bo3 episodes | E07 | P1 | M | PKA-037, PKA-008, PKA-003 |
 
 ## Change history
+
+- 2026-10-15: Owner accepted PKA-038 and authorized push/merge into dev. Marked
+  PKA-038 Done; PKA-039/040 remain unapproved future implementation.
+
+- 2026-10-15: PKA-038 verified and moved to In Review, pending owner acceptance.
+  Delivered full-history player inputs and two untrained models in local commits
+  `7ef3df0`, `90cfa58`, `6f4a89d`, `ddd0868`; 120 tests and repository checks passed.
+  Clean-source CPU/MPS matrix passed 72/72 cases; large-batch construction cost is
+  recorded for PKA-039. Full CE review has no unresolved findings; external Claude
+  transport failed before egress and the local adversarial fallback completed.
+  No training, push or merge.
+
+- 2026-10-14: PKA-021/035/037 implemented and moved to In Review, pending owner
+  acceptance. Root checks passed with 96 tests; Agon 0.6.0 built and passed a
+  fresh isolated installed-wheel game. Full code review completed with no unresolved
+  findings; move canonicalization and projection cleanup were corrected and tested.
+  Added PKA-069 for future Bo3 learning episodes. Local commits only.
+
+- 2026-10-14: Owner requested implementation of PKA-021/035/037 after selecting
+  preserved unknown imports, complete-spread corpus inputs and a working single-game
+  Python learning environment. Corpus splits group species compositions 70/15/15 while retaining distinct
+  spread/move variants as separate teams; owner selected outcome-only rewards now and a shaping comparison in PKA-040.
+  Added PKA-068 for future challenger-selected agent teams; no public bot starts now.
 
 - 2026-10-14: Owner accepted PKA-007/008/016 and authorized committing, pushing
   and merging all accumulated work into dev; moved the three cards to Done. Added

@@ -6,7 +6,7 @@ import json
 import math
 import subprocess
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from queue import Empty, Queue
 from threading import Thread
@@ -130,6 +130,7 @@ class PlayerView:
     force_switch: tuple[bool, ...]
     must_wait: bool
     preview_pick_count: int | None
+    revision: int = 0
 
 
 @dataclass(frozen=True)
@@ -365,6 +366,21 @@ class ChampionsBattle:
                     request.get("maxChosenTeamSize"),
                 )
             )
+        previous = getattr(self, "state", None)
+        for i, view in enumerate(views):
+            prior = (
+                previous.p1
+                if previous is not None and i == 0
+                else previous.p2
+                if previous is not None
+                else None
+            )
+            revision = (
+                1
+                if prior is None
+                else prior.revision + int(replace(prior, revision=0) != view)
+            )
+            views[i] = replace(view, revision=revision)
         return BattleState(
             frame["turn"],
             frame["phase"],
