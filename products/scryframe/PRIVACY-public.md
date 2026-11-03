@@ -1,6 +1,6 @@
 # Scryframe privacy policy
 
-Last updated: 2 November 2026. Applies to Scryframe 1.0.0.
+Last updated: 3 November 2026. Applies to Scryframe 1.0.0.
 
 ## Recognition and capture
 
@@ -39,6 +39,15 @@ content and embedded players cannot be accessed.
 You can stop a session, disable or uninstall Scryframe in your browser. Your
 browser manages removal of extension-local data. Browser/store services have
 their own privacy practices independently of Scryframe.
+
+## Optional financial support
+
+The “Support development” link opens Yureeh / Strixia’s Ko-fi page only when you
+choose to click it. No Ko-fi scripts, widgets, tracking pixels or payment forms
+are embedded in Scryframe. The extension does not receive payment details or
+supporter identities, and contributions do not unlock features. Ko-fi and your
+chosen payment provider handle their own pages and transactions under their
+privacy policies: [Ko-fi privacy](https://more.ko-fi.com/privacy).
 
 ## Voluntary support and rights requests
 
